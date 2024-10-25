@@ -1,0 +1,5 @@
+/* Icons are small by default, possibly a better way to increase size? */
+.material-icons {
+    transform: scale(2);
+  }
+  

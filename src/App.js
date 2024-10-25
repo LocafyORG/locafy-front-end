@@ -12,6 +12,11 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/locations" element={<Locations/>} />
       <Route path="/Productions" element={<Productions/>} />
+      <Route path="/Contacts" element={<Productions/>} />
+      <Route path="/About" element={<Productions/>} />
+      <Route path="/Profile" element={<Productions/>} />
+
+
     </Routes>
     </BrowserRouter>
   );
