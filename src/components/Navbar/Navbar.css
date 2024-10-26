@@ -1,0 +1,35 @@
+nav {
+    box-shadow: none !important;
+    background-color: var(--body-background) !important;
+  }
+  
+  nav > div > ul > li > a {
+    color: black !important;
+  }
+  
+  .brand-logo {
+    color: black !important;
+  }
+  
+  .nav-title {
+    margin-left: 5%;
+    font-size: 20px !important;
+    padding: 0px !important;
+  }
+  
+  .small-icon {
+    transform: scale(1) !important;
+  }
+  
+  hr {
+    opacity: 0.2;
+  }
+  
+  .nav-wrapper {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .fix-navbar {
+    position: fixed !important;
+  }

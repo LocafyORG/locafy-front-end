@@ -1,19 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import Header from "../../components/Header/Header.tsx";
+import Footer from "../../components/Footer/Footer.tsx";
 
 function Home() {
   return (
     <>
+      <Header />
       <div className="home container center">
         <div className="row center">
           <br />
           <br />
-          <h1 className="orange-text text-darken-1">Locus Point</h1>
+          <h1 className="blue-text text-darken-1">Locus Point</h1>
           <h5>Maximize productivity, master logistics.</h5>
           <br />
           <Link
-            to="/login"
-            className="btn-large waves-effect waves-light orange darken-1"
+            to="/auth/login"
+            className="btn-large waves-effect waves-light blue darken-1"
           >
             Get Started
           </Link>
@@ -75,6 +78,7 @@ function Home() {
         </div>
       </div>
 
+      <Footer />
     </>
   );
 }
