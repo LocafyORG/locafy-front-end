@@ -1,12 +1,12 @@
 import React from 'react';
+import Sidebar from '../../../components/Sidebar/Sidebar.tsx';
 
 function Locations() {
   return (
     
     <div>
-      <h1>Locations page</h1>
-    </div>
-  );
+    <Sidebar />
+    </div>);
 }
 
 export default Locations;

@@ -1,10 +1,11 @@
 import React from 'react';
+import Sidebar from '../../components/Sidebar/Sidebar.tsx';
 
 function About() {
   return (
     
     <div>
-      <h1>About</h1>
+      <Sidebar />
     </div>
   );
 }

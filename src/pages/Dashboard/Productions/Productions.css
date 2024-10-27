@@ -1,0 +1,79 @@
+.card {
+    box-shadow: none !important;
+    min-height: 350px !important;
+  }
+  
+  .production-edit {
+    color: #888 !important;
+    font-size: 0.8rem !important;
+  
+    transition: all 0.3s ease;
+  }
+  
+  .production-edit:hover {
+    color: #333 !important;
+    transform: scale(2.1) !important;
+  }
+  
+  
+  
+  .card > .card-image > img {
+    border-radius: 5px 5px 0px 0px !important;
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+  }
+  
+  .card-content {
+    padding: 15px !important;
+    padding-bottom: 0px !important;
+  }
+  
+  .card-content > .card-subtitle {
+    color: #777;
+  }
+  
+  .card-action {
+    padding: 15px !important;
+    border-top: 0px !important;
+    padding-top: 0px !important;
+    border-radius: 10px !important;
+  
+    color: #888;
+  }
+  
+  .card-action > .person-icon {
+    color: #888 !important;
+    font-size: 0.7rem;
+    margin: 4px;
+  }
+  
+  .production-card {
+    transition: 0.2s !important;
+    background-color: var(--navbar-dark-background) !important;
+    border-radius: 10px;
+  }
+  
+  .production-card:hover {
+    transform: scale(1.03) !important;
+  }
+  
+  .production-title,
+  .card-image {
+    cursor: pointer;
+  }
+  
+  .float-right {
+    float: right;
+  }
+  
+  .production-title {
+    font-weight: bold;
+    color: var(--navbar-dark-color);
+  }
+
+  .main-content {
+    margin-left: 250px; /* Adjust to the sidebar width */
+    padding: 16px;
+  }
+  

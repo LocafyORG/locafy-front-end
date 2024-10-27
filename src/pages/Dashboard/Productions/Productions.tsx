@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import "./Productions.css";
+import Sidebar from "../../../components/Sidebar/Sidebar.tsx";
 
 function Productions() {
-
   return (
-    
-    <div>
-      <h1>Productions</h1>
-      <Link to="/productions/create">Create Production</Link>
+    <div className="productions-container">
+      <Sidebar />
+      <div className="main-content">
+        <h1>Productions</h1>
+      </div>
     </div>
   );
 }

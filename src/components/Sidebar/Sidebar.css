@@ -1,0 +1,25 @@
+.sidebar-full-height {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  align-items: center;
+  gap: 2px; /* Adjust this value to control spacing between items */
+  width: 13rem;
+}
+
+.material-icons {
+  margin-right: 1px; /* Adjust spacing as needed */
+  margin-left: 5%;
+  
+}
+
+.sidebar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}

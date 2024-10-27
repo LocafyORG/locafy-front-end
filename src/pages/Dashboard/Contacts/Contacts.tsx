@@ -1,12 +1,13 @@
 import React from 'react';
+import Sidebar from '../../../components/Sidebar/Sidebar.tsx';
 
 function Contacts() {
   return (
     
-    <div>
-      <h1>Contacts</h1>
-    </div>
-  );
+      <div>
+    <Sidebar />
+    </div>);
+
 }
 
 export default Contacts;
