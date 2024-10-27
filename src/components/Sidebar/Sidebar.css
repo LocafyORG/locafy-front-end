@@ -16,7 +16,7 @@
 .material-icons {
   margin-right: 1px; /* Adjust spacing as needed */
   margin-left: 5%;
-  
+  transform: scale(2);  
 }
 
 .sidebar-title {

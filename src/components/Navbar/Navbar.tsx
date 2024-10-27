@@ -26,7 +26,9 @@ function Navbar() {
 
       <ul id="mobile-demo" className="sidenav grey-text">
         <li>
-          <span className="nav-title">Project Management</span>
+          <span className="nav-title" style={{ fontSize: '12px', padding: '0', color: 'black' }}>
+            Project Management
+          </span>
         </li>
         <li>
           <Link to="productions">Productions</Link>

@@ -3,7 +3,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="page-footer darken-3">
+    <footer className="page-footer darken-1 blue">
       <div className="container">
         <div className="row">
           <div className="col l6 s12">

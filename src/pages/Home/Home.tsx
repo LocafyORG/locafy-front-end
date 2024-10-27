@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header.tsx";
 import Footer from "../../components/Footer/Footer.tsx";
+import "./Home.css";
 
 function Home() {
   return (
@@ -14,12 +15,16 @@ function Home() {
           <h1 className="blue-text text-darken-1">Locus Point</h1>
           <h5>Maximize productivity, master logistics.</h5>
           <br />
-          <Link
-            to="/auth/login"
-            className="btn-large waves-effect waves-light blue darken-1"
-          >
-            Get Started
-          </Link>
+          <div className="button-container">
+            <Link
+              to="/auth/login"
+              className="btn waves-effect waves-light blue darken-1 custom-btn"
+            >
+              Get Started
+            </Link>
+          </div>
+
+
           <br />
           <br />
         </div>

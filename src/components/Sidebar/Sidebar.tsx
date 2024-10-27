@@ -15,7 +15,6 @@ function Sidebar() {
           <span className="sidebar-title">Locus Point</span>
         </CSidebarHeader>
         <CSidebarNav>
-          <CNavTitle>Navigate</CNavTitle>
           <CNavItem>
             <CIcon customClassName="nav-icon" />
             <Link to={ROUTES.PRODUCTIONS} className="nav-link">Productions</Link>
