@@ -1,12 +1,16 @@
 import React from 'react';
 import Sidebar from '../../../components/Sidebar/Sidebar.tsx';
+import UserProfile from '../../../components/Account/UserProfile.tsx';
 
 function Contacts() {
   return (
-    
-      <div>
+    <div className="app-container">
     <Sidebar />
-    </div>);
+    <div className="main-content">
+      <UserProfile />
+      <h1>Contacts</h1>
+    </div>
+  </div>);
 
 }
 

@@ -1,6 +1,7 @@
 import "./Navbar.css";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ROUTES } from "../../constants/Routes.ts";
 
 function Navbar() {
   return (
@@ -16,7 +17,7 @@ function Navbar() {
         </a>
         <ul className="right hide-on-med-and-down">
           <li>
-            <Link to="/dashboard">Settings</Link>
+            <Link to={ROUTES.HOME}>Settings</Link> 
           </li>
           <li>
             <Link to="/dashboard/profile">Profile</Link>
@@ -31,13 +32,13 @@ function Navbar() {
           </span>
         </li>
         <li>
-          <Link to="productions">Productions</Link>
+          <Link to={ROUTES.PRODUCTIONS}>Productions</Link>
         </li>
         <li>
-          <Link to="locations">Locations</Link>
+          <Link to={ROUTES.LOCATIONS}>Locations</Link>
         </li>
         <li>
-          <Link to="contacts">Contacts</Link>
+          <Link to={ROUTES.CONTACTS}>Contacts</Link>
         </li>
       </ul>
     </nav>

@@ -1,17 +1,17 @@
 import React from "react";
 import "./Productions.css";
 import Sidebar from "../../../components/Sidebar/Sidebar.tsx";
-import Navbar from "../../../components/Navbar/Navbar.tsx";
+import UserProfile from "../../../components/Account/UserProfile.tsx";
 
 function Productions() {
   return (
-    <div className="productions-container">
-      <Sidebar />
-      <div className="main-content">
-        <Navbar />
-        <h1>Productions</h1>
-      </div>
+    <div className="app-container">
+    <Sidebar />
+    <div className="main-content">
+      <UserProfile />
+      <h1>Productions</h1>
     </div>
+  </div>
   );
 }
 
