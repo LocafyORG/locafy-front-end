@@ -77,3 +77,23 @@
     padding: 16px;
   }
   
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+    justify-content: flex-start; /* Aligns cards to the left */
+  }
+  
+  .card {
+    width: 18rem;
+    margin: 1rem 0; /* Add vertical margin only */
+  }
+
+  .sort-controls {
+    margin-bottom: 1rem;
+  }
+
+
+
+

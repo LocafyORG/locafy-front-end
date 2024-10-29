@@ -1,5 +1,5 @@
 :root {
-    --body-background: white;
+    --body-background: #EEEEEE;
     --light-hightlight-background: #ededed;
     --darker-highlight-background: #aaaaaa;
     --button-color-background: #c43a86;
@@ -43,7 +43,6 @@
     font-size: 2.5rem;
   }
   
-  
   select {
     display: block !important;
     margin: 1em 0 !important;
@@ -70,5 +69,6 @@
   }
 
   body {
-    background-color: darkgrey;
+    background-color: var(--body-background);
   }
+

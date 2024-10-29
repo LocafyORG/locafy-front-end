@@ -9,7 +9,7 @@ import Contacts from './pages/Dashboard/Contacts/Contacts.tsx';
 import Pricing from './pages/Pricing/Pricing.tsx';
 import Login from './pages/Authentication/Login/Login.tsx';
 import { ROUTES } from "./constants/Routes.ts";
-
+import './App.css';
 
 function App() {
   return (

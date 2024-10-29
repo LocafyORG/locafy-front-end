@@ -15,29 +15,29 @@ function Sidebar() {
           <span className="sidebar-title">Locus Point</span>
         </CSidebarHeader>
         <CSidebarNav>
-          <CNavItem>
+          <CNavItem className="nav-item">
             <CIcon customClassName="nav-icon" />
             <Link to={ROUTES.PRODUCTIONS} className="nav-link">Productions</Link>
           </CNavItem>
-          <CNavItem>
+          <CNavItem className="nav-item">
             <CIcon customClassName="nav-icon" />
             <Link to={ROUTES.LOCATIONS} className="nav-link">
               Locations
               <CBadge color="primary ms-auto">NEW</CBadge>
             </Link>
           </CNavItem>
-          <CNavItem>
+          <CNavItem className="nav-item">
             <CIcon customClassName="nav-icon" />
             <Link to={ROUTES.CONTACTS} className="nav-link">Contacts</Link>
           </CNavItem>
-          <CNavGroup
+          <CNavGroup 
             toggler={
               <>
                 <CIcon customClassName="nav-icon" /> Nav dropdown
               </>
             }
           >
-            <CNavItem>
+            <CNavItem className="nav-item">
               <Link to="/dropdown-item-1" className="nav-link">
                 <span className="nav-icon"><span className="nav-icon-bullet"></span></span> Nav dropdown item
               </Link>
