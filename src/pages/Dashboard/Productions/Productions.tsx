@@ -27,7 +27,7 @@ function Productions() {
       <div className="main-content">
         <UserProfile />
         <h1>Productions</h1>
-        
+        <a className="waves-effect waves-light btn float-right">Add a new production</a>
 
         <SortControls onSortChange={(value) => setSortKey(value)} />
         <div className="card-container">
