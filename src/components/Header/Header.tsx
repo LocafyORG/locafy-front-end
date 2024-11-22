@@ -1,13 +1,15 @@
 import "./Header.css";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ROUTES } from '../../constants/Routes.ts';
+
 
 function Header() {
   return (
     <>
       <nav className="blue">
         <div className="nav-wrapper container">
-          <Link to="/" className="brand-logo">
+          <Link to={ROUTES.HOME} className="brand-logo">
             <i className="material-icons">whatshot</i> Locus Point
           </Link>
 
@@ -16,26 +18,26 @@ function Header() {
           </a>
           <ul className="right hide-on-med-and-down">
             <li>
-              <Link to="/about">About</Link>
+              <Link to={ROUTES.ABOUT}>About</Link>
             </li>
             <li>
-              <Link to="/pricing">Pricing</Link>
+              <Link to={ROUTES.PRICING}>Pricing</Link>
             </li>
             <li>
-              <Link to="/auth/login">Login</Link>
+              <Link to={ROUTES.LOGIN}>Login</Link>
             </li>
           </ul>
         </div>
 
         <ul className="sidenav" id="mobile-demo">
           <li>
-            <Link to="/">About</Link>
+            <Link to={ROUTES.HOME}>About</Link>
           </li>
           <li>
-            <Link to="/">Pricing</Link>
+            <Link to={ROUTES.PRICING}>Pricing</Link>
           </li>
           <li>
-            <Link to="/auth/login">Login</Link>
+            <Link to={ROUTES.LOGIN}>Login</Link>
           </li>
         </ul>
       </nav>

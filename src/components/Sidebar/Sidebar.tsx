@@ -1,5 +1,5 @@
 import CIcon from '@coreui/icons-react';
-import { CNavGroup, CNavItem, CNavTitle, CSidebar, CSidebarHeader, CSidebarNav, CSidebarToggler, CBadge } from '@coreui/react';
+import { CNavGroup, CNavItem, CSidebar, CSidebarHeader, CSidebarNav, CSidebarToggler, CBadge } from '@coreui/react';
 import React from 'react';
 import '@coreui/coreui/dist/css/coreui.min.css';
 import './Sidebar.css';

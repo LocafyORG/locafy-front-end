@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, Outlet, Routes } from 'react-router-dom';
+import { BASE_PATH, ROUTES } from '../../constants/Routes.ts';
+
 
 function Dashboard() {
     return (
@@ -10,12 +12,12 @@ function Dashboard() {
             <div className="nav-wrapper">
               <ul className="header">
                 <li>
-                  <Link to="/dashboard">
+                  <Link to={BASE_PATH}>
                     <span className="material-icons">notifications</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/profile">
+                  <Link to={ROUTES.PROFILE}>
                     <span className="small material-icons">account_circle</span>
                   </Link>
                 </li>

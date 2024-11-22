@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <nav className="navbar-fixed fix-navbar">
       <div className="nav-wrapper sidenav-dashboard">
-        <Link to="/dashboard/productions" className="brand-logo">
+        <Link to={ROUTES.PRODUCTIONS} className="brand-logo">
           <i className="material-icons">whatshot</i>{" "}
           <span className="truncate">Locus Point</span>
         </Link>
@@ -20,7 +20,7 @@ function Navbar() {
             <Link to={ROUTES.HOME}>Settings</Link> 
           </li>
           <li>
-            <Link to="/dashboard/profile">Profile</Link>
+            <Link to={ROUTES.PROFILE}>Profile</Link>
           </li>
         </ul>
       </div>

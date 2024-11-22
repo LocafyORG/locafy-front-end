@@ -1,12 +1,12 @@
-export const BASE_PATH = "/Dashboard";
-export const BASE_AUTH_PATH = "/Auth";
+export const BASE_PATH = "/dashboard";
+export const BASE_AUTH_PATH = "/auth";
 export const ROUTES = {
   HOME: "/",
-  LOCATIONS: `${BASE_PATH}/Locations`,
-  PRODUCTIONS: `${BASE_PATH}/Productions`,
-  CONTACTS: `${BASE_PATH}/Contacts`,
-  ABOUT: "/About",
-  PROFILE: "/Profile",
-  PRICING: "/Pricing",
-  LOGIN: `${BASE_AUTH_PATH}/Login`,
+  LOCATIONS: `${BASE_PATH}/locations`,
+  PRODUCTIONS: `${BASE_PATH}/productions`,
+  CONTACTS: `${BASE_PATH}/contacts`,
+  ABOUT: "/about",
+  PROFILE: "/profile",
+  PRICING: "/pricing",
+  LOGIN: `${BASE_AUTH_PATH}/login`,
 };
