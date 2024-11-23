@@ -4,62 +4,61 @@
     --darker-highlight-background: #aaaaaa;
     --button-color-background: #c43a86;
     --button-color-background-lighter: #ce408d;
-    
     --navbar-dark-color: #3f4665;
     --navbar-dark-background: #f5f6f8;
   }
-  
+
   .btn-large {
     background-color: var(--button-color-background) !important;
     font-weight: bold !important;
     border-radius: 5px !important;
   }
-  
+
   .page-heading>div>h1 {
     font-weight: 600 !important;
     color: var(--navbar-dark-color);
   }
-  
+
   .bg-darker {
     background-color: var(--light-hightlight-background);
   }
-  
+	
   .main-content {
     padding: 0px;
     overflow: auto;
     max-height: calc(100vh);
   }
-  
+
   @media only screen and (min-width: 992px) {
     .main-content {
       padding: 0px 20px;
       margin-left: 300px;
     }
   }
-  
+
   .main-content > h1 {
     margin: 0px;
     padding: 0px;
     font-size: 2.5rem;
   }
-  
+
   select {
     display: block !important;
     margin: 1em 0 !important;
   }
-  
+
   .material-icons {
     color: #111;
   }
-  
+
   .header {
     text-align: right;
   }
-  
+
   .header > li {
     display: inline;
   }
-  
+
   .header > li > a > .material-icons {
     color: var(--navbar-dark-color);
     display: inline;

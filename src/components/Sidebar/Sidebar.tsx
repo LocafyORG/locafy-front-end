@@ -1,10 +1,9 @@
 import CIcon from '@coreui/icons-react';
 import { CNavGroup, CNavItem, CSidebar, CSidebarHeader, CSidebarNav, CSidebarToggler, CBadge } from '@coreui/react';
-import React from 'react';
 import '@coreui/coreui/dist/css/coreui.min.css';
 import './Sidebar.css';
 import { ROUTES } from '../../constants/Routes.ts';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 function Sidebar() {
   return (
