@@ -1,21 +1,12 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
 		"paths": {
-			"@/*": [
-				"./src/*"
-			],
-			"@components": [
-				"./src/components"
-			],
-			"@layouts": [
-				"./src/layouts"
-			],
-			"@pages": [
-				"./src/pages"
-			],
-			"@constants": [
-				"./src/constants"
-			]
+			"@/*": ["src/*"],
+			"@components/*": ["src/components/*"],
+			"@layouts/*": ["src/layouts/*"],
+			"@pages/*": ["src/pages/*"],
+			"@constants/*": ["src/constants/*"]
 		}
 	},
   "files": [],
