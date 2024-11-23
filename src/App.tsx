@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, } from 'react-router'
+import { ROUTES } from './constants/Routes'
 import Home from './pages/Home/Home.tsx';
 import Locations from './pages/Dashboard/Locations/Locations.tsx';
 import Productions from './pages/Dashboard/Productions/Productions.tsx';
@@ -8,8 +8,7 @@ import Profile from './pages/Profile/Profile.tsx';
 import Contacts from './pages/Dashboard/Contacts/Contacts.tsx';
 import Pricing from './pages/Pricing/Pricing.tsx';
 import Login from './pages/Authentication/Login/Login.tsx';
-import { ROUTES } from "./constants/Routes.ts";
-import './App.css';
+import './App.css'
 
 function App() {
   return (
@@ -27,4 +26,5 @@ function App() {
     </BrowserRouter>
   );
 }
-export default App;
+
+export default App
