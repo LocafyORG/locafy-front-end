@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import CIcon from '@coreui/icons-react';
 import { CSidebar, CSidebarHeader, CSidebarNav, CSidebarToggler, CNavLink } from '@coreui/react';
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import './Sidebar.css'
 
 const custVars = {
@@ -15,12 +15,6 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ buttons = [] }: SidebarProps) {
-	const [activeButton, setActiveButton] = useState(-1);
-
-	function activeButtonSwitch(newActiveIndex: number) {
-		setActiveButton(newActiveIndex);
-	}
-
   return (
     <div>
       <CSidebar className="sidebar-full-height border-end">
@@ -32,9 +26,7 @@ export default function Sidebar({ buttons = [] }: SidebarProps) {
 					{ buttons.map((button, index) => (
 							<SidebarButton label={button.label}
 								coreUiIcon={button.coreUiIcon}
-								to={button.to} selfIndex={index}
-								activeIndex={activeButton}
-								onClick={activeButtonSwitch} />
+								to={button.to} key={index} />
 					))}
         </CSidebarNav>
         <CSidebarHeader className="border-top">
@@ -49,22 +41,18 @@ interface SidebarButtonProps {
 	label: string
 	coreUiIcon: string[],
 	to: string
-	selfIndex: number,
-	activeIndex: number,
-	onClick: (buttonIndex: number) => void,
 }
 
-function SidebarButton({ label, coreUiIcon, to, selfIndex, activeIndex, onClick }: SidebarButtonProps) {
-	const [isActive, setIsActive] = useState(selfIndex==activeIndex);
+function SidebarButton({ label, coreUiIcon, to }: SidebarButtonProps) {
+	const [isActive, setIsActive] = useState(false);
+	const activePath = useLocation()
 
 	useEffect(() => {
-		setIsActive(selfIndex==activeIndex);
-	}, [selfIndex, activeIndex])
+		setIsActive(activePath.pathname.startsWith(to, 0));
+	}, [activePath])
 
 	return <>
-		<CNavLink style={custVars} className="flex-grow-0" as={Link} to={to} active={isActive} onClick={() => {
-			onClick(selfIndex);
-		}}>
+		<CNavLink style={custVars} className="flex-grow-0" as={Link} to={to} active={isActive}>
 			<CIcon className={"sidebar-button-icon"} icon={coreUiIcon} />
 			{label}
 		</CNavLink>
