@@ -26,7 +26,7 @@ export default function DashboardLayout() {
 		{
 			label: "Calendar",
 			coreUiIcon: cilCalendar,
-			to: ROUTES.CONTACTS,
+			to: ROUTES.CALENDAR,
 		},
 	]);
 

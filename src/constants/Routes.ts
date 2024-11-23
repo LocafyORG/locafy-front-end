@@ -5,6 +5,7 @@ export const ROUTES = {
   LOCATIONS: `${BASE_PATH}/locations`,
   PRODUCTIONS: `${BASE_PATH}/productions`,
   CONTACTS: `${BASE_PATH}/contacts`,
+  CALENDAR: `${BASE_PATH}/calendar`,
   ABOUT: "/about",
   PROFILE: "/profile",
   PRICING: "/pricing",
