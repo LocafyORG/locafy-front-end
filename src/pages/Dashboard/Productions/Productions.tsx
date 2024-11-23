@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./Productions.css";
 import Sidebar from "../../../components/Sidebar/Sidebar.tsx";
 import UserProfile from "../../../components/Account/UserProfile.tsx";
 import Card from "../../../components/Card/Card.tsx";
-import SortControls from "../../../components/SortControls/SortControls.tsx";
+import SortControls from '@components/SortControls/SortControls'
+import './Productions.css'
 
 function Productions() {
   const [sortKey, setSortKey] = useState("title");
@@ -21,24 +21,17 @@ function Productions() {
     return 0;
   });
 
-  return (
-    <div className="app-container">
-      <Sidebar />
-      <div className="main-content">
-        <UserProfile />
-        <h1>Productions</h1>
-        <a className="waves-effect waves-light btn float-right">Add a new production</a>
+  return <>
+		<h1>Productions</h1>
+		<a className="waves-effect waves-light btn float-right">Add a new production</a>
 
-        <SortControls onSortChange={(value) => setSortKey(value)} />
-        <div className="card-container">
-          {sortedData.map((item, index) => (
-            <Card key={index} title={item.title} description={item.description} />
-          ))}
-          
-        </div>
-      </div>
-    </div>
-  );
+		<SortControls onSortChange={(value) => setSortKey(value)} />
+		<div className="card-container">
+			{sortedData.map((item, index) => (
+				<Card key={index} title={item.title} description={item.description} />
+			))}
+		</div>
+	</>
 }
 
 export default Productions;
