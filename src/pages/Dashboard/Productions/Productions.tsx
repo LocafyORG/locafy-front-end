@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import Sidebar from "../../../components/Sidebar/Sidebar.tsx";
-import UserProfile from "../../../components/Account/UserProfile.tsx";
+import { useState } from "react";
 import Card from "../../../components/Card/Card.tsx";
 import SortControls from '@components/SortControls/SortControls'
 import './Productions.css'

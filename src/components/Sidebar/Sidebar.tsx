@@ -47,7 +47,7 @@ export default function Sidebar({ buttons = [] }: SidebarProps) {
 
 interface SidebarButtonProps {
 	label: string
-	coreUiIcon: any,
+	coreUiIcon: string[],
 	to: string
 	selfIndex: number,
 	activeIndex: number,
@@ -59,7 +59,7 @@ function SidebarButton({ label, coreUiIcon, to, selfIndex, activeIndex, onClick 
 
 	useEffect(() => {
 		setIsActive(selfIndex==activeIndex);
-	}, [activeIndex])
+	}, [selfIndex, activeIndex])
 
 	return <>
 		<CNavLink style={custVars} className="flex-grow-0" as={Link} to={to} active={isActive} onClick={() => {

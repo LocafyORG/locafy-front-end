@@ -16,15 +16,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
-				{ /*
-        <Route path={ROUTES.LOCATIONS} element={<Locations />} />
-        <Route path={ROUTES.PRODUCTIONS} element={<Productions />} />
-        <Route path={ROUTES.CONTACTS} element={<Contacts />} />
         <Route path={ROUTES.ABOUT} element={<About />} />
         <Route path={ROUTES.PROFILE} element={<Profile />} />
         <Route path={ROUTES.PRICING} element={<Pricing />} />
         <Route path={ROUTES.LOGIN} element={<Login />} />
-				*/ }
 				<Route path={"dashboard"} element={ <DashboardLayout /> }>
 					<Route path={"locations"} element={ <Locations /> } />
 					<Route path={"productions"} element={ <Productions /> } />
