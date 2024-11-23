@@ -1,6 +1,5 @@
-import React from 'react';
-import { Link, Outlet, Routes } from 'react-router-dom';
-import { BASE_PATH, ROUTES } from '../../constants/Routes.ts';
+import { Link, Outlet, Routes } from 'react-router';
+import { BASE_PATH, ROUTES } from '../../constants/Routes';
 
 
 function Dashboard() {

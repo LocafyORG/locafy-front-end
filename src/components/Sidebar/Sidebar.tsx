@@ -1,12 +1,26 @@
+import { useState, useEffect } from 'react'
 import CIcon from '@coreui/icons-react';
-import { CNavGroup, CNavItem, CSidebar, CSidebarHeader, CSidebarNav, CSidebarToggler, CBadge } from '@coreui/react';
-import React from 'react';
-import '@coreui/coreui/dist/css/coreui.min.css';
-import './Sidebar.css';
-import { ROUTES } from '../../constants/Routes.ts';
-import { Link } from 'react-router-dom';
+import { CSidebar, CSidebarHeader, CSidebarNav, CSidebarToggler, CNavLink } from '@coreui/react';
+import { Link } from 'react-router'
+import './Sidebar.css'
 
-function Sidebar() {
+const custVars = {
+	"--cui-sidebar-nav-link-active-bg": "var(--cui-blue)",
+	"--cui-sidebar-nav-link-active-color": "var(--cui-white)",
+	"--cui-sidebar-nav-link-border-radius": "0% 30px 30px 0%"
+}
+
+interface SidebarProps {
+	buttons: SidebarButtonProps[]
+}
+
+export default function Sidebar({ buttons = [] }: SidebarProps) {
+	const [activeButton, setActiveButton] = useState(-1);
+
+	function activeButtonSwitch(newActiveIndex: number) {
+		setActiveButton(newActiveIndex);
+	}
+
   return (
     <div>
       <CSidebar className="sidebar-full-height border-end">
@@ -15,39 +29,13 @@ function Sidebar() {
           <span className="sidebar-title">Locus Point</span>
         </CSidebarHeader>
         <CSidebarNav>
-          <CNavItem className="nav-item">
-            <CIcon customClassName="nav-icon" />
-            <Link to={ROUTES.PRODUCTIONS} className="nav-link">Productions</Link>
-          </CNavItem>
-          <CNavItem className="nav-item">
-            <CIcon customClassName="nav-icon" />
-            <Link to={ROUTES.LOCATIONS} className="nav-link">
-              Locations
-              <CBadge color="primary ms-auto">NEW</CBadge>
-            </Link>
-          </CNavItem>
-          <CNavItem className="nav-item">
-            <CIcon customClassName="nav-icon" />
-            <Link to={ROUTES.CONTACTS} className="nav-link">Contacts</Link>
-          </CNavItem>
-          <CNavGroup 
-            toggler={
-              <>
-                <CIcon customClassName="nav-icon" /> Nav dropdown
-              </>
-            }
-          >
-            <CNavItem className="nav-item">
-              <Link to="/dropdown-item-1" className="nav-link">
-                <span className="nav-icon"><span className="nav-icon-bullet"></span></span> Nav dropdown item
-              </Link>
-            </CNavItem>
-            <CNavItem>
-              <Link to="/dropdown-item-2" className="nav-link">
-                <span className="nav-icon"><span className="nav-icon-bullet"></span></span> Nav dropdown item
-              </Link>
-            </CNavItem>
-          </CNavGroup>
+					{ buttons.map((button, index) => (
+							<SidebarButton label={button.label}
+								coreUiIcon={button.coreUiIcon}
+								to={button.to} selfIndex={index}
+								activeIndex={activeButton}
+								onClick={activeButtonSwitch} />
+					))}
         </CSidebarNav>
         <CSidebarHeader className="border-top">
           <CSidebarToggler />
@@ -57,4 +45,28 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+interface SidebarButtonProps {
+	label: string
+	coreUiIcon: string[],
+	to: string
+	selfIndex: number,
+	activeIndex: number,
+	onClick: (buttonIndex: number) => void,
+}
+
+function SidebarButton({ label, coreUiIcon, to, selfIndex, activeIndex, onClick }: SidebarButtonProps) {
+	const [isActive, setIsActive] = useState(selfIndex==activeIndex);
+
+	useEffect(() => {
+		setIsActive(selfIndex==activeIndex);
+	}, [selfIndex, activeIndex])
+
+	return <>
+		<CNavLink style={custVars} className="flex-grow-0" as={Link} to={to} active={isActive} onClick={() => {
+			onClick(selfIndex);
+		}}>
+			<CIcon className={"sidebar-button-icon"} icon={coreUiIcon} />
+			{label}
+		</CNavLink>
+	</>
+}

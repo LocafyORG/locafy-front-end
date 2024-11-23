@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"paths": {
+			"@/*": [
+				"./src/*"
+			],
+			"@components": [
+				"./src/components"
+			],
+			"@layouts": [
+				"./src/layouts"
+			],
+			"@pages": [
+				"./src/pages"
+			],
+			"@constants": [
+				"./src/constants"
+			]
+		}
+	},
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
