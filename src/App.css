@@ -1,12 +1,22 @@
 :root {
-    --body-background: #EEEEEE;
+    --body-background: #f7f7f9;
     --light-hightlight-background: #ededed;
     --darker-highlight-background: #aaaaaa;
-    --button-color-background: #c43a86;
+    --button-color-background: #f7f7f9;
     --button-color-background-lighter: #ce408d;
     --navbar-dark-color: #3f4665;
     --navbar-dark-background: #f5f6f8;
+
+		/* Animation */
+		--anim-none: 0s;
+		--anim-fast: 0.1s;
+		--anim-normal: 0.2s;
+		--anim-slow: 0.3s;
   }
+
+.root {
+	height: 100%;
+}
 
   .btn-large {
     background-color: var(--button-color-background) !important;

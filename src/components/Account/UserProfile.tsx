@@ -1,47 +1,31 @@
-import { useState } from 'react';
-import { CNavbar, CContainer, CNavbarToggler, CCollapse, CNavbarNav, CButton } from '@coreui/react';
+import { CImage } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
-import { cilAppsSettings, cilUser } from '@coreui/icons';
+import Cheems from '@assets/img/under-development.webp'
+import './UserProfile.css'
 
-const UserProfile = () => {
-  const [visible, setVisible] = useState(false);
-
-  //TODO: add in the user profile image and functionality
-  return (
-    <>
-      <CNavbar 
-        expand="lg" 
-        style={{ 
-          position: 'relative', 
-          zIndex: 1000, 
-          border: 'none', 
-          boxShadow: 'none', 
-          backgroundColor: 'transparent'
-        }} 
-      >
-        <CContainer fluid>
-          <CNavbarToggler
-            aria-label="Toggle navigation"
-            aria-expanded={visible}
-            onClick={() => setVisible(!visible)}
-          />
-          <CCollapse className="navbar-collapse" visible={visible}>
-            <CNavbarNav className="me-auto mb-2 mb-lg-0">
-              
-            </CNavbarNav>
-            <div className="d-flex">
-              <CButton className="me-2" color="link" aria-label="Settings">
-                <CIcon icon={cilAppsSettings} />
-              </CButton>
-              <CButton className="me-2" color="link" aria-label="User Account">
-                <CIcon icon={cilUser} />
-              </CButton>
-            </div>
-          </CCollapse>
-        </CContainer>
-      </CNavbar>
-    </>
-  );
+interface UserProfileProps {
+	userBadgeSrc?: string
+	iconButtons: IconButtonProps[]	
 }
 
-export default UserProfile;
+export default function UserProfile({ userBadgeSrc = Cheems, iconButtons = [] }: UserProfileProps) {
+	return <div className="icon-container">
+			<CImage className="user-badge" src={userBadgeSrc} width={40} height={40} />
+
+			{iconButtons.map((b, index) => (
+				<IconButton key={index} icon={b.icon} scale={b.scale} onClick={b.onClick} />
+			))}
+		</div>
+}
+
+interface IconButtonProps {
+	icon: string[]
+	scale?: number
+	onClick?: () => void
+}
+
+function IconButton({ icon, scale = 1, onClick = () => {} }: IconButtonProps) {
+	return <button className="icon-button" onClick={onClick}>
+			<CIcon icon={icon} style={{ transform: `scale(${scale})` }} />
+		</button>
+}

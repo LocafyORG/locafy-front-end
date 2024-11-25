@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "../../../components/Card/Card.tsx";
 import SortControls from '@components/SortControls/SortControls'
+import Cheems from '@assets/img/under-development.webp'
 import './Productions.css'
 
 function Productions() {
@@ -26,7 +27,7 @@ function Productions() {
 		<SortControls onSortChange={(value) => setSortKey(value)} />
 		<div className="card-container">
 			{sortedData.map((item, index) => (
-				<Card key={index} title={item.title} description={item.description} />
+				<Card key={index} image={Cheems} title={item.title} description={item.description} />
 			))}
 		</div>
 	</>

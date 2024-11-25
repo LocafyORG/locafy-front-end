@@ -24,6 +24,7 @@ function App() {
 					<Route path={"locations"} element={ <Locations /> } />
 					<Route path={"productions"} element={ <Productions /> } />
 					<Route path={"contacts"} element={ <Contacts /> } />
+					<Route path={"calendar"} element={ <Contacts /> } />
 				</Route>
       </Routes>
     </BrowserRouter>
