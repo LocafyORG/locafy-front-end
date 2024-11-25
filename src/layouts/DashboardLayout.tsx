@@ -3,7 +3,8 @@ import Sidebar from '@components/Sidebar/Sidebar'
 import UserProfile from '@components/Account/UserProfile'
 import { Outlet } from 'react-router'
 import { ROUTES } from '@constants/Routes'
-import { cilLocationPin, cilCamera, cilContact, cilCalendar } from '@coreui/icons'
+import { cilBell, cilLocationPin, cilCamera, cilContact, cilCalendar } from '@coreui/icons'
+import './DashboardLayout.css'
 
 export default function DashboardLayout() {
 	
@@ -31,11 +32,13 @@ export default function DashboardLayout() {
 	]);
 
 	return <>
-		<div className="app-container">
+		<div className="dashboard-layout">
 			<Sidebar buttons={navButtons} />
-    	<div className="main-content">
-      	<UserProfile />
-				<Outlet />
+			<div className="content-container">
+				<UserProfile />
+				<div className="content">
+					<Outlet />
+				</div>
 			</div>
   	</div>
 	</>
