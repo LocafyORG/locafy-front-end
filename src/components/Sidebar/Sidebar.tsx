@@ -50,7 +50,7 @@ function SidebarButton({ label, coreUiIcon, to }: SidebarButtonProps) {
 
 	useEffect(() => {
 		setIsActive(activePath.pathname.startsWith(to, 0));
-	}, [activePath])
+	}, [activePath, to])
 
 	return <>
 		<CNavLink as={Link} className={`cust-sidebar-button ${(isActive) ? "active" : ""}`} to={to}>

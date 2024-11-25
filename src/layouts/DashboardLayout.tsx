@@ -3,7 +3,7 @@ import Sidebar from '@components/Sidebar/Sidebar'
 import UserProfile from '@components/Account/UserProfile'
 import { Outlet } from 'react-router'
 import { ROUTES } from '@constants/Routes'
-import { cilBell, cilLocationPin, cilCamera, cilContact, cilCalendar } from '@coreui/icons'
+import { cilLocationPin, cilCamera, cilContact, cilCalendar } from '@coreui/icons'
 import './DashboardLayout.css'
 
 export default function DashboardLayout() {

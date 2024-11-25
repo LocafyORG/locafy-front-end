@@ -1,4 +1,4 @@
-import { CButton, CCard, CCardBody,CCardSubtitle, CCardImage, CCardText, CCardTitle } from '@coreui/react';
+import { CCard, CCardBody,CCardSubtitle, CCardImage, CCardText, CCardTitle } from '@coreui/react';
 import './Card.css';
 
 interface CardProps {
@@ -20,19 +20,4 @@ export default function Card({ title, description, image }: CardProps) {
 		</CCard>
 	</>
 
-}
-
-function Cardx({ title, description, image }: CardProps) {
-  return (
-    <CCard className="card-item">
-    <CCardImage orientation="top" src={image}/>
-    <CCardBody>
-      <CCardTitle>{title}</CCardTitle>
-      <CCardText>{description}</CCardText>
-      <CButton color="primary" href="#">
-        edit
-      </CButton>
-    </CCardBody>
-  </CCard>
-  );
 }
