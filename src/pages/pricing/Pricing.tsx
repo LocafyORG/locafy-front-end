@@ -3,10 +3,40 @@ import Header from '@/components/Header/Header';
 import './Pricing.css';
 
 const PricingPage = () => {
+  const pricingPlans = [
+    {
+      title: 'Basic',
+      price: '$9.99 / month',
+      features: ['Up to 10 locations', 'Basic location details', 'Email support'],
+      buttonText: 'Choose Basic',
+      buttonLink: '/subscribe/basic',
+      headerClass: 'bg-light text-primary',
+      cardClass: 'shadow-sm',
+    },
+    {
+      title: 'Pro',
+      price: '$29.99 / month',
+      features: ['Up to 50 locations', 'Detailed analytics', 'Priority email support'],
+      buttonText: 'Choose Pro',
+      buttonLink: '/subscribe/pro',
+      headerClass: 'bg-primary text-white',
+      cardClass: 'shadow-lg',
+    },
+    {
+      title: 'Enterprise',
+      price: 'Contact Us',
+      features: ['Unlimited locations', 'Dedicated account manager', '24/7 support'],
+      buttonText: 'Contact Us',
+      buttonLink: '/contact',
+      headerClass: 'bg-light text-primary',
+      cardClass: 'shadow-sm',
+    },
+  ];
+
   return (
     <CContainer className="py-5">
       <Header />
-       <CRow className="justify-content-center text-center">
+      <CRow className="justify-content-center text-center">
         <CCol md="8">
           <h1 className="display-4 text-primary mb-3">Pricing Plans</h1>
           <p className="lead text-muted">
@@ -17,71 +47,28 @@ const PricingPage = () => {
 
       {/* Pricing Cards */}
       <CRow className="mt-5">
-        {/* Basic Plan */}
-        <CCol md="4">
-          <CCard className="shadow-sm">
-            <CCardHeader className="text-center bg-light">
-              <h2 className="font-weight-bold text-primary">Basic</h2>
-              <p className="text-muted">$9.99 / month</p>
-            </CCardHeader>
-            <CCardBody>
-              <ul className="list-unstyled text-center text-muted mb-4">
-                <li>Up to 10 locations</li>
-                <li>Basic location details</li>
-                <li>Email support</li>
-              </ul>
-              <div className="text-center">
-                <CButton color="primary" href="/subscribe/basic">
-                  Choose Basic
-                </CButton>
-              </div>
-            </CCardBody>
-          </CCard>
-        </CCol>
-
-        {/* Pro Plan */}
-        <CCol md="4">
-          <CCard className="shadow-lg">
-            <CCardHeader className="text-center bg-primary text-white">
-              <h2 className="font-weight-bold">Pro</h2>
-              <p>$29.99 / month</p>
-            </CCardHeader>
-            <CCardBody>
-              <ul className="list-unstyled text-center mb-4">
-                <li>Up to 50 locations</li>
-                <li>Detailed analytics</li>
-                <li>Priority email support</li>
-              </ul>
-              <div className="text-center">
-                <CButton color="light" href="/subscribe/pro">
-                  Choose Pro
-                </CButton>
-              </div>
-            </CCardBody>
-          </CCard>
-        </CCol>
-
-        {/* Enterprise Plan */}
-        <CCol md="4">
-          <CCard className="shadow-sm">
-            <CCardHeader className="text-center bg-light">
-              <h2 className="font-weight-bold text-primary">Enterprise</h2>
-              <p className="text-muted">Contact Us</p>
-            </CCardHeader>
-            <CCardBody>
-              <ul className="list-unstyled text-center text-muted mb-4">
-                <li>Unlimited locations</li>
-                <li>Dedicated account manager</li>
-                <li>24/7 support</li>
-              </ul>
-              <div className="text-center">
-                <CButton color="primary" href="/contact">
-                  Contact Us
-                </CButton>
-              </div>
-            </CCardBody>
-          </CCard>
-        </CCol>
+        {pricingPlans.map((plan, index) => (
+          <CCol md="4" className="mb-4" key={index}>
+            <CCard className={`rounded pricing-card ${plan.cardClass}`}>
+              <CCardHeader className={`text-center ${plan.headerClass}`}>
+                <h2 className="font-weight-bold">{plan.title}</h2>
+                <p className={plan.headerClass.includes('text-white') ? '' : 'text-muted'}>{plan.price}</p>
+              </CCardHeader>
+              <CCardBody>
+                <ul className="list-unstyled text-center mb-4">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx}>{feature}</li>
+                  ))}
+                </ul>
+                <div className="text-center">
+                  <CButton color="primary" href={plan.buttonLink}>
+                    {plan.buttonText}
+                  </CButton>
+                </div>
+              </CCardBody>
+            </CCard>
+          </CCol>
+        ))}
       </CRow>
     </CContainer>
   );

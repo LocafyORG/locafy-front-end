@@ -1,16 +1,30 @@
-/* Icons are small by default, possibly a better way to increase size? */
-.material-icons {
-    transform: scale(2);
-  }
+/* Add a consistent border radius to all cards */
+.ccard {
+  border-radius: 0.5rem;
+}
 
-  .button-container {
-    display: flex;
-    justify-content: center; /* Centers the button horizontally */
-    margin: 20px 0; /* Add some margin for spacing */
-  }
-  
-  .custom-btn {
-    width: auto; /* Set width to auto */
-    padding: 10px 20px; /* Adjust padding for vertical and horizontal spacing */
-    text-align: center; /* Center the text */
-  }
+/* Adjust button spacing for consistency */
+.cbutton {
+  margin-top: 1rem;
+}
+
+/* Ensure consistent padding and margins */
+ul.list-unstyled {
+  padding: 0;
+  margin: 0;
+}
+
+ul.list-unstyled li {
+  margin-bottom: 0.5rem;
+}
+
+/* Hover effect for pricing cards */
+.pricing-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
