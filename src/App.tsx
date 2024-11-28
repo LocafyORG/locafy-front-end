@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route, } from 'react-router'
 import { ROUTES } from '@constants/Routes'
-import Home from '@pages/Home/Home'
+import Home from '@pages/home/Home'
 import Locations from '@pages/dashboard/locations/Locations'
 import Productions from '@pages/dashboard/productions/Productions'
 import Contacts from '@pages/dashboard/contacts/Contacts'
-import About from '@pages/About/About';
-import Profile from '@pages/Profile/Profile';
-import Pricing from '@pages/Pricing/Pricing';
-import Login from '@pages/Authentication/Login/Login';
-import DashboardLayout from '@layouts/DashboardLayout'
+import About from '@pages/about/About';
+import Profile from '@pages/profile/Profile';
+import Pricing from '@pages/pricing/Pricing';
+import Login from '@pages/authentication/login/Login';
+import DashboardLayout from '@layouts/DashboardLayout/DashboardLayout'
 import './App.css'
 
 function App() {
