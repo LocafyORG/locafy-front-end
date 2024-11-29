@@ -1,0 +1,40 @@
+/* container styles */
+.list-pane {
+	--th-border-radius: 8px;
+	background-color: white;
+	border-radius: 16px;
+	padding: 16px;
+	box-shadow: 10px 10px 5px #aaaaaa;
+}
+
+/* Link column styles */
+td > a {
+	padding: 0px !important;
+	color: blue !important;
+	text-decoration: underline;
+}
+
+th, td {
+	padding: 20px !important;
+}
+
+/* Remove bottom border of last table row */
+tr:last-child {
+	border-bottom: 0px;
+}
+
+th {
+	background-color: #f7f7f9 !important;
+}
+
+/* Table head rounded borders */
+th:first-child {
+	border-radius: var(--th-border-radius) 0px 0px var(--th-border-radius);
+}
+
+th:last-child {
+	border-radius: 0px var(--th-border-radius) var(--th-border-radius) 0px;
+}
+
+
+
