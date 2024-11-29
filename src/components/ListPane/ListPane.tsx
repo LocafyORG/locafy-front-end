@@ -20,10 +20,10 @@ export default function ListPane({ data, colNameArrangement }: ListPaneProps) {
 		// Using these functions for `keys` and `headRowNames` respectively may cause a misalignment.
 		const names = keys.map((key) => colNameArrangement[key]);
 		setHeadRowNames(names);
-	}, [keys]);
+	}, [keys, colNameArrangement]);
 
 	function processColData(dataArray: ListPaneRowData, key: string): ReactNode {
-		let colData: string | undefined = dataArray[key]
+		const colData: string | undefined = dataArray[key]
 
 		if (!colData) return <>{""}</>
 
