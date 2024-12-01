@@ -10,4 +10,5 @@ export const ROUTES = {
   PROFILE: "/profile",
   PRICING: "/pricing",
   LOGIN: `${BASE_AUTH_PATH}/login`,
+  REGISTER: `${BASE_AUTH_PATH}/register`
 };

@@ -1,20 +1,19 @@
 import { useState } from "react";
-import "./Login.css";
-import { useNavigate } from "react-router";
-import { LoginPayload } from "@/interfaces/Auth";
-import { loginUser } from "../../../API/auth/authenticationAPI"
-import { ROUTES } from "@/constants/Routes";
+import { registerUser } from "../../../API/auth/authenticationAPI"
+import { RegisterPayload } from "../../../interfaces/Auth"
+import "./Register.css";
 
-function Login() {
-  const navigate = useNavigate(); // React Router hook for navigation
-  const [formData, setFormData] = useState<LoginPayload>({
+function Register() {
+  const [formData, setFormData] = useState<RegisterPayload>({
     email: "",
     password: "",
+    firstName: "",
+    lastName: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,9 +27,9 @@ function Login() {
     setSuccessMessage(null);
 
     try {
-      const token = await loginUser(formData);
-      setSuccessMessage("Login successful!");
-      console.log("Token:", token); // For development purposes; handle token in production
+      await registerUser(formData);
+      setSuccessMessage("Registration successful! You can now log in.");
+      setFormData({ email: "", password: "", firstName: "", lastName: "" });
     } catch (error) {
       setErrorMessage((error as Error).message);
     } finally {
@@ -38,16 +37,36 @@ function Login() {
     }
   };
 
-  const handleRegisterClick = () => {
-    navigate(ROUTES.REGISTER);
-  };
-
   return (
-    <div className="login-container">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} className="login-form">
+    <div className="signup-container">
+      <h1>Sign Up</h1>
+      <form onSubmit={handleSubmit} className="signup-form">
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
+
+        <div className="form-group">
+          <label htmlFor="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
 
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -70,20 +89,16 @@ function Login() {
             value={formData.password}
             onChange={handleInputChange}
             required
+            minLength={8} // Example: Enforce minimum password length
           />
         </div>
 
-        <button type="submit" disabled={isSubmitting} onClick={handleSubmit}>
-          {isSubmitting ? "Logging in..." : "Login"}
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Sign Up"}
         </button>
       </form>
-
-      <div className="register-link">
-        <p>Don't have an account?</p>
-        <button onClick={handleRegisterClick}>Register</button>
-      </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;
