@@ -1,3 +1,5 @@
+// authenticationAPI.ts
+
 import { LOGIN_URL, REGISTER_URL } from '../../constants/Endpoints';
 import { LoginPayload, RegisterPayload } from '../../interfaces/Auth';
 
@@ -18,7 +20,7 @@ export const registerUser = async (payload: RegisterPayload): Promise<void> => {
 };
 
 // Login function with proxy URL
-export const loginUser = async (payload: LoginPayload): Promise<string> => {
+export const loginUser = async (payload: LoginPayload): Promise<void> => {
   const response = await fetch(LOGIN_URL, {
     method: "POST",
     headers: {
@@ -33,5 +35,8 @@ export const loginUser = async (payload: LoginPayload): Promise<string> => {
   }
 
   const data = await response.json();
-  return data.token; // Assuming the backend returns a token on successful login
+  console.log("data" + JSON.stringify(data));
+
+  // Store the token in localStorage
+  localStorage.setItem("authToken", data.accessToken); // Make sure the token is saved here
 };
