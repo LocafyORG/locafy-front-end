@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
 import CIcon from '@coreui/icons-react';
-import { CNavLink, CSidebar } from '@coreui/react';
-import { Link, useLocation } from 'react-router'
+import { CSidebar } from '@coreui/react';
+import { NavLink } from 'react-router'
 import './Sidebar.css'
 
 interface SidebarProps {
@@ -45,20 +44,19 @@ interface SidebarButtonProps {
 }
 
 function SidebarButton({ label, coreUiIcon, to }: SidebarButtonProps) {
-	const [isActive, setIsActive] = useState(false);
-	const activePath = useLocation()
-
-	useEffect(() => {
-		setIsActive(activePath.pathname.startsWith(to, 0));
-	}, [activePath, to])
-
 	return <>
-		<CNavLink as={Link} className={`cust-sidebar-button ${(isActive) ? "active" : ""}`} to={to}>
+		<NavLink to={to} 
+			className={({ isActive }) =>
+				[
+					"cust-sidebar-button",
+					isActive ? "active" : "",
+				].join(" ")
+			}>
 			<span className="active-highlight"></span>
 			<span className="content">
 				<CIcon className="cust-button-icon" icon={coreUiIcon} />
 				{label}
 			</span>
-		</CNavLink>
+		</NavLink>
 	</>
 }
