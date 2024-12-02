@@ -7,8 +7,8 @@ import Contacts from '@pages/dashboard/contacts/Contacts'
 import About from '@pages/about/About';
 import Profile from '@pages/profile/Profile';
 import Pricing from '@pages/pricing/Pricing';
-import Login from '@pages/Authentication/login/Login';
-import Register from '@pages/Authentication/register/Register';
+import Login from '@pages/authentication/login/Login';
+import Register from '@pages/authentication/register/Register';
 import DashboardLayout from '@layouts/DashboardLayout/DashboardLayout'
 import './App.css'
 
