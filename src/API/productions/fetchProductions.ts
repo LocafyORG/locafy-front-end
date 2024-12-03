@@ -1,9 +1,10 @@
 import { API_URL } from "@/constants/Endpoints";
 import { Production } from "../../interfaces/Production";
+import { getAuthToken } from "../auth/authTokenApi";
 
 export const fetchProductions = async (): Promise<Production[]> => {
   // Retrieve the token from localStorage (or wherever you're storing it)
-  const token = localStorage.getItem("authToken"); // Adjust based on where your token is stored
+  const token = getAuthToken();		// Adjust based on where your token is stored
 
   if (!token) {
     throw new Error("No authentication token found. Please log in.");

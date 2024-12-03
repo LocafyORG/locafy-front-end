@@ -5,7 +5,7 @@ import './UserProfile.css'
 
 interface UserProfileProps {
 	userBadgeSrc?: string
-	iconButtons: IconButtonProps[]	
+	iconButtons?: IconButtonProps[]	
 }
 
 export default function UserProfile({ userBadgeSrc = Cheems, iconButtons = [] }: UserProfileProps) {

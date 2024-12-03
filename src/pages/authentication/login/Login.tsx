@@ -1,9 +1,10 @@
 import { useState } from "react";
-import "./Login.css";
 import { useNavigate } from "react-router";
 import { LoginPayload } from "@/interfaces/Auth";
-import { loginUser } from "../../../API/auth/authenticationAPI"
-import { ROUTES } from "@/constants/Routes";
+// import { loginUser } from "../../../API/auth/authenticationAPI"
+   import { loginUser } from "@/API/auth/authenticationAPI"
+import { ROUTES } from "@constants/Routes";
+import "./Login.css";
 
 function Login() {
   const navigate = useNavigate(); // React Router hook for navigation
@@ -27,15 +28,16 @@ function Login() {
     setErrorMessage(null);
     setSuccessMessage(null);
 
-    try {
-      const token = await loginUser(formData);
-      setSuccessMessage("Login successful!");
-      console.log("Token:", token); // For development purposes; handle token in production
-    } catch (error) {
-      setErrorMessage((error as Error).message);
-    } finally {
-      setIsSubmitting(false);
-    }
+		loginUser(formData)
+			.then(() => {
+				navigate(ROUTES.PRODUCTIONS);
+			})
+			.catch(err => {
+      	setErrorMessage((err as Error).message);
+			})
+			.finally(() => {
+      	setIsSubmitting(false);
+			})
   };
 
   const handleRegisterClick = () => {

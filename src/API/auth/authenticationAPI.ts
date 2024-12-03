@@ -1,7 +1,6 @@
-// authenticationAPI.ts
-
 import { LOGIN_URL, REGISTER_URL } from '../../constants/Endpoints';
 import { LoginPayload, RegisterPayload } from '../../interfaces/Auth';
+import { setAuthToken } from './authTokenApi';
 
 // Register function with proxy URL
 export const registerUser = async (payload: RegisterPayload): Promise<void> => {
@@ -38,5 +37,5 @@ export const loginUser = async (payload: LoginPayload): Promise<void> => {
   console.log("data" + JSON.stringify(data));
 
   // Store the token in localStorage
-  localStorage.setItem("authToken", data.accessToken); // Make sure the token is saved here
+	setAuthToken(data.accessToken);		// Make sure the token is saved here
 };
