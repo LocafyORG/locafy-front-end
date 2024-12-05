@@ -1,7 +1,3 @@
-import { API_BASE_URL } from '@constants/Endpoints'
-/**
- * 
- */
 export interface ContactDto {
 	contactId?: string,
 	name: string,
@@ -36,7 +32,7 @@ export async function createContact(input: ContactInput, ownerId: string): Promi
 	const headers = new Headers();
 	headers.append("Content-Type", "application/json");
 
-	return fetch(`${API_BASE_URL}/`, {
+	return fetch(``, {
 		method: "POST",
 		headers: headers,
 		body: JSON.stringify(dto),

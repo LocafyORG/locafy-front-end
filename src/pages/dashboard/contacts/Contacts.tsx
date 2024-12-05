@@ -21,12 +21,6 @@ export default function Contacts() {
 			email: "cheems_is_here@cheemail.com",
 			// Location is missing here so is, therefore, not rendered
 		},
-		{
-			name: "Kyle",
-			telNum: "+1-(800)-858-0085",
-			email: "doge@cheemail.com",
-			locationId: "`[Bad Link]()`"
-		},
 	]);
 
   return <>
