@@ -11,7 +11,7 @@ import Login from '@pages/authentication/login/Login';
 import Register from '@pages/authentication/register/Register';
 import DashboardLayout from '@/layouts/DashboardLayout'
 import AuthLayout from '@layouts/AuthLayout'
-import './App.css'
+import './App.scss'
 
 /**
  * 

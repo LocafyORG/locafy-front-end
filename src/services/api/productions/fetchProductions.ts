@@ -1,6 +1,6 @@
-import { API_URL } from "@/constants/Endpoints";
-import { Production } from "../../interfaces/Production";
-import { getAuthToken } from "../auth/authTokenApi";
+import { API_URL } from '@/constants/Endpoints';
+import { Production } from '@api/interfaces/Production';
+import { getAuthToken } from '@api/auth/authTokenApi';
 
 export const fetchProductions = async (): Promise<Production[]> => {
   // Retrieve the token from localStorage (or wherever you're storing it)

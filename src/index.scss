@@ -25,12 +25,13 @@ body {
 	height: 100%;
   background-color: var(--background-color);
   color: var(--foreground-color);
+
+  button {
+    background-color: var(--primary-color);
+    color: var(--on-primary);
+  }
 }
 
-button {
-  background-color: var(--primary-color);
-  color: var(--on-primary);
-}
 
 
 

@@ -1,6 +1,5 @@
 import Header from '@/components/Header/Header';
 import { CContainer, CRow, CCol, CCard, CCardBody, CCardHeader, CButton, CCardImage } from '@coreui/react';
-import '../Home/Home.css';
 
 const About = () => {
   const cardData = [

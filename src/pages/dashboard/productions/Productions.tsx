@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import Card from "../../../components/Card/Card.tsx";
 import SortControls from "@components/SortControls/SortControls";
 import Cheems from "@assets/img/under-development.webp";
-import { fetchProductions } from "../../../API/productions/fetchProductions.ts";
+import { fetchProductions } from '@api/productions/fetchProductions.ts'
 import { Production } from "../../../interfaces/Production.ts";
-import "./Productions.css";
+import "./Productions.scss";
 
 function Productions() {
   const [data, setData] = useState<Production[]>([]);

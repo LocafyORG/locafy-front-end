@@ -2,7 +2,7 @@ import React, { ReactNode, useState, useEffect } from "react"
 import { CContainer, CTableBody, CTableHead, CTable, CTableRow, CTableHeaderCell, CTableDataCell, CRow } from '@coreui/react'
 import CIcon from "@coreui/icons-react";
 import { cilOptions } from "@coreui/icons";
-import './ListPane.css'
+import './ListPane.scss'
 
 // This is fucking unhinged but damn it works well
 export type ListPaneRow = { [key: string]: ReactNode };

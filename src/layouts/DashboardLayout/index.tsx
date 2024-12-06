@@ -4,8 +4,8 @@ import UserProfile from '@components/Account/UserProfile'
 import { Navigate, Outlet, useLocation } from 'react-router'
 import { ROUTES } from '@constants/Routes'
 import { cilLocationPin, cilCamera, cilContact, cilCalendar } from '@coreui/icons'
+import { isAuthenticated } from '@api/auth/authTokenApi'
 import './DashboardLayout.css'
-import { isAuthenticated } from '@/API/auth/authTokenApi'
 
 export default function DashboardLayout() {
 	const location = useLocation();

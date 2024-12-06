@@ -1,5 +1,5 @@
-import { LOCATIONS_BASE_PATH } from "@/constants/Endpoints";
-import { getAuthToken } from "../auth/authTokenApi";
+import { LOCATIONS_BASE_PATH } from "@constants/Endpoints";
+import { getAuthToken } from "@api/auth/authTokenApi";
 
 export interface LocationDto {
   locationId: string,

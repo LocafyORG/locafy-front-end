@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { ListPane2, ListPaneRow } from '@components/ListPane/ListPane'	
-import './Contacts.css'
+import './Contacts.scss'
 
 /**
  * `CTable` docs: `https://coreui.io/react/docs/components/table/`

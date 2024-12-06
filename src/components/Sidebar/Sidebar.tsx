@@ -1,7 +1,7 @@
 import CIcon from '@coreui/icons-react';
 import { CSidebar } from '@coreui/react';
 import { NavLink } from 'react-router'
-import './Sidebar.css'
+import './Sidebar.scss'
 
 interface SidebarProps {
 	buttons: SidebarButtonProps[]

@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import { LoginPayload } from "@/interfaces/Auth";
-// import { loginUser } from "../../../API/auth/authenticationAPI"
-   import { loginUser } from "@/API/auth/authenticationAPI"
-import { ROUTES } from "@constants/Routes";
-import "./Login.css";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { LoginPayload } from '@/interfaces/Auth';
+import { loginUser } from '@api/auth/authenticationAPI'
+import { ROUTES } from '@constants/Routes';
+import './Login.css';
 
 function Login() {
   const navigate = useNavigate(); // React Router hook for navigation

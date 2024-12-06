@@ -1,5 +1,5 @@
-import { LOGIN_URL, REGISTER_URL } from '../../constants/Endpoints';
-import { LoginPayload, RegisterPayload } from '../../interfaces/Auth';
+import { LOGIN_URL, REGISTER_URL } from '@constants/Endpoints';
+import { LoginPayload, RegisterPayload } from '@api/interfaces/Auth';
 import { setAuthToken } from './authTokenApi';
 
 // Register function with proxy URL
