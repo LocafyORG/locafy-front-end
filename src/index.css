@@ -1,7 +1,37 @@
+:root {
+  /* Animation */
+  --anim-none: 0s;
+  --anim-fast: 0.1s;
+  --anim-normal: 0.2s;
+  --anim-slow: 0.3s;
+
+  /* Revised color system */
+  --background-color: #f7f7f9;
+  --foreground-color: #626477;
+  --primary-color: #666cff;
+  --error-color: red;
+  --warning-color: yellow;
+
+  /* Font colors */
+  --on-background: #626477;
+  --on-primary: white;
+}
+
 html {
 	height: 100%;
 }
 
 body {
 	height: 100%;
+  background-color: var(--background-color);
+  color: var(--foreground-color);
 }
+
+button {
+  background-color: var(--primary-color);
+  color: var(--on-primary);
+}
+
+
+
+

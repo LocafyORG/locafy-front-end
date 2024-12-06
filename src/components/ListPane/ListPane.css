@@ -4,7 +4,7 @@
 	background-color: white;
 	border-radius: 16px;
 	padding: 16px;
-	box-shadow: 10px 10px 5px #aaaaaa;
+	box-shadow: 0.3em 0.3em 1em #aaaaaaaa;
 }
 
 /* Link column styles */
@@ -38,3 +38,40 @@ th:last-child {
 
 
 
+
+/* Actions Menu */
+.actions-menu {
+  position: relative;
+}
+
+.actions-menu button {
+  background-color: transparent;
+  color: var(--foreground-color);
+  border-radius: 100%;
+}
+
+.actions-menu:hover button:hover {
+  background-color: var(--background-color);
+}
+
+.actions-menu > .menu-items {
+  position: absolute;
+  padding: 4px;
+  background-color: white;
+  border-radius: 8px;
+  left: 0px;
+  right: 0px;
+	box-shadow: 0.3em 0.3em 1em #aaaaaaaa;
+  transition: opacity var(--anim-fast);
+}
+
+.actions-menu > .menu-items > button {
+  border-radius: inherit;
+  background-color: transparent;
+  
+  z-index: 10;
+}
+
+.hidden {
+  opacity: 0;
+}

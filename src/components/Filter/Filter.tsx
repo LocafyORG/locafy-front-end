@@ -1,5 +1,3 @@
-import React from "react";
-
 const FilterComponent = () => {
   return (
     <div className="mb-4 p-4 bg-gray-100 rounded-lg flex items-center gap-4 flex-wrap">

@@ -1,57 +1,45 @@
-import { ReactNode, useState, useEffect } from "react"
-import { Link } from "react-router"
-import { CContainer, CTableBody, CTableHead, CTable, CTableRow, CTableHeaderCell, CTableDataCell } from '@coreui/react'
+import React, { ReactNode, useState, useEffect } from "react"
+import { CContainer, CTableBody, CTableHead, CTable, CTableRow, CTableHeaderCell, CTableDataCell, CRow } from '@coreui/react'
+import CIcon from "@coreui/icons-react";
+import { cilOptions } from "@coreui/icons";
 import './ListPane.css'
 
-type ColumnData = string;
-type ListPaneRowData = {[key: string]: ColumnData };
-	
-interface ListPaneProps {
-	data: ListPaneRowData[],
-	colNameArrangement: { [key: string]: string }
+// This is fucking unhinged but damn it works well
+export type ListPaneRow = { [key: string]: ReactNode };
+type RowActions = { [key: string]: (index: number) => void };
+
+interface ListPane2Props {
+  data: ListPaneRow[]
+  columnNames: { [key: string]: string },
+  actions?: RowActions,
+  action?: RowModalActions
 }
 
-export default function ListPane({ data, colNameArrangement }: ListPaneProps) {
-	const [keys] = useState<string[]>(Object.keys(colNameArrangement));
-	const [headRowNames, setHeadRowNames] = useState<string[]>([]);
+type RowModalActions = { [key: string]: (index: number) => void }
 
-	useEffect(() => {
-		// The `Object.key()` and `Object.values()` change the arrangement of the elements.
-		// Using these functions for `keys` and `headRowNames` respectively may cause a misalignment.
-		const names = keys.map((key) => colNameArrangement[key]);
-		setHeadRowNames(names);
-	}, [keys, colNameArrangement]);
+export function ListPane2 ({ data, columnNames, actions = {} }: ListPane2Props): ReactNode {
+  const [orderedKeys] = useState(Object.keys(columnNames));
+  const [hasActions, setHasActions] = useState(false);
 
-	function processColData(dataArray: ListPaneRowData, key: string): ReactNode {
-		const colData: string | undefined = dataArray[key]
-
-		if (!colData) return <>{""}</>
-
-		if (colData.length > 2 && colData.startsWith("`") && colData.endsWith("`")) {
-			const regex = /\[([^\]]+)\]\(([^)]+)\)/;
-			const match = colData.match(regex);
-			const label = match?.[1];
-			const url = match?.[2];
-
-			if (!label || !url) {
-				return <h1>Come on man!</h1>
-			}
-
-			return <Link to={url}>{label}</Link>
-		}
-
-		return <>{colData}</>
-	}
+  useEffect(() => {
+    setHasActions(actions !== undefined && Object.keys(actions).length > 0);
+  }, [actions]);
 
 	return <>
 		<CContainer fluid className="list-pane">
 			<CTable>
+				{/* Head Row */}
 				<CTableHead>	
-					{/* Head Row */}
 					<CTableRow>
-						{headRowNames.map((name, colKey) => (
-							<CTableHeaderCell key={colKey}>{name}</CTableHeaderCell>
+						{orderedKeys.map((name, colKey) => (
+							<CTableHeaderCell key={colKey}>{columnNames[name]}</CTableHeaderCell>
 						))}
+
+            {/* I need a strong acid to wash my eyes with after looking at this syntax. Disgusting. */}
+            { hasActions ?
+              /* Redundant space for the action button column */
+              <CTableHeaderCell />
+            : null }
 					</CTableRow>
 				</CTableHead>	
 
@@ -59,16 +47,51 @@ export default function ListPane({ data, colNameArrangement }: ListPaneProps) {
 					{/* Data Rows */}
 					{data.map((d, rowId) => (
 						<CTableRow key={rowId}>
-							{keys.map((key, colId) => (
+							{orderedKeys.map((key, colId) => (
 								<CTableDataCell key={colId}>
-									{processColData(d, key)}
+                  {d[key]}
 								</CTableDataCell>
 							))}	
+
+            { hasActions ?
+              /* Append actions at the very end */
+              <CTableDataCell>
+                <ActionsMenu actions={actions} itemIndex={rowId} />
+              </CTableDataCell>
+            : null }
 						</CTableRow>
 					))}
 				</CTableBody>
-
 			</CTable>
 		</CContainer>
 	</>
+}
+
+interface ActionsMenuProps {
+  itemIndex: number,
+  actions: RowActions
+}
+
+function ActionsMenu({ actions, itemIndex }: ActionsMenuProps) {
+  const [menuToggled, setMenuToggled] = useState<boolean>(false);
+  const toggleMenu = () => setMenuToggled(prev => !prev);
+
+  const closeMenu = (e: React.FocusEvent<HTMLDivElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setMenuToggled(false);
+    }
+  }
+
+  return <div className="actions-menu" onBlur={closeMenu}>
+    <button onClick={toggleMenu}>
+      <CIcon icon={cilOptions} />
+    </button>
+    <CRow className={`menu-items ${menuToggled ? "" : "hidden"}`}>
+      {Object.keys(actions).sort().map((actionName, index) => 
+        <button key={index} onClick={() => actions[actionName](itemIndex)}>
+          {actionName}
+        </button>
+      )}
+    </CRow>
+  </div>
 }
