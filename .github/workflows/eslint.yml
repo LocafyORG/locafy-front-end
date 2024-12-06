@@ -34,13 +34,13 @@ jobs:
 
       - name: Install ESLint
         run: |
-          npm i
+          npm i eslint
 
       - name: Run ESLint
         env:
           SARIF_ESLINT_IGNORE_SUPPRESSED: "true"
         run: |
-          npm run lint
+          npx eslint -c eslint.config.js -o eslint-results.sarif .
 
       - name: Wait for file to be ready
         run: sleep 10

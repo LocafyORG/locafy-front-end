@@ -6,6 +6,7 @@ import "material-icons/iconfont/material-icons.css";
 import '@styles/index.scss';
 import App from './App.tsx';
 
+const x = "BOOBS";
 createRoot(document.getElementById('root')!).render(
   <App />
 )
