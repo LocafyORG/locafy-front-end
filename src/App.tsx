@@ -1,17 +1,17 @@
-import { BrowserRouter, Routes, Route } from 'react-router'
-import { BASE_AUTH_PATH, BASE_PATH, ROUTES } from '@constants/Routes'
-import Home from '@pages/home/Home'
-import Locations from '@pages/dashboard/locations/Locations'
-import Productions from '@pages/dashboard/productions/Productions'
-import Contacts from '@pages/dashboard/contacts/Contacts'
-import About from '@pages/about/About';
-import Profile from '@pages/profile/Profile';
-import Pricing from '@pages/pricing/Pricing';
-import Login from '@pages/authentication/login/Login';
-import Register from '@pages/authentication/register/Register';
-import DashboardLayout from '@/layouts/DashboardLayout'
-import AuthLayout from '@layouts/AuthLayout'
-import './App.scss'
+import { BrowserRouter, Routes, Route } from 'react-router';
+import { BASE_AUTH_PATH, BASE_PATH, ROUTES } from '@constants/Routes';
+import Home from '@pages/Home';
+import Locations from '@pages/dashboard/Locations';
+import Productions from '@pages/dashboard/Productions';
+import Contacts from '@pages/dashboard/Contacts';
+import About from '@pages/About';
+import Profile from '@pages/Profile';
+import Pricing from '@pages/Pricing';
+import Login from '@pages/auth/Login';
+import Register from '@pages/auth/Register';
+import DashboardLayout from '@layouts/DashboardLayout';
+import AuthLayout from '@layouts/AuthLayout';
+import '@styles/App.scss';
 
 /**
  * 

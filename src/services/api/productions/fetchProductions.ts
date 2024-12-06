@@ -1,4 +1,4 @@
-import { API_URL } from '@/constants/Endpoints';
+import { API_URL } from '@constants/Endpoints';
 import { Production } from '@api/interfaces/Production';
 import { getAuthToken } from '@api/auth/authTokenApi';
 

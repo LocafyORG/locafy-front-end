@@ -1,0 +1,28 @@
+.main-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.dashboard-layout {
+	display: flex;
+	flex-direction: row;
+	min-height: 100vh;
+}
+
+.sidebar-container {
+	width: 224px;
+}
+
+.content-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow-y: scroll;
+	overflow-x: auto;
+  padding-bottom: 160px;
+}
+
+.content-container > .content {
+	margin: 0px 64px;
+}
