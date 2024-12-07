@@ -20,17 +20,24 @@ Follow the steps below to run Locafy locally:
    ```bash
    git clone https://github.com/your-username/locafy.git
 
+   ```
+
 2. Navigate to the project directory:
    ```bash
    cd locafy
-   
-4. Install dependencies:
+
+   ```
+3. Install dependencies:
+
    ```bash
    npm install
 
-5. Start the development server:
+   ```
+
+4. Start the development server:
    ```bash
    npm start
+   ```
 
 Locafy should now be running on http://localhost:3000.
 🛠️ Tech Stack
@@ -58,7 +65,3 @@ Contributions are welcome! Here's how you can get started:
 📄 License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
-
-
-
-

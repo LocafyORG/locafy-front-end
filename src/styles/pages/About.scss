@@ -1,29 +1,31 @@
 /* Card Styles */
 .ccard {
-    padding: 1rem;
-  }
-  
-  .mb-4 {
-    margin-bottom: 1.5rem !important;
-  }
-  
-  .ccard:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  }
-  
-  .bg-gradient {
-    background: linear-gradient(135deg, #6c757d, #5a6268);
-    color: white;
-  }
-  
-  .hover-scale {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  }
-  
-  .hover-scale:hover {
-    transform: scale(1.02);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Responsive padding for cards */
+  padding: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.ccard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, #6c757d, #5a6268);
+  color: white;
+}
+
+.hover-scale {
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive padding for cards */

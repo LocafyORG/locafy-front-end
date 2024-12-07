@@ -1,7 +1,7 @@
-import { Link } from 'react-router';
-import Header from '@components/Header/Header';
-import Footer from '@components/Footer/Footer';
-import '@styles/pages/Home.scss';
+import { Link } from "react-router";
+import Header from "@components/Header/Header";
+import Footer from "@components/Footer/Footer";
+import "@styles/pages/Home.scss";
 
 function Home() {
   return (
@@ -22,7 +22,6 @@ function Home() {
               Get Started
             </Link>
           </div>
-
 
           <br />
           <br />

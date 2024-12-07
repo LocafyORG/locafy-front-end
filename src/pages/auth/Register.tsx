@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { registerUser } from '@api/auth/authenticationAPI';
-import { RegisterPayload } from '@api/interfaces/Auth';
-import '@styles/pages/auth/Register.scss';
+import { useState } from "react";
+import { registerUser } from "@api/auth/authenticationAPI";
+import { RegisterPayload } from "@api/interfaces/Auth";
+import "@styles/pages/auth/Register.scss";
 
 function Register() {
   const [formData, setFormData] = useState<RegisterPayload>({

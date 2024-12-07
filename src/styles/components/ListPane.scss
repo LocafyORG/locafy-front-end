@@ -1,14 +1,15 @@
 /* container styles */
 .list-pane {
-	--th-border-radius: 8px;
-	background-color: white;
-	border-radius: 16px;
-	padding: 16px;
-	box-shadow: 0.3em 0.3em 1em #aaaaaaaa;
+  --th-border-radius: 8px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0.3em 0.3em 1em #aaaaaaaa;
 
   /* Link column styles */
-  td, th {
-	  padding: 20px !important;
+  td,
+  th {
+    padding: 20px !important;
   }
 
   td {
@@ -33,16 +34,10 @@
   }
 }
 
-
 /* Remove bottom border of last table row */
 tr:last-child {
-	border-bottom: 0px;
+  border-bottom: 0px;
 }
-
-
-
-
-
 
 /* Actions Menu */
 .actions-menu {

@@ -1,11 +1,16 @@
-import { useEffect, useState } from 'react'
-import Sidebar from '@components/Sidebar'
-import UserProfile from '@components/Account/UserProfile'
-import { Navigate, Outlet, useLocation } from 'react-router'
-import { ROUTES } from '@constants/Routes'
-import { cilLocationPin, cilCamera, cilContact, cilCalendar } from '@coreui/icons'
-import { isAuthenticated } from '@api/auth/authTokenApi'
-import '@styles/layouts/DashboardLayout.scss'
+import { useEffect, useState } from "react";
+import Sidebar from "@components/Sidebar";
+import UserProfile from "@components/Account/UserProfile";
+import { Navigate, Outlet, useLocation } from "react-router";
+import { ROUTES } from "@constants/Routes";
+import {
+  cilLocationPin,
+  cilCamera,
+  cilContact,
+  cilCalendar,
+} from "@coreui/icons";
+import { isAuthenticated } from "@api/auth/authTokenApi";
+import "@styles/layouts/DashboardLayout.scss";
 
 export default function DashboardLayout() {
   const location = useLocation();
@@ -34,10 +39,10 @@ export default function DashboardLayout() {
   ]);
 
   useEffect(() => {
-    setAuth(isAuthenticated());    // Trigger recomposition every time the path changes within the dashboard
+    setAuth(isAuthenticated()); // Trigger recomposition every time the path changes within the dashboard
   }, [location]);
 
-  return auth ?
+  return auth ? (
     <div className="dashboard-layout">
       <Sidebar buttons={navButtons} />
       <div className="content-container">
@@ -47,6 +52,7 @@ export default function DashboardLayout() {
         </div>
       </div>
     </div>
-    :
+  ) : (
     <Navigate to={ROUTES.LOGIN} replace />
+  );
 }

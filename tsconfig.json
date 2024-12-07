@@ -1,40 +1,24 @@
 {
-  "compilerOptions":{
-    "baseUrl":".",
-    "paths":{
-      "@components/*":[
-        "src/components/*"
-      ],
-      "@layouts/*":[
-        "src/layouts/*"
-      ],
-      "@pages/*":[
-        "src/pages/*"
-      ],
-      "@constants/*":[
-        "src/constants/*"
-      ],
-      "@assets/*":[
-        "src/assets/*"
-      ],
-      "@api/*":[
-        "src/services/api/*"
-      ],
-      "@styles/*":[
-        "src/styles/*"
-      ],
-      "@hooks/*":[
-        "src/hooks/*"
-      ]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@pages/*": ["src/pages/*"],
+      "@constants/*": ["src/constants/*"],
+      "@assets/*": ["src/assets/*"],
+      "@api/*": ["src/services/api/*"],
+      "@styles/*": ["src/styles/*"],
+      "@hooks/*": ["src/hooks/*"]
     }
   },
-  "files":[],
-  "references":[
+  "files": [],
+  "references": [
     {
-      "path":"./tsconfig.app.json"
+      "path": "./tsconfig.app.json"
     },
     {
-      "path":"./tsconfig.node.json"
+      "path": "./tsconfig.node.json"
     }
   ]
 }

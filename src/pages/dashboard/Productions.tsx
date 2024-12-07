@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import Card from '@components/Card';
-import SortControls from '@components/SortControls/SortControls';
-import Cheems from '@assets/img/under-development.webp';
-import { fetchProductions } from '@api/productions/fetchProductions.ts';
-import { Production } from '@api/interfaces/Production.ts';
-import '@styles/pages/dashboard/Productions.scss';
+import { useState, useEffect } from "react";
+import Card from "@components/Card";
+import SortControls from "@components/SortControls/SortControls";
+import Cheems from "@assets/img/under-development.webp";
+import { fetchProductions } from "@api/productions/fetchProductions.ts";
+import { Production } from "@api/interfaces/Production.ts";
+import "@styles/pages/dashboard/Productions.scss";
 
 function Productions() {
   const [data, setData] = useState<Production[]>([]);
@@ -40,7 +40,9 @@ function Productions() {
   return (
     <>
       <h1>Productions</h1>
-      <a className="waves-effect waves-light btn float-right">Add a new production</a>
+      <a className="waves-effect waves-light btn float-right">
+        Add a new production
+      </a>
 
       <SortControls onSortChange={(value) => setSortKey(value)} />
       <div className="card-container">

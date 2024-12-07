@@ -4,22 +4,22 @@
  * global constant namespace.
  */
 .cust-sidebar {
-	--nav-button-bg-color: transparent;
-	--nav-button-color: #000000;
-	--nav-button-hover-bg-color: #eeeff2;
-	--nav-button-hover-color: black;
-	--nav-button-active-bg-color: #666cff;
-	--nav-button-active-color: white;
-	--animation-transition: 0.2s;
-	--nav-button-bg-color-transition: 0s;
-	--nav-button-border-radius-transition: 0s;
+  --nav-button-bg-color: transparent;
+  --nav-button-color: #000000;
+  --nav-button-hover-bg-color: #eeeff2;
+  --nav-button-hover-color: black;
+  --nav-button-active-bg-color: #666cff;
+  --nav-button-active-color: white;
+  --animation-transition: 0.2s;
+  --nav-button-bg-color-transition: 0s;
+  --nav-button-border-radius-transition: 0s;
 
-	background-color: transparent;	
-	width: 16%;
-	min-height: 100vh;
+  background-color: transparent;
+  width: 16%;
+  min-height: 100vh;
 
   .cust-sidebar-brand {
-	  padding: 24px 0px;
+    padding: 24px 0px;
   }
 
   .cust-sidebar-nav {
@@ -46,10 +46,12 @@
         gap: 8px;
         padding-left: 16px;
         height: 40px;
-        background-color: var(--nav-button-bg-color);	
-        color: var(--foreground-color);	
-        transition: all var(--anim-normal) ease, background-color var(--anim-none), color var(--anim-none);
-
+        background-color: var(--nav-button-bg-color);
+        color: var(--foreground-color);
+        transition:
+          all var(--anim-normal) ease,
+          background-color var(--anim-none),
+          color var(--anim-none);
       }
 
       /* Active indicator styles */
@@ -64,26 +66,25 @@
       }
 
       .cust-button-icon {
-        padding: 0px;	
-        transform: scale(1);		/* Adjust as needed */
+        padding: 0px;
+        transform: scale(1); /* Adjust as needed */
       }
-
 
       /* Button styles when hovered */
       &:hover {
         .content {
           background-color: var(--nav-button-hover-bg-color);
-          color: var(--nav-button-hover-color);	
+          color: var(--nav-button-hover-color);
           margin: 0px 8px 0px 8px;
           border-radius: 8px;
         }
       }
 
       /* Button stlyes when active */
-      &.active { 
+      &.active {
         .content {
           background-color: transparent;
-          color: var(--nav-button-active-color);	
+          color: var(--nav-button-active-color);
           margin: 0px 8px 0px 8px;
           border-radius: 8px;
         }
@@ -99,12 +100,11 @@
   }
 }
 
-
 /**
  * Banner icon
  */
 .material-icons {
   margin-right: 16px; /* Adjust spacing as needed */
   margin-left: 8px;
-  transform: scale(1.2);  
+  transform: scale(1.2);
 }

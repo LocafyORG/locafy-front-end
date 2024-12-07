@@ -1,18 +1,18 @@
-const TOKEN_STORAGE_KEY = "AUTH_TOKEN"
+const TOKEN_STORAGE_KEY = "AUTH_TOKEN";
 
 export function getAuthToken(): string {
-	return localStorage.getItem(TOKEN_STORAGE_KEY) || ""
+  return localStorage.getItem(TOKEN_STORAGE_KEY) || "";
 }
 
 export function setAuthToken(token: string) {
-	localStorage.setItem(TOKEN_STORAGE_KEY, token);
-	window.dispatchEvent(new Event("token-change"));
+  localStorage.setItem(TOKEN_STORAGE_KEY, token);
+  window.dispatchEvent(new Event("token-change"));
 }
 
 export function deleteAuthToken() {
-	setAuthToken("");
+  setAuthToken("");
 }
 
 export function isAuthenticated(): boolean {
-	return getAuthToken() !== "";
+  return getAuthToken() !== "";
 }

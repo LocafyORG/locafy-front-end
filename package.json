@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --port 3000 --cors",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "prettier --write . && eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -31,6 +31,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.13.0",
+    "prettier": "^3.4.2",
     "sass-embedded": "^1.82.0",
     "typescript": "~5.6.3",
     "typescript-eslint": "^8.17.0",

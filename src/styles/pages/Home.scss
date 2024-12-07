@@ -1,17 +1,16 @@
 /* Icons are small by default, possibly a better way to increase size? */
 .material-icons {
-    transform: scale(2);
-  }
+  transform: scale(2);
+}
 
-  .button-container {
-    display: flex;
-    justify-content: center; /* Centers the button horizontally */
-    margin: 20px 0; /* Add some margin for spacing */
-  }
-  
-  .custom-btn {
-    width: auto; /* Set width to auto */
-    padding: 10px 20px; /* Adjust padding for vertical and horizontal spacing */
-    text-align: center; /* Center the text */
-  }
-  
+.button-container {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  margin: 20px 0; /* Add some margin for spacing */
+}
+
+.custom-btn {
+  width: auto; /* Set width to auto */
+  padding: 10px 20px; /* Adjust padding for vertical and horizontal spacing */
+  text-align: center; /* Center the text */
+}

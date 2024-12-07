@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { LoginPayload } from '@api/interfaces/Auth';
-import { loginUser } from '@api/auth/authenticationAPI';
-import { ROUTES } from '@constants/Routes';
-import '@styles/pages/auth/Login.scss';
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { LoginPayload } from "@api/interfaces/Auth";
+import { loginUser } from "@api/auth/authenticationAPI";
+import { ROUTES } from "@constants/Routes";
+import "@styles/pages/auth/Login.scss";
 
 function Login() {
   const navigate = useNavigate(); // React Router hook for navigation
@@ -27,16 +27,16 @@ function Login() {
     setErrorMessage(null);
     setSuccessMessage(null);
 
-		loginUser(formData)
-			.then(() => {
-				navigate(ROUTES.PRODUCTIONS);
-			})
-			.catch(err => {
-      	setErrorMessage((err as Error).message);
-			})
-			.finally(() => {
-      	setIsSubmitting(false);
-			})
+    loginUser(formData)
+      .then(() => {
+        navigate(ROUTES.PRODUCTIONS);
+      })
+      .catch((err) => {
+        setErrorMessage((err as Error).message);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   const handleRegisterClick = () => {
