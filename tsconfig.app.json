@@ -1,38 +1,58 @@
 {
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "Bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "jsx": "react-jsx",
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["src/*"],
-			"@components/*": ["src/components/*"],
-			"@layouts/*": ["src/layouts/*"],
-			"@pages/*": ["src/pages/*"],
-			"@constants/*": ["src/constants/*"],
-			"@assets/*": ["src/assets/*"],
-      "@api/*": ["src/services/api/*"],
-      "@styles/*": ["src/styles/*"],
-      "@hooks/*": ["src/hooks/*"]
-		}
+  "compilerOptions":{
+    "tsBuildInfoFile":"./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target":"ES2020",
+    "useDefineForClassFields":true,
+    "lib":[
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module":"ESNext",
+    "skipLibCheck":true,
+    "moduleResolution":"Bundler",
+    "allowImportingTsExtensions":true,
+    "isolatedModules":true,
+    "moduleDetection":"force",
+    "noEmit":true,
+    "jsx":"react-jsx",
+    "strict":true,
+    "noUnusedLocals":true,
+    "noUnusedParameters":true,
+    "noFallthroughCasesInSwitch":true,
+    "noUncheckedSideEffectImports":true,
+    "baseUrl":".",
+    "paths":{
+      "@/*":[
+        "src/*"
+      ],
+      "@components/*":[
+        "src/components/*"
+      ],
+      "@layouts/*":[
+        "src/layouts/*"
+      ],
+      "@pages/*":[
+        "src/pages/*"
+      ],
+      "@constants/*":[
+        "src/constants/*"
+      ],
+      "@assets/*":[
+        "src/assets/*"
+      ],
+      "@api/*":[
+        "src/services/api/*"
+      ],
+      "@styles/*":[
+        "src/styles/*"
+      ],
+      "@hooks/*":[
+        "src/hooks/*"
+      ]
+    }
   },
-  "include": ["src"]
+  "include":[
+    "src"
+  ]
 }
