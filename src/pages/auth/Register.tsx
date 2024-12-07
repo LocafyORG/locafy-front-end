@@ -31,7 +31,11 @@ function Register() {
       setSuccessMessage("Registration successful! You can now log in.");
       setFormData({ email: "", password: "", firstName: "", lastName: "" });
     } catch (error) {
-      setErrorMessage((error as Error).message);
+      if (error instanceof Error && error.message) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage("Something went wrong on our end");
+      }
     } finally {
       setIsSubmitting(false);
     }
