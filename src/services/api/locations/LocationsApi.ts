@@ -1,24 +1,8 @@
 import { LOCATIONS_BASE_PATH } from "@constants/Endpoints";
 import { getAuthToken } from "@api/auth/authTokenApi";
+import { Location } from "@api/interfaces/Location";
 
-export interface LocationDto {
-  locationId: string;
-  addressIds: string[];
-  name: string;
-  locationType: string;
-  notes: string;
-  keywords: string[];
-  sceneLocationIds: string[];
-  nonFilmingLocationIds: string[];
-  contactIds: string[];
-  locationPhotoIds: string[];
-  uploadedById: string;
-  uploadedAt: string;
-  lastUpdated: string;
-  permissionIds: string[];
-}
-
-export async function getAllLocations(): Promise<LocationDto[] | Error> {
+export async function getAllLocations(): Promise<Location[] | Error> {
   return fetch(`${LOCATIONS_BASE_PATH}/all`, {
     method: "GET",
     headers: {
@@ -29,7 +13,7 @@ export async function getAllLocations(): Promise<LocationDto[] | Error> {
     .catch((err) => err as Error);
 }
 
-export async function getUserLocations(): Promise<LocationDto[] | Error> {
+export async function getUserLocations(): Promise<Location[] | Error> {
   return fetch(`${LOCATIONS_BASE_PATH}/user`, {
     method: "GET",
     headers: {

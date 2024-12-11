@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Card from "@components/ui/Card";
 import SortControls from "@components/ui/SortControls/SortControls";
 import Cheems from "@assets/img/under-development.webp";
-import { fetchProductions } from "@api/productions/fetchProductions.ts";
+import { fetchProductions } from "@api/productions/ProductionsApi.ts";
 import { Production } from "@api/interfaces/Production.ts";
 import "@styles/pages/dashboard/Productions.scss";
 import { DasboardPageHeader } from "@layouts/DashboardLayout";

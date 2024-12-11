@@ -1,29 +1,10 @@
-export interface ContactDto {
-  contactId?: string;
-  name: string;
-  phone: string;
-  email: string;
-  notes: string;
-  uploadedById: string;
-  locationIds: string[];
-  nonFilmingIds: string[];
-  uploadedAt: string;
-  lastUpdated: string;
-}
-
-interface ContactInput {
-  name: string;
-  phone: string;
-  email: string;
-  notes: string;
-  assocLocationIds: string[];
-}
+import { Contact, ContactInput } from "@api/interfaces/Contacts";
 
 export async function createContact(
   input: ContactInput,
   ownerId: string,
-): Promise<ContactDto> {
-  const dto: ContactDto = {
+): Promise<Contact> {
+  const dto: Contact = {
     locationIds: input.assocLocationIds,
     nonFilmingIds: [],
     uploadedAt: "",
@@ -41,7 +22,7 @@ export async function createContact(
     body: JSON.stringify(dto),
   })
     .then((res) => res.json())
-    .then((data) => data.body as ContactDto);
+    .then((data) => data.body as Contact);
 }
 
 export function getContactById() {}
