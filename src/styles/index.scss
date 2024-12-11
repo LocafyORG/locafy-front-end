@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Animation */
   --anim-none: 0s;
@@ -19,15 +23,23 @@
 
 html {
   height: 100%;
+
+  body {
+    height: 100%;
+    background-color: var(--background-color);
+    color: var(--foreground-color);
+
+    button {
+      background-color: var(--primary-color);
+      color: var(--on-primary);
+    }
+
+    #root {
+      height: 100%;
+    }
+  }
 }
 
-body {
-  height: 100%;
-  background-color: var(--background-color);
-  color: var(--foreground-color);
-
-  button {
-    background-color: var(--primary-color);
-    color: var(--on-primary);
-  }
+.box-shadow {
+  box-shadow: 0.3em 0.3em 1em #aaaaaaaa;
 }

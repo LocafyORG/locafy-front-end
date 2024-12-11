@@ -26,12 +26,12 @@ function App() {
         <Route path={ROUTES.PRICING} element={<Pricing />} />
 
         <Route path={BASE_AUTH_PATH} element={<AuthLayout />}>
-          <Route path={ROUTES.LOGIN} element={<Login />} />
+          <Route index path={ROUTES.LOGIN} element={<Login />} />
           <Route path={ROUTES.REGISTER} element={<Register />} />
         </Route>
 
         <Route path={BASE_PATH} element={<DashboardLayout />}>
-          <Route path={ROUTES.LOCATIONS} element={<Locations />} />
+          <Route index path={ROUTES.LOCATIONS} element={<Locations />} />
           <Route path="productions" element={<Productions />} />
           <Route path={ROUTES.CONTACTS} element={<Contacts />} />
           <Route path={ROUTES.CALENDAR} element={<Contacts />} />

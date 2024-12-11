@@ -1,11 +1,51 @@
-import { Link } from "react-router";
-import Header from "@components/Header/Header";
-import Footer from "@components/Footer/Footer";
 import "@styles/pages/Home.scss";
+import { Hero, Screen } from "@components/ui/PageBlock";
+import { Col, Row } from "@components/Container";
+import { Link } from "react-router";
+import { ROUTES } from "@constants/Routes";
+import Sunset from "@assets/img/auth.webp";
 
 function Home() {
   return (
-    <>
+    <Col className="overflow-x-hidden">
+      <Hero className="relative h-screen text-center justify-center items-center backdrop-blur-lg shadow-lg">
+        <Col className="*:drop-shadow-xl w-1/4 justify-center items-center">
+          <h1 className="text-7xl text-slate-900 font-extrabold">LocusPoint</h1>
+          <p className="text-2xl text-slate-600">
+            designed to streamline the organization and management of filming
+            locations.
+          </p>
+          <Link
+            className="bg-primary-500 text-white rounded-full px-3 py-2 w-fit"
+            to={ROUTES.LOCATIONS}
+          >
+            Get Started
+          </Link>
+        </Col>
+        <div className="absolute bottom-0 h-1/5 w-full bg-primary-500"></div>
+      </Hero>
+
+      <Screen className="relative m-0">
+        <div className="absolute top-0 h-2/3 w-full bg-gradient-to-b from-indigo-500 to-transparent z-0"></div>
+        <Row className="z-10 items-end">
+          <img
+            src={Sunset}
+            style={{ width: "700px", height: "750px" }}
+            className="m-5 object-cover w-32 h-24 rounded-3xl"
+          />
+          <Col className="*:drop-shadow-xl w-1/4 justify-center items-center">
+            <h1 className="text-7xl text-slate-900 font-extrabold">Features</h1>
+            <p className="text-2xl text-slate-600">
+              Our app does this and that
+            </p>
+          </Col>
+        </Row>
+      </Screen>
+
+      <Screen>Created by...</Screen>
+
+      <Screen>Plz buy our app. Thank</Screen>
+      {/*
       <Header />
       <div className="home container center">
         <div className="row center">
@@ -82,7 +122,8 @@ function Home() {
       </div>
 
       <Footer />
-    </>
+      */}
+    </Col>
   );
 }
 

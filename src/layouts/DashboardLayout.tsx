@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Sidebar from "@components/Sidebar";
-import UserProfile from "@components/Account/UserProfile";
+import Sidebar from "@components/ui/Sidebar";
+import UserProfile from "@components/ui/Account/UserProfile";
 import { Navigate, Outlet, useLocation } from "react-router";
 import { ROUTES } from "@constants/Routes";
 import {
@@ -11,6 +11,7 @@ import {
 } from "@coreui/icons";
 import { isAuthenticated } from "@api/auth/authTokenApi";
 import "@styles/layouts/DashboardLayout.scss";
+import { Button, ButtonProps } from "@components/Button";
 
 export default function DashboardLayout() {
   const location = useLocation();
@@ -43,16 +44,35 @@ export default function DashboardLayout() {
   }, [location]);
 
   return auth ? (
-    <div className="dashboard-layout">
+    <div className="dashboard-layout overflow-hidden">
       <Sidebar buttons={navButtons} />
-      <div className="content-container">
-        <UserProfile />
-        <div className="content">
+      <div className="flex flex-column items-center justify-start w-full">
+        <UserProfile className="flex-grow-0 w-full" />
+        <div className="flex flex-column w-full max-w-screen-xl space-y-4 p-5 pt-0">
           <Outlet />
         </div>
       </div>
     </div>
   ) : (
     <Navigate to={ROUTES.LOGIN} replace />
+  );
+}
+
+interface DashboardPageHeaderProps {
+  title: string;
+  buttons: ButtonProps[];
+}
+
+export function DasboardPageHeader({
+  title,
+  buttons,
+}: DashboardPageHeaderProps) {
+  return (
+    <div className="flex flex-row justify-between items-center mt-12 mb-3">
+      <h1 className="text-4xl">{title}</h1>
+      {buttons.map((button, index) => (
+        <Button {...button} key={index} />
+      ))}
+    </div>
   );
 }

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import Card from "@components/Card";
-import SortControls from "@components/SortControls/SortControls";
+import Card from "@components/ui/Card";
+import SortControls from "@components/ui/SortControls/SortControls";
 import Cheems from "@assets/img/under-development.webp";
 import { fetchProductions } from "@api/productions/fetchProductions.ts";
 import { Production } from "@api/interfaces/Production.ts";
 import "@styles/pages/dashboard/Productions.scss";
+import { DasboardPageHeader } from "@layouts/DashboardLayout";
 
 function Productions() {
   const [data, setData] = useState<Production[]>([]);
@@ -39,10 +40,10 @@ function Productions() {
 
   return (
     <>
-      <h1>Productions</h1>
-      <a className="waves-effect waves-light btn float-right">
-        Add a new production
-      </a>
+      <DasboardPageHeader
+        title="Productions"
+        buttons={[{ children: "CREATE NEW PRODUCTION" }]}
+      />
 
       <SortControls onSortChange={(value) => setSortKey(value)} />
       <div className="card-container">

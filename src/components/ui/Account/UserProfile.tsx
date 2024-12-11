@@ -5,14 +5,17 @@ import Cheems from "@assets/img/under-development.webp";
 import "./UserProfile.css";
 import { deleteAuthToken } from "@api/auth/authTokenApi";
 import { ROUTES } from "@constants/Routes";
+import { ActionsMenu } from "../ListPane";
 
 interface UserProfileProps {
   userBadgeSrc?: string;
+  className?: string;
   iconButtons?: IconButtonProps[];
 }
 
 export default function UserProfile({
   userBadgeSrc = Cheems,
+  className = "",
   iconButtons = [],
 }: UserProfileProps) {
   const navigate = useNavigate();
@@ -23,13 +26,20 @@ export default function UserProfile({
   };
 
   return (
-    <div className="icon-container" onClick={signOut}>
-      <CImage
-        className="user-badge"
-        src={userBadgeSrc}
-        width={40}
-        height={40}
-      />
+    <div className={`icon-container ${className}`}>
+      <ActionsMenu
+        itemIndex={0}
+        actions={{
+          Logout: signOut,
+        }}
+      >
+        <CImage
+          className="user-badge"
+          src={userBadgeSrc}
+          width={40}
+          height={40}
+        />
+      </ActionsMenu>
 
       {iconButtons.map((b, index) => (
         <IconButton

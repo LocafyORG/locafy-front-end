@@ -1,19 +1,9 @@
 import React, { ReactNode, useState, useEffect } from "react";
-import {
-  CContainer,
-  CTableBody,
-  CTableHead,
-  CTable,
-  CTableRow,
-  CTableHeaderCell,
-  CTableDataCell,
-  CRow,
-} from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilOptions } from "@coreui/icons";
-import "@styles/components/ListPane.scss";
+import { Paper } from "@components/Container";
+import "@styles/components/ui/ListPane.scss";
 
-// This is fucking unhinged but damn it works well
 export type ListPaneRow = { [key: string]: ReactNode };
 type RowActions = { [key: string]: (index: number) => void };
 
@@ -40,54 +30,61 @@ export function ListPane2({
 
   return (
     <>
-      <CContainer fluid className="list-pane">
-        <CTable>
-          {/* Head Row */}
-          <CTableHead>
-            <CTableRow>
+      <Paper className="p-2 w-screen-xl">
+        <table className="w-full">
+          <thead className="">
+            <tr>
               {orderedKeys.map((name, colKey) => (
-                <CTableHeaderCell key={colKey}>
+                <th
+                  className="bg-gray-50 p-3 first:rounded-l-lg last:rounded-r-lg"
+                  key={colKey}
+                >
                   {columnNames[name]}
-                </CTableHeaderCell>
+                </th>
               ))}
 
-              {/* I need a strong acid to wash my eyes with after looking at this syntax. Disgusting. */}
               {hasActions ? (
                 /* Redundant space for the action button column */
-                <CTableHeaderCell />
+                <th className="bg-gray-50 p-3 last:rounded-r-lg"></th>
               ) : null}
-            </CTableRow>
-          </CTableHead>
+            </tr>
+          </thead>
 
-          <CTableBody>
+          <tbody className="divide-y divide-slate-100">
             {/* Data Rows */}
             {data.map((d, rowId) => (
-              <CTableRow key={rowId}>
+              <tr key={rowId}>
                 {orderedKeys.map((key, colId) => (
-                  <CTableDataCell key={colId}>{d[key]}</CTableDataCell>
+                  <td key={colId} className="p-3">
+                    {d[key]}
+                  </td>
                 ))}
-
                 {hasActions ? (
                   /* Append actions at the very end */
-                  <CTableDataCell>
+                  <td>
                     <ActionsMenu actions={actions} itemIndex={rowId} />
-                  </CTableDataCell>
+                  </td>
                 ) : null}
-              </CTableRow>
+              </tr>
             ))}
-          </CTableBody>
-        </CTable>
-      </CContainer>
+          </tbody>
+        </table>
+      </Paper>
     </>
   );
 }
 
 interface ActionsMenuProps {
+  children?: ReactNode;
   itemIndex: number;
   actions: RowActions;
 }
 
-function ActionsMenu({ actions, itemIndex }: ActionsMenuProps) {
+export function ActionsMenu({
+  children,
+  actions,
+  itemIndex,
+}: ActionsMenuProps) {
   const [menuToggled, setMenuToggled] = useState<boolean>(false);
   const toggleMenu = () => setMenuToggled((prev) => !prev);
 
@@ -100,9 +97,10 @@ function ActionsMenu({ actions, itemIndex }: ActionsMenuProps) {
   return (
     <div className="actions-menu" onBlur={closeMenu}>
       <button onClick={toggleMenu}>
-        <CIcon icon={cilOptions} />
+        {children ? children : <CIcon icon={cilOptions} />}
       </button>
-      <CRow className={`menu-items ${menuToggled ? "" : "hidden"}`}>
+
+      <Paper className={`p-1 menu-items ${menuToggled ? "" : "hidden"}`}>
         {Object.keys(actions)
           .sort()
           .map((actionName, index) => (
@@ -110,7 +108,7 @@ function ActionsMenu({ actions, itemIndex }: ActionsMenuProps) {
               {actionName}
             </button>
           ))}
-      </CRow>
+      </Paper>
     </div>
   );
 }

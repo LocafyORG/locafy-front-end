@@ -6,7 +6,7 @@ import {
   CCardText,
   CCardTitle,
 } from "@coreui/react";
-import "@styles/components/Card.scss";
+import "@styles/components/ui/Card.scss";
 
 interface CardProps {
   title: string;

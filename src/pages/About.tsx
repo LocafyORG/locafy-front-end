@@ -1,4 +1,4 @@
-import Header from "@components/Header/Header";
+import Header from "@components/ui/Header/Header";
 import {
   CContainer,
   CRow,

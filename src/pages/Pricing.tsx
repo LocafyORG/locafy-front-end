@@ -7,7 +7,7 @@ import {
   CCardHeader,
   CButton,
 } from "@coreui/react";
-import Header from "@components/Header/Header";
+import Header from "@components/ui/Header/Header";
 import "@styles/pages/Pricing.scss";
 
 const PricingPage = () => {

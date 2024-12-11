@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { ListPane2, ListPaneRow } from "@components/ListPane";
+import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import "@styles/pages/dashboard/Contacts.scss";
+import { DasboardPageHeader } from "@layouts/DashboardLayout";
 
 /**
  * `CTable` docs: `https://coreui.io/react/docs/components/table/`
@@ -17,7 +18,10 @@ export default function Contacts() {
 
   return (
     <>
-      <h1>Contacts</h1>
+      <DasboardPageHeader
+        title="Contacts"
+        buttons={[{ children: "ADD NEW CONTACT" }]}
+      />
       <ListPane2
         data={contacts}
         columnNames={{

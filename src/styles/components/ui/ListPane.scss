@@ -4,7 +4,6 @@
   background-color: white;
   border-radius: 16px;
   padding: 16px;
-  box-shadow: 0.3em 0.3em 1em #aaaaaaaa;
 
   /* Link column styles */
   td,
@@ -60,11 +59,12 @@ tr:last-child {
     border-radius: 8px;
     left: 0px;
     right: 0px;
-    box-shadow: 0.3em 0.3em 1em #aaaaaaaa;
     transition: opacity var(--anim-fast);
+    width: fit-content;
 
     button {
       border-radius: inherit;
+      width: 100%;
       background-color: transparent;
       z-index: 10;
 
