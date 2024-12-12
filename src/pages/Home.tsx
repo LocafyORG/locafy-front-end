@@ -1,48 +1,74 @@
 import "@styles/pages/Home.scss";
-import { Hero, Screen } from "@components/ui/PageBlock";
+import { Screen } from "@components/ui/PageBlock";
 import { Col, Row } from "@components/Container";
 import { Link } from "react-router";
 import { ROUTES } from "@constants/Routes";
 import Sunset from "@assets/img/auth.webp";
+import { Button } from "@components/Button";
 
+
+/**
+ * Hero
+ * Features
+ * Pricing
+ * Why us
+ * CTA
+ */
 function Home() {
   return (
     <Col className="overflow-x-hidden">
-      <Hero className="relative h-screen text-center justify-center items-center backdrop-blur-lg shadow-lg">
-        <Col className="*:drop-shadow-xl w-1/4 justify-center items-center">
+      <Col className="h-screen w-screen bg-[url(/src/assets/img/wave1.svg)] bg-no-repeat bg-cover bg-bottom items-center">
+        <Col className="*:drop-shadow-xl w-1/4 justify-center items-center text-center">
           <h1 className="text-7xl text-slate-900 font-extrabold">LocusPoint</h1>
           <p className="text-2xl text-slate-600">
             designed to streamline the organization and management of filming
             locations.
           </p>
+            <Button>
           <Link
-            className="bg-primary-500 text-white rounded-full px-3 py-2 w-fit"
             to={ROUTES.LOCATIONS}
           >
             Get Started
           </Link>
+          </Button>
         </Col>
-        <div className="absolute bottom-0 h-1/5 w-full bg-primary-500"></div>
-      </Hero>
+      </Col>
 
-      <Screen className="relative m-0">
-        <div className="absolute top-0 h-2/3 w-full bg-gradient-to-b from-indigo-500 to-transparent z-0"></div>
-        <Row className="z-10 items-end">
+      <Screen className="relative bg-indigo-500 pt-[120px] pb-[64px]">
+        <Row className="m-12 h-[320px] rounded-lg z-10 bg-indigo-100 items-end shadow-md">
           <img
             src={Sunset}
-            style={{ width: "700px", height: "750px" }}
-            className="m-5 object-cover w-32 h-24 rounded-3xl"
+            className="m-5 object-cover h-2/3 w-1/3 rounded-3xl"
           />
-          <Col className="*:drop-shadow-xl w-1/4 justify-center items-center">
-            <h1 className="text-7xl text-slate-900 font-extrabold">Features</h1>
+          <Col className="*:drop-shadow-xl w-1/4 justify-center items-center flex-grow">
+            <h1 className="text-7xl text-slate-800 font-extrabold">Features</h1>
             <p className="text-2xl text-slate-600">
               Our app does this and that
             </p>
           </Col>
         </Row>
+        <Col className="z-10 m-12 rounded-lg bg-indigo-100 items-end shadow-md">
+          <Row className="">
+            <img
+              src={Sunset}
+              className="m-5 object-cover h-2/3 w-1/3 rounded-3xl"
+            />
+            <Col className="*:drop-shadow-xl w-1/4 justify-center items-center flex-grow">
+              <h1 className="text-7xl text-slate-800 font-extrabold">Features</h1>
+              <p className="text-2xl text-slate-600">
+                Our app does this and that
+              </p>
+            </Col>
+          </Row>
+
+        </Col>
       </Screen>
 
-      <Screen>Created by...</Screen>
+      <div className="relative h-[200px] w-full m-0 bg-[url(/src/assets/img/wave2.svg)] bg-no-repeat bg-cover">
+        <div className="absolute w-full h-[1px] bg-indigo-500"></div>
+      </div>
+
+      <Screen className="">Created by...</Screen>
 
       <Screen>Plz buy our app. Thank</Screen>
       {/*
