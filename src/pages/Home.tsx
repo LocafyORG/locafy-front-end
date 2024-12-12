@@ -3,7 +3,6 @@ import { Screen } from "@components/ui/PageBlock";
 import { Col, Row } from "@components/Container";
 import { Link } from "react-router";
 import { ROUTES } from "@constants/Routes";
-import Sunset from "@assets/img/auth.webp";
 import { Button } from "@components/Button";
 
 /**
@@ -18,7 +17,7 @@ function Home() {
     <Col className="overflow-x-hidden">
       <Col className="h-screen w-screen bg-[url(/src/assets/img/wave1.svg)] bg-no-repeat bg-cover bg-bottom items-center">
         <Col className="*:drop-shadow-xl w-1/4 justify-center items-center text-center">
-          <h1 className="text-7xl text-slate-900 font-extrabold">LocusPoint</h1>
+          <h1 className="text-7xl text-indigo-950 font-extrabold">LocusPoint</h1>
           <p className="text-2xl text-slate-600">
             designed to streamline the organization and management of filming
             locations.
@@ -29,42 +28,38 @@ function Home() {
         </Col>
       </Col>
 
-      <Screen className="relative bg-indigo-500 pt-[120px] pb-[64px]">
-        <Row className="m-12 h-[320px] rounded-lg z-10 bg-indigo-100 items-end shadow-md">
-          <img
-            src={Sunset}
-            className="m-5 object-cover h-2/3 w-1/3 rounded-3xl"
+
+      <Screen className="relative bg-indigo-500 m-0">
+        <Row className="m-12 mb-0 h-[320px] z-10 items-end">
+          <FeatureCard 
+            src="/src/assets/img/landing/icon-contacts.svg"
+            title="Collaboration" 
+            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus." 
           />
-          <Col className="*:drop-shadow-xl w-1/4 justify-center items-center flex-grow">
-            <h1 className="text-7xl text-slate-800 font-extrabold">Features</h1>
-            <p className="text-2xl text-slate-600">
-              Our app does this and that
-            </p>
-          </Col>
+          <FeatureCard 
+            src="/src/assets/img/landing/icon-images.svg"
+            title="Locations" 
+            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus." 
+          />
+          <FeatureCard 
+            src="/src/assets/img/landing/icon-contacts.svg"
+            title="Whatever" 
+            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus." 
+          />
         </Row>
-        <Col className="z-10 m-12 rounded-lg bg-indigo-100 items-end shadow-md">
-          <Row className="">
-            <img
-              src={Sunset}
-              className="m-5 object-cover h-2/3 w-1/3 rounded-3xl"
-            />
-            <Col className="*:drop-shadow-xl w-1/4 justify-center items-center flex-grow">
-              <h1 className="text-7xl text-slate-800 font-extrabold">
-                Features
-              </h1>
-              <p className="text-2xl text-slate-600">
-                Our app does this and that
-              </p>
-            </Col>
-          </Row>
-        </Col>
       </Screen>
 
-      <div className="relative h-[200px] w-full m-0 bg-[url(/src/assets/img/wave2.svg)] bg-no-repeat bg-cover">
-        <div className="absolute w-full h-[1px] bg-indigo-500"></div>
-      </div>
 
-      <Screen className="">Created by...</Screen>
+      <Screen className="relative items-start">
+        <span className="absolute top-0 h-[400px] z-0 w-full m-0 bg-[url(/src/assets/img/wave2.svg)] bg-no-repeat bg-cover bg-bottom" />
+        <Col className="pt-[128px] z-10 w-full justify-center items-center">
+          <img className="w-[800px] h-[400px] object-cover rounded-lg" src="/src/assets/img/auth.webp" />
+          <Col className="z-10 px-64 text-center w-full justify-center items-center">
+            <h1 className="text-slate-900 font-bold text-6xl mt-[48px] mb-[24px]">About us</h1>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus. Integer ac volutpat ipsum, eu pulvinar lacus. Pellentesque at felis quis felis eleifend fringilla eget vitae dolor. Ut efficitur interdum ex, quis pretium lectus rutrum vel. Donec volutpat fermentum dolor, id tristique ante commodo sed. Cras interdum neque mi, quis molestie neque cursus vel. Aenean auctor, est in cursus posuere, magna lorem imperdiet sem, vitae tincidunt arcu leo sit amet est. Proin odio elit, interdum quis ipsum id, fringilla pulvinar felis.</p>
+          </Col>
+        </Col>
+      </Screen>
 
       <Screen>Plz buy our app. Thank</Screen>
       {/*
@@ -147,6 +142,22 @@ function Home() {
       */}
     </Col>
   );
+}
+
+interface FeatureCardProps {
+  src: string,
+  title: string,
+  desc: string,
+}
+
+function FeatureCard({ src, title, desc }: FeatureCardProps) {
+  return <Col className="*:drop-shadow-xl w-[480px] text-center flex-grow-0 items-center">
+    <span className={`bg-[url(${src})] h-[80px] w-[80px] bg-contain`} />
+    <h3 className="text-amber-300 text-5xl font-bold">{title}</h3>
+    <p className="text-amber-100 text-2xl">
+      {desc}
+    </p>
+  </Col>
 }
 
 export default Home;
