@@ -19,5 +19,7 @@ export function Hero({ imageUrl, children, className = "" }: HeroProps) {
 }
 
 export function Screen({ children, className = "" }: PageBlockProps) {
-  return <Col className={`m-0 min-h-screen w-screen ${className}`}>{children}</Col>;
+  return (
+    <Col className={`m-0 min-h-screen w-screen ${className}`}>{children}</Col>
+  );
 }

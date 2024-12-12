@@ -6,7 +6,6 @@ import { ROUTES } from "@constants/Routes";
 import Sunset from "@assets/img/auth.webp";
 import { Button } from "@components/Button";
 
-
 /**
  * Hero
  * Features
@@ -24,12 +23,8 @@ function Home() {
             designed to streamline the organization and management of filming
             locations.
           </p>
-            <Button>
-          <Link
-            to={ROUTES.LOCATIONS}
-          >
-            Get Started
-          </Link>
+          <Button>
+            <Link to={ROUTES.LOCATIONS}>Get Started</Link>
           </Button>
         </Col>
       </Col>
@@ -54,13 +49,14 @@ function Home() {
               className="m-5 object-cover h-2/3 w-1/3 rounded-3xl"
             />
             <Col className="*:drop-shadow-xl w-1/4 justify-center items-center flex-grow">
-              <h1 className="text-7xl text-slate-800 font-extrabold">Features</h1>
+              <h1 className="text-7xl text-slate-800 font-extrabold">
+                Features
+              </h1>
               <p className="text-2xl text-slate-600">
                 Our app does this and that
               </p>
             </Col>
           </Row>
-
         </Col>
       </Screen>
 
