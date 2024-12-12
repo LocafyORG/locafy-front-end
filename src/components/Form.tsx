@@ -58,12 +58,12 @@ function Chip({ text, className = "", onClick = () => {} }: ChipProps) {
 
   return (
     <>
-      <span
-        className={`${active ? "bg-primary-500 text-white" : "bg-neutral-100 hover:bg-primary-300 hover:text-white"} text-sm m-1 p-2 rounded-full cursor-pointer transition-colors ${className}`}
+      <input
+        type="button"
+        className={`${active ? "bg-primary-500 text-white" : "bg-neutral-100 hover:bg-primary-300 hover:text-white"} border-none text-sm m-1 p-2 rounded-full cursor-pointer transition-colors ${className}`}
         onClick={onChipClick}
-      >
-        {text}
-      </span>
+        value={text}
+      />
     </>
   );
 }
