@@ -18,6 +18,7 @@ export default {
       },
       backgroundImage: {
         sunset: "url(/src/assets/img/auth.webp)",
+        hero: "url(/src/assets/img/hero-bg.svg)",
       },
     },
   },
