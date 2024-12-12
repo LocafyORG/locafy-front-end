@@ -17,7 +17,9 @@ function Home() {
     <Col className="overflow-x-hidden">
       <Col className="h-screen w-screen bg-[url(/src/assets/img/wave1.svg)] bg-no-repeat bg-cover bg-bottom items-center">
         <Col className="*:drop-shadow-xl w-1/4 justify-center items-center text-center">
-          <h1 className="text-7xl text-indigo-950 font-extrabold">LocusPoint</h1>
+          <h1 className="text-7xl text-indigo-950 font-extrabold">
+            LocusPoint
+          </h1>
           <p className="text-2xl text-slate-600">
             designed to streamline the organization and management of filming
             locations.
@@ -28,35 +30,49 @@ function Home() {
         </Col>
       </Col>
 
-
       <Screen className="relative bg-indigo-500 m-0">
         <Row className="m-12 mb-0 h-[320px] z-10 items-end">
-          <FeatureCard 
+          <FeatureCard
             src="/src/assets/img/landing/icon-contacts.svg"
-            title="Collaboration" 
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus." 
+            title="Collaboration"
+            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus."
           />
-          <FeatureCard 
+          <FeatureCard
             src="/src/assets/img/landing/icon-images.svg"
-            title="Locations" 
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus." 
+            title="Locations"
+            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus."
           />
-          <FeatureCard 
+          <FeatureCard
             src="/src/assets/img/landing/icon-contacts.svg"
-            title="Whatever" 
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus." 
+            title="Whatever"
+            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus."
           />
         </Row>
       </Screen>
 
-
       <Screen className="relative items-start">
         <span className="absolute top-0 h-[400px] z-0 w-full m-0 bg-[url(/src/assets/img/wave2.svg)] bg-no-repeat bg-cover bg-bottom" />
         <Col className="pt-[128px] z-10 w-full justify-center items-center">
-          <img className="w-[800px] h-[400px] object-cover rounded-lg" src="/src/assets/img/auth.webp" />
+          <img
+            className="w-[800px] h-[400px] object-cover rounded-lg"
+            src="/src/assets/img/auth.webp"
+          />
           <Col className="z-10 px-64 text-center w-full justify-center items-center">
-            <h1 className="text-slate-900 font-bold text-6xl mt-[48px] mb-[24px]">About us</h1>
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus. Integer ac volutpat ipsum, eu pulvinar lacus. Pellentesque at felis quis felis eleifend fringilla eget vitae dolor. Ut efficitur interdum ex, quis pretium lectus rutrum vel. Donec volutpat fermentum dolor, id tristique ante commodo sed. Cras interdum neque mi, quis molestie neque cursus vel. Aenean auctor, est in cursus posuere, magna lorem imperdiet sem, vitae tincidunt arcu leo sit amet est. Proin odio elit, interdum quis ipsum id, fringilla pulvinar felis.</p>
+            <h1 className="text-slate-900 font-bold text-6xl mt-[48px] mb-[24px]">
+              About us
+            </h1>
+            <p>
+              {" "}
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+              eget ante metus. Integer ac volutpat ipsum, eu pulvinar lacus.
+              Pellentesque at felis quis felis eleifend fringilla eget vitae
+              dolor. Ut efficitur interdum ex, quis pretium lectus rutrum vel.
+              Donec volutpat fermentum dolor, id tristique ante commodo sed.
+              Cras interdum neque mi, quis molestie neque cursus vel. Aenean
+              auctor, est in cursus posuere, magna lorem imperdiet sem, vitae
+              tincidunt arcu leo sit amet est. Proin odio elit, interdum quis
+              ipsum id, fringilla pulvinar felis.
+            </p>
           </Col>
         </Col>
       </Screen>
@@ -145,19 +161,19 @@ function Home() {
 }
 
 interface FeatureCardProps {
-  src: string,
-  title: string,
-  desc: string,
+  src: string;
+  title: string;
+  desc: string;
 }
 
 function FeatureCard({ src, title, desc }: FeatureCardProps) {
-  return <Col className="*:drop-shadow-xl w-[480px] text-center flex-grow-0 items-center">
-    <span className={`bg-[url(${src})] h-[80px] w-[80px] bg-contain`} />
-    <h3 className="text-amber-300 text-5xl font-bold">{title}</h3>
-    <p className="text-amber-100 text-2xl">
-      {desc}
-    </p>
-  </Col>
+  return (
+    <Col className="*:drop-shadow-xl w-[480px] text-center flex-grow-0 items-center">
+      <span className={`bg-[url(${src})] h-[80px] w-[80px] bg-contain`} />
+      <h3 className="text-amber-300 text-5xl font-bold">{title}</h3>
+      <p className="text-amber-100 text-2xl">{desc}</p>
+    </Col>
+  );
 }
 
 export default Home;
