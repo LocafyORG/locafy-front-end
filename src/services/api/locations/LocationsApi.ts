@@ -1,16 +1,13 @@
 import { LOCATIONS_BASE_PATH } from "@constants/Endpoints";
 import { getAuthToken } from "@api/auth/authTokenApi";
 import { Location } from "@api/interfaces/Location";
+import { request } from "@utils/httpClient";
 
-export async function getAllLocations(): Promise<Location[] | Error> {
-  return fetch(`${LOCATIONS_BASE_PATH}/all`, {
+export async function getAllLocations(): Promise<Location[]> {
+  return request<Location[]>(`${LOCATIONS_BASE_PATH}/all`, {
     method: "GET",
-    headers: {
-      Authorization: `Bearer ${getAuthToken()}`,
-    },
-  })
-    .then((res) => res.json())
-    .catch((err) => err as Error);
+    authenticate: true,
+  });
 }
 
 export async function getUserLocations(): Promise<Location[] | Error> {
@@ -19,9 +16,7 @@ export async function getUserLocations(): Promise<Location[] | Error> {
     headers: {
       Authorization: `Bearer ${getAuthToken()}`,
     },
-  })
-    .then((res) => res.json())
-    .catch((err) => err as Error);
+  }).then((res) => res.json());
 }
 
 /**

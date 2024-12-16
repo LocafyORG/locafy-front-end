@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import { CFormSwitch, CImage } from "@coreui/react";
 import fallbackImage from "@assets/img/under-development.webp";
@@ -7,35 +7,28 @@ import { Row } from "@components/Container";
 import CIcon from "@coreui/icons-react";
 import { cilGrid, cilList } from "@coreui/icons";
 import { DasboardPageHeader } from "@layouts/DashboardLayout";
-
-interface LocationViewModel {
-  thumbnail: string[]; // TODO: Ideally, a list of image URLs
-  name: string;
-  address: string[]; // TODO: To be changed to a map later on.
-  tags: string[];
-  scout: string; // uploadedBy: Name of the uploader
-}
-
-const testData: LocationViewModel[] = [
-  {
-    thumbnail: ["/src/assets/img/under-development.webp"],
-    name: "Paris, France",
-    address: ["113 Bellhaven Road, Toronto, ON"],
-    tags: ["Small Townhouse", "Mid - Century"],
-    scout: "Jon Snow",
-  },
-  {
-    thumbnail: ["/src/assets/img/under-development.webp"],
-    name: "Paris, France",
-    address: [],
-    tags: ["Small Townhouse", "Mid - Century"],
-    scout: "Jon Snow",
-  },
-];
+import { getAllLocations } from "@api/locations/LocationsApi";
+import { Location } from "@api/interfaces/Location";
+import { HttpError } from "@utils/httpClient";
 
 function Locations() {
-  const [data, setData] = useState<ListPaneRow[]>([]);
-  const [errorMsg] = useState<string | undefined>();
+  const [locations, setLocations] = useState<Location[]>([]);
+  const rows = useMemo<ListPaneRow[]>(() => {
+    // Memoize table rows, only transform locations when its value changes.
+    return locations.map(
+      ({ name, keywords }) =>
+        ({
+          thumbnail: (
+            <CImage src={fallbackImage} width={120} height={80} rounded />
+          ),
+          name: name || "Unnamed",
+          address: "Probably Jupiter, IDK",
+          tags: keywords.map((word) => <span>{word}</span>),
+          scout: name,
+        }) as ListPaneRow,
+    );
+  }, [locations]);
+  const [errorMsg, setErrorMsg] = useState<string | undefined>();
 
   const onSearchTermChange = useCallback((searchTerm: string) => {
     console.log("Search term: ", searchTerm);
@@ -46,24 +39,16 @@ function Locations() {
   }, []);
 
   useEffect(() => {
-    setData(
-      testData.map(({ thumbnail, name, address, tags, scout }) => {
-        return {
-          thumbnail: (
-            <CImage
-              rounded
-              src={thumbnail[0] || fallbackImage}
-              width={120}
-              height={80}
-            />
-          ),
-          name: name || "Unnamed",
-          address: address[0] || "Probably Jupiter, IDK",
-          tags: tags,
-          scout: scout,
-        } as ListPaneRow;
-      }),
-    );
+    getAllLocations()
+      .then((data) => setLocations(data))
+      .catch((error) => {
+        if (error instanceof HttpError) {
+          console.log("Code: ", error.code);
+        } else {
+          console.log("Error: ", error.name);
+        }
+        setErrorMsg(error.name);
+      });
   }, []);
 
   return (
@@ -100,7 +85,7 @@ function Locations() {
       </Row>
 
       {errorMsg ? (
-        <h1>{errorMsg}</h1>
+        <h1>Error: {errorMsg}</h1>
       ) : (
         <ListPane2
           columnNames={{
@@ -110,10 +95,10 @@ function Locations() {
             tags: "TAGS",
             scout: "SCOUT",
           }}
-          data={data}
+          data={rows}
           actions={{
             Edit: (index: number) => {
-              console.log("Locations: Editting ", data[index].name);
+              console.log("Locations: Editting ", locations[index].name);
             },
           }}
         />

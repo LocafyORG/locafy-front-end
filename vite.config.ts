@@ -20,6 +20,7 @@ export default defineConfig({
       "@api": "/src/services/api",
       "@styles": "/src/styles",
       "@hooks": "/src/hooks",
+      "@utils": "/src/utils",
     },
   },
   plugins: [react()],

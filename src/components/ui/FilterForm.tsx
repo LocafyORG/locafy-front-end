@@ -29,7 +29,7 @@ export default function FilterForm({
     <Paper className={`${styles["filter-form"]}`}>
       <Row>
         <DebounceTextInput
-          delayMs={300}
+          delayMs={800}
           placeholder="Search"
           onValueChange={onSearchTermChange}
         />

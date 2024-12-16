@@ -1,6 +1,6 @@
 export interface Location {
   locationId: string;
-  addressIds: string[];
+  addresses: string[];
   name: string;
   locationType: string;
   notes: string;

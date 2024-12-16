@@ -50,10 +50,8 @@ interface ChipProps {
 function Chip({ text, className = "", onClick = () => {} }: ChipProps) {
   const [active, setActive] = useState(false);
   const onChipClick: MouseEventHandler = () => {
-    setActive((prev) => {
-      onClick(text, !prev);
-      return !prev;
-    });
+    setActive((prev) => !prev);
+    onClick(text, !active);
   };
 
   return (
