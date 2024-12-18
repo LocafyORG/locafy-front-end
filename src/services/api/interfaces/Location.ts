@@ -1,16 +1,16 @@
+import { Address } from "./Address";
+
 export interface Location {
-  locationId: string;
-  addresses: string[];
+  locationId?: string;
+  addresses: Address[];
   name: string;
   locationType: string;
   notes: string;
   keywords: string[];
-  sceneLocationIds: string[];
-  nonFilmingLocationIds: string[];
+  candidateIds: string[];
   contactIds: string[];
   locationPhotoIds: string[];
-  uploadedById: string;
-  uploadedAt: string;
-  lastUpdated: string;
-  permissionIds: string[];
+  uploadedById?: string;
+  uploadedAt?: string;
+  lastUpdated?: string;
 }

@@ -10,8 +10,9 @@ import { DasboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllLocations } from "@api/locations/LocationsApi";
 import { Location } from "@api/interfaces/Location";
 import { HttpError } from "@utils/httpClient";
+import { useNavigate } from "react-router";
 
-function Locations() {
+export function Locations() {
   const [locations, setLocations] = useState<Location[]>([]);
   const rows = useMemo<ListPaneRow[]>(() => {
     // Memoize table rows, only transform locations when its value changes.
@@ -38,6 +39,8 @@ function Locations() {
     console.log("Active tags: ", tags);
   }, []);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getAllLocations()
       .then((data) => setLocations(data))
@@ -55,7 +58,14 @@ function Locations() {
     <>
       <DasboardPageHeader
         title="Locations"
-        buttons={[{ children: "ADD NEW LOCATION" }]}
+        buttons={[
+          {
+            children: "ADD NEW LOCATION",
+            onClick: () => {
+              navigate("add");
+            },
+          },
+        ]}
       />
 
       <FilterForm
@@ -106,5 +116,3 @@ function Locations() {
     </>
   );
 }
-
-export default Locations;

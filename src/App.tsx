@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import { BASE_AUTH_PATH, BASE_PATH, ROUTES } from "@constants/Routes";
 import Home from "@pages/Home";
-import Locations from "@pages/dashboard/Locations";
+import { Locations, AddLocation } from "@pages/dashboard/locations";
 import Productions from "@pages/dashboard/Productions";
 import Contacts from "@pages/dashboard/Contacts";
 import About from "@pages/About";
@@ -31,7 +31,8 @@ function App() {
         </Route>
 
         <Route path={BASE_PATH} element={<DashboardLayout />}>
-          <Route index path={ROUTES.LOCATIONS} element={<Locations />} />
+          <Route path={ROUTES.LOCATIONS} element={<Locations />} />
+          <Route path={`${ROUTES.LOCATIONS}/add`} element={<AddLocation />} />
           <Route path="productions" element={<Productions />} />
           <Route path={ROUTES.CONTACTS} element={<Contacts />} />
           <Route path={ROUTES.CALENDAR} element={<Contacts />} />

@@ -60,12 +60,12 @@ export default function DashboardLayout() {
 
 interface DashboardPageHeaderProps {
   title: string;
-  buttons: ButtonProps[];
+  buttons?: ButtonProps[];
 }
 
 export function DasboardPageHeader({
   title,
-  buttons,
+  buttons = [],
 }: DashboardPageHeaderProps) {
   return (
     <div className="flex flex-row justify-between items-center mt-12 mb-3">
