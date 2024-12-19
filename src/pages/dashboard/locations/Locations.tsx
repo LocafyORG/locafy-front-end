@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import { CFormSwitch, CImage } from "@coreui/react";
 import fallbackImage from "@assets/img/under-development.webp";
@@ -9,12 +9,22 @@ import { cilGrid, cilList } from "@coreui/icons";
 import { DasboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllLocations } from "@api/locations/LocationsApi";
 import { Location } from "@api/interfaces/Location";
-import { HttpError } from "@utils/httpClient";
 import { useNavigate } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
 export function Locations() {
-  const [locations, setLocations] = useState<Location[]>([]);
+  const navigate = useNavigate();
+  const {
+    data: locations,
+    isError,
+    error,
+  } = useQuery<Location[]>({
+    queryFn: getAllLocations,
+    queryKey: ["all-locations"],
+  });
+
   const rows = useMemo<ListPaneRow[]>(() => {
+    if (!locations) return [];
     // Memoize table rows, only transform locations when its value changes.
     return locations.map(
       ({ name, keywords }) =>
@@ -29,7 +39,6 @@ export function Locations() {
         }) as ListPaneRow,
     );
   }, [locations]);
-  const [errorMsg, setErrorMsg] = useState<string | undefined>();
 
   const onSearchTermChange = useCallback((searchTerm: string) => {
     console.log("Search term: ", searchTerm);
@@ -37,21 +46,6 @@ export function Locations() {
 
   const onActiveTagsChange = useCallback((tags: string[]) => {
     console.log("Active tags: ", tags);
-  }, []);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    getAllLocations()
-      .then((data) => setLocations(data))
-      .catch((error) => {
-        if (error instanceof HttpError) {
-          console.log("Code: ", error.code);
-        } else {
-          console.log("Error: ", error.name);
-        }
-        setErrorMsg(error.name);
-      });
   }, []);
 
   return (
@@ -94,8 +88,8 @@ export function Locations() {
         </Row>
       </Row>
 
-      {errorMsg ? (
-        <h1>Error: {errorMsg}</h1>
+      {isError || !locations ? (
+        <h1>Error: {error?.message}</h1>
       ) : (
         <ListPane2
           columnNames={{
@@ -110,6 +104,12 @@ export function Locations() {
             Edit: (index: number) => {
               console.log("Locations: Editting ", locations[index].name);
             },
+          }}
+          onRowClick={(index) => {
+            const id = locations[index].locationId;
+            if (id) {
+              navigate(id);
+            }
           }}
         />
       )}

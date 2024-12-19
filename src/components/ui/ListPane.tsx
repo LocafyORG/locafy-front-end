@@ -12,6 +12,7 @@ interface ListPane2Props {
   columnNames: { [key: string]: string };
   actions?: RowActions;
   action?: RowModalActions;
+  onRowClick?: (index: number) => void;
 }
 
 type RowModalActions = { [key: string]: (index: number) => void };
@@ -20,6 +21,7 @@ export function ListPane2({
   data,
   columnNames,
   actions = {},
+  onRowClick = () => {},
 }: ListPane2Props): ReactNode {
   const [orderedKeys] = useState(Object.keys(columnNames));
   const [hasActions, setHasActions] = useState(false);
@@ -53,7 +55,13 @@ export function ListPane2({
           <tbody className="divide-y divide-slate-100">
             {/* Data Rows */}
             {data.map((d, rowId) => (
-              <tr key={rowId}>
+              <tr
+                className="hover:bg-gray-100 transition-colors"
+                key={rowId}
+                onClick={() => {
+                  onRowClick(rowId);
+                }}
+              >
                 {orderedKeys.map((key, colId) => (
                   <td key={colId} className="p-3">
                     {d[key]}

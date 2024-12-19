@@ -10,6 +10,13 @@ export async function getAllLocations(): Promise<Location[]> {
   });
 }
 
+export async function getLocationById(locationId: string): Promise<Location> {
+  return request<Location>(`${LOCATIONS_BASE_PATH}/${locationId}`, {
+    method: "GET",
+    authenticate: true,
+  });
+}
+
 export async function createLocation(location: Location): Promise<Location> {
   const bod = JSON.stringify(location);
   console.log("here!\n", bod);
