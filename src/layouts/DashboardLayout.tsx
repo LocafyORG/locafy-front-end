@@ -70,9 +70,11 @@ export function DasboardPageHeader({
   return (
     <div className="flex flex-row justify-between items-center mt-12 mb-3">
       <h1 className="text-4xl">{title}</h1>
-      {buttons.map((button, index) => (
-        <Button {...button} key={index} />
-      ))}
+      <div className="flex gap-3">
+        {buttons.map((button, index) => (
+          <Button {...button} key={index} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -14,6 +14,8 @@
     "@coreui/icons": "^3.0.1",
     "@coreui/icons-react": "^2.3.0",
     "@coreui/react": "^5.4.1",
+    "@tanstack/react-query": "^5.62.8",
+    "@vis.gl/react-google-maps": "^1.4.2",
     "axios": "^1.7.9",
     "material-icons": "^1.13.12",
     "react": "^18.3.1",
