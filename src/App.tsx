@@ -4,7 +4,6 @@ import Home from "@pages/Home";
 import { Locations, AddLocation } from "@pages/dashboard/locations";
 import Productions from "@pages/dashboard/Productions";
 import Contacts from "@pages/dashboard/Contacts";
-import About from "@pages/About";
 import Profile from "@pages/Profile";
 import Pricing from "@pages/Pricing";
 import Login from "@pages/auth/Login";
@@ -21,7 +20,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
-        <Route path={ROUTES.ABOUT} element={<About />} />
         <Route path={ROUTES.PROFILE} element={<Profile />} />
         <Route path={ROUTES.PRICING} element={<Pricing />} />
 
