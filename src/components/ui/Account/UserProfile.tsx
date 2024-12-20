@@ -1,28 +1,32 @@
 import { useNavigate } from "react-router";
 import { CImage } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import Cheems from "@assets/img/under-development.webp";
+import DefaultBadgeImage from "@assets/img/under-development.webp";
 import "./UserProfile.css";
-import { deleteAuthToken } from "@api/auth/authTokenApi";
+import { deleteAuthToken } from "@api/auth/AuthTokenApi";
 import { ROUTES } from "@constants/Routes";
 import { ActionsMenu } from "../ListPane";
 
 interface UserProfileProps {
-  userBadgeSrc?: string;
+  badgeImageSrc?: string;
   className?: string;
-  iconButtons?: IconButtonProps[];
+  actionButtons?: ActionButtonProps[];
 }
 
 export default function UserProfile({
-  userBadgeSrc = Cheems,
-  className = "",
-  iconButtons = [],
+  badgeImageSrc = DefaultBadgeImage,
+  className = "userProfile",
+  actionButtons = [],
 }: UserProfileProps) {
   const navigate = useNavigate();
 
-  const signOut = () => {
+  const handleSignOut = () => {
     deleteAuthToken();
     navigate(ROUTES.HOME);
+  };
+
+  const handleViewProfile = () => {
+    navigate(ROUTES.PROFILE);
   };
 
   return (
@@ -30,36 +34,37 @@ export default function UserProfile({
       <ActionsMenu
         itemIndex={0}
         actions={{
-          Logout: signOut,
+          Profile: handleViewProfile,
+          Logout: handleSignOut,
         }}
       >
         <CImage
           className="user-badge"
-          src={userBadgeSrc}
+          src={badgeImageSrc}
           width={40}
           height={40}
         />
       </ActionsMenu>
 
-      {iconButtons.map((b, index) => (
-        <IconButton
+      {actionButtons.map((button, index) => (
+        <ActionButton
           key={index}
-          icon={b.icon}
-          scale={b.scale}
-          onClick={b.onClick}
+          icon={button.icon}
+          scale={button.scale}
+          onClick={button.onClick}
         />
       ))}
     </div>
   );
 }
 
-interface IconButtonProps {
+interface ActionButtonProps {
   icon: string[];
   scale?: number;
   onClick?: () => void;
 }
 
-function IconButton({ icon, scale = 1, onClick = () => {} }: IconButtonProps) {
+function ActionButton({ icon, scale = 1, onClick = () => {} }: ActionButtonProps) {
   return (
     <button className="icon-button" onClick={onClick}>
       <CIcon icon={icon} style={{ transform: `scale(${scale})` }} />

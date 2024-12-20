@@ -107,7 +107,6 @@ export function ActionsMenu({
       <button onClick={toggleMenu}>
         {children ? children : <CIcon icon={cilOptions} />}
       </button>
-
       <Paper className={`p-1 menu-items ${menuToggled ? "" : "hidden"}`}>
         {Object.keys(actions)
           .sort()

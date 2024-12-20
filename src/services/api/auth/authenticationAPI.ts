@@ -1,6 +1,6 @@
 import { LOGIN_URL, REGISTER_URL } from "@constants/Endpoints";
 import { LoginPayload, RegisterPayload } from "@api/interfaces/Auth";
-import { setAuthToken } from "./authTokenApi";
+import { setAuthToken } from "./AuthTokenApi";
 
 // Register function with proxy URL
 export const registerUser = async (payload: RegisterPayload): Promise<void> => {
