@@ -2,7 +2,7 @@ import { Address } from "./Address";
 
 export interface Location {
   locationId?: string;
-  addresses: Address[];
+  addresses: { [key: string]: Address };
   name: string;
   locationType: string;
   notes: string;

@@ -27,7 +27,6 @@ export async function request<T>(
   const headers = new Headers(options.headers);
 
   if (options.authenticate) {
-    console.log("Authenticating");
     headers.set("Authorization", `Bearer ${getAuthToken()}`);
   }
 
@@ -35,7 +34,6 @@ export async function request<T>(
     ...options,
     headers: headers, // Custom headers
   }).then((res) => {
-    //  Promise.reject(new HttpError(res.status, res.statusText));
     if (!res.ok) {
       throw new HttpError(res.status, res.statusText);
     }

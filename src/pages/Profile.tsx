@@ -26,8 +26,8 @@ const ProfilePage = ({ userId }: { userId: string }) => {
 
         const data: UserProfile = await response.json();
         setUserData(data);
-      } catch (error) {
-        setError("An error occurred while fetching user data.");
+      } catch (e) {
+        setError(`Error: ${(e as Error).message}`);
       } finally {
         setLoading(false);
       }

@@ -64,7 +64,11 @@ interface ActionButtonProps {
   onClick?: () => void;
 }
 
-function ActionButton({ icon, scale = 1, onClick = () => {} }: ActionButtonProps) {
+function ActionButton({
+  icon,
+  scale = 1,
+  onClick = () => {},
+}: ActionButtonProps) {
   return (
     <button className="icon-button" onClick={onClick}>
       <CIcon icon={icon} style={{ transform: `scale(${scale})` }} />

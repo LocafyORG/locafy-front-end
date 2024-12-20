@@ -23,7 +23,7 @@ export function AddLocation() {
     }
   }, [submitState, submissionInfo]);
   const [data, setData] = useState<Location>({
-    addresses: [],
+    addresses: {},
     name: "",
     locationType: "",
     notes: "",
@@ -45,13 +45,16 @@ export function AddLocation() {
   );
   const onAddressesChange = useCallback((addresses: Address[]) => {
     setData((prev) => {
-      return { ...prev, addresses: addresses };
+      const newMap = new Map();
+      addresses.forEach((address, i) => {
+        newMap.set(i, address);
+      });
+      return { ...prev, addresses: Object.fromEntries(newMap) };
     });
   }, []);
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLInputElement>) => {
       e.preventDefault();
-      console.log(submitState);
       if (submitState !== SubmitState.Loading) {
         switchState(SubmitState.Loading);
         createLocation(data)
@@ -161,7 +164,7 @@ export function AddLocation() {
             <input
               type="submit"
               value="Add New Location"
-              onSubmit={handleSubmit}
+              onClick={handleSubmit}
             />
           </Col>
         </form>
