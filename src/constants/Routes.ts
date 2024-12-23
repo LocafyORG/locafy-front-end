@@ -20,4 +20,4 @@ export const DASHBOARD = {
   ADD_CONTACT: `${BASE_PATH}/contacts/add`,
   PRODUCTIONS: `${BASE_PATH}/productions`,
   ADD_PRODUCTION: `${BASE_PATH}/productions/add`,
-}
+};

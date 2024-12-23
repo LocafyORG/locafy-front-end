@@ -1,7 +1,3 @@
 export function AddContact() {
-  return (
-    <>
-      Add contact here!!
-    </>
-  );
+  return <>Add contact here!!</>;
 }

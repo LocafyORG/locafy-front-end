@@ -1,5 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import { BASE_AUTH_PATH, DASHBOARD, BASE_PATH, ROUTES } from "@constants/Routes";
+import {
+  BASE_AUTH_PATH,
+  DASHBOARD,
+  BASE_PATH,
+  ROUTES,
+} from "@constants/Routes";
 import Home from "@pages/Home";
 import { Locations, AddLocation, Location } from "@pages/dashboard/locations";
 import { Productions } from "@pages/dashboard/productions";
@@ -30,7 +35,10 @@ function App() {
 
         <Route path={BASE_PATH} element={<DashboardLayout />}>
           <Route path={DASHBOARD.LOCATIONS} element={<Locations />} />
-          <Route path={`${DASHBOARD.LOCATIONS}/:locationId`} element={<Location />} />
+          <Route
+            path={`${DASHBOARD.LOCATIONS}/:locationId`}
+            element={<Location />}
+          />
           <Route path={DASHBOARD.ADD_LOCATION} element={<AddLocation />} />
           <Route path={DASHBOARD.PRODUCTIONS} element={<Productions />} />
           <Route path={DASHBOARD.CONTACTS} element={<Contacts />} />
