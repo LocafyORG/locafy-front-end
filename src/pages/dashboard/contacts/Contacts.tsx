@@ -6,7 +6,7 @@ import { DasboardPageHeader } from "@layouts/DashboardLayout";
 /**
  * `CTable` docs: `https://coreui.io/react/docs/components/table/`
  */
-export default function Contacts() {
+export function Contacts() {
   const [contacts] = useState<ListPaneRow[]>([
     {
       name: "Doge",

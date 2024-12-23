@@ -7,7 +7,7 @@ import { Production } from "@api/interfaces/Production.ts";
 import "@styles/pages/dashboard/Productions.scss";
 import { DasboardPageHeader } from "@layouts/DashboardLayout";
 
-function Productions() {
+export function Productions() {
   const [data, setData] = useState<Production[]>([]);
   const [sortKey, setSortKey] = useState("title");
   const [isLoading, setIsLoading] = useState(true);
@@ -59,5 +59,3 @@ function Productions() {
     </>
   );
 }
-
-export default Productions;
