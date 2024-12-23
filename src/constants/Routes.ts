@@ -12,3 +12,12 @@ export const ROUTES = {
   LOGIN: `${BASE_AUTH_PATH}/login`,
   REGISTER: `${BASE_AUTH_PATH}/register`,
 };
+
+export const DASHBOARD = {
+  LOCATIONS: `${BASE_PATH}/locations`,
+  ADD_LOCATION: `${BASE_PATH}/locations/add`,
+  CONTACTS: `${BASE_PATH}/contacts`,
+  ADD_CONTACT: `${BASE_PATH}/contacts/add`,
+  PRODUCTIONS: `${BASE_PATH}/productions`,
+  ADD_PRODUCTION: `${BASE_PATH}/productions/add`,
+}

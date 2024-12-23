@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import { BASE_AUTH_PATH, BASE_PATH, ROUTES } from "@constants/Routes";
+import { BASE_AUTH_PATH, DASHBOARD, BASE_PATH, ROUTES } from "@constants/Routes";
 import Home from "@pages/Home";
 import { Locations, AddLocation, Location } from "@pages/dashboard/locations";
 import { Productions } from "@pages/dashboard/productions";
-import { Contacts } from "@pages/dashboard/contacts";
+import { Contacts, AddContact } from "@pages/dashboard/contacts";
 import Profile from "@pages/Profile";
 import Pricing from "@pages/Pricing";
 import Login from "@pages/auth/Login";
@@ -29,14 +29,12 @@ function App() {
         </Route>
 
         <Route path={BASE_PATH} element={<DashboardLayout />}>
-          <Route path={ROUTES.LOCATIONS} element={<Locations />} />
-          <Route
-            path={`${ROUTES.LOCATIONS}/:locationId`}
-            element={<Location />}
-          />
-          <Route path={`${ROUTES.LOCATIONS}/add`} element={<AddLocation />} />
-          <Route path="productions" element={<Productions />} />
-          <Route path={ROUTES.CONTACTS} element={<Contacts />} />
+          <Route path={DASHBOARD.LOCATIONS} element={<Locations />} />
+          <Route path={`${DASHBOARD.LOCATIONS}/:locationId`} element={<Location />} />
+          <Route path={DASHBOARD.ADD_LOCATION} element={<AddLocation />} />
+          <Route path={DASHBOARD.PRODUCTIONS} element={<Productions />} />
+          <Route path={DASHBOARD.CONTACTS} element={<Contacts />} />
+          <Route path={DASHBOARD.ADD_CONTACT} element={<AddContact />} />
           <Route path={ROUTES.CALENDAR} element={<Contacts />} />
         </Route>
       </Routes>
