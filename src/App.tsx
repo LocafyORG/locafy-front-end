@@ -20,7 +20,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path={ROUTES.HOME} element={<Home />} />
-        <Route path={ROUTES.PROFILE} element={<Profile />} />
+        <Route path={`${ROUTES.PROFILE}/:userId`} element={<Profile />} />
         <Route path={ROUTES.PRICING} element={<Pricing />} />
 
         <Route path={BASE_AUTH_PATH} element={<AuthLayout />}>

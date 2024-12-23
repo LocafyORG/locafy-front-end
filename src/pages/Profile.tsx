@@ -1,8 +1,10 @@
 import { getAuthToken } from "@api/auth/AuthTokenApi";
 import { UserProfile } from "@api/interfaces/User";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
-const ProfilePage = ({ userId }: { userId: string }) => {
+const ProfilePage = () => {
+  const { userId } = useParams();
   const [userData, setUserData] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
