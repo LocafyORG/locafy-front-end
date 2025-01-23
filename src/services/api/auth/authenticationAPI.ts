@@ -1,6 +1,7 @@
-import { LOGIN_URL, REGISTER_URL } from "@constants/Endpoints";
+import { LOGIN_URL, REGISTER_URL, USER_PROFILE_INFO } from "@constants/Endpoints";
 import { LoginPayload, RegisterPayload } from "@api/interfaces/Auth";
-import { setAuthToken } from "./AuthTokenApi";
+import { getAuthToken, setAuthToken } from "./AuthTokenApi";
+import { UserProfile } from "@api/interfaces/User";
 
 // Register function with proxy URL
 export const registerUser = async (payload: RegisterPayload): Promise<void> => {
@@ -18,7 +19,6 @@ export const registerUser = async (payload: RegisterPayload): Promise<void> => {
   }
 };
 
-// Login function with proxy URL
 export const loginUser = async (payload: LoginPayload): Promise<void> => {
   const response = await fetch(LOGIN_URL, {
     method: "POST",
@@ -36,6 +36,32 @@ export const loginUser = async (payload: LoginPayload): Promise<void> => {
   const data = await response.json();
   console.log("data" + JSON.stringify(data));
 
-  // Store the token in localStorage
-  setAuthToken(data.accessToken); // Make sure the token is saved here
+
+  setAuthToken(data.accessToken);
 };
+
+export const getProfile = async (): Promise<UserProfile | Error> => {
+  const token = getAuthToken();
+
+  if (!token) {
+    throw new Error("No authentication token found. Please log in.");
+  }
+
+  const response = await fetch(`${USER_PROFILE_INFO}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const result = await response.json();
+  console.log("HERE" + result);
+
+  return result as UserProfile;
+};
+

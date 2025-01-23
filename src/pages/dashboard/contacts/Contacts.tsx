@@ -1,20 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import "@styles/pages/dashboard/Contacts.scss";
 import { DasboardPageHeader } from "@layouts/DashboardLayout";
+import { getAllContactsForUser } from "@api/contacts/ContactsApi";
 
-/**
- * `CTable` docs: `https://coreui.io/react/docs/components/table/`
- */
 export function Contacts() {
-  const [contacts] = useState<ListPaneRow[]>([
-    {
-      name: "Doge",
-      telNum: "+1-(800)-858-0085",
-      email: "doge@cheemail.com",
-      locationId: "`[4](/dashboard/locations?user=4)`",
-    },
-  ]);
+  const [contacts, setContacts] = useState<ListPaneRow[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchContacts = async () => {
+      try {
+        const fetchedContacts = await getAllContactsForUser(); // Call the function to get contacts
+        const formattedContacts: ListPaneRow[] = fetchedContacts.map((contact) => ({
+          name: contact.name,
+          telNum: contact.phone,
+          email: contact.email,
+          locationId: contact.locationIds.join(", "), // Assuming locationIds is an array
+        }));
+        setContacts(formattedContacts);
+      } catch (err) {
+        setError("Failed to fetch contacts.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContacts();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <>
@@ -32,7 +55,7 @@ export function Contacts() {
         }}
         actions={{
           Delete: (index) => {
-            console.log("deleting: ", index);
+            console.log("deleting: ", contacts[index]);
           },
           Edit: (index) => {
             console.log("editing: ", contacts[index]);

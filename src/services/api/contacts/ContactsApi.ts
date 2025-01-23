@@ -1,10 +1,39 @@
+import { getAuthToken } from "@api/auth/AuthTokenApi";
 import { Contact, ContactInput } from "@api/interfaces/Contacts";
+import { CONTACTS_BASE_PATH } from "@constants/Endpoints";
+import { request } from "@utils/httpClient";
+
+export const getAllContactsForUser = async (): Promise<Contact[]> => {
+  const token = getAuthToken(); // Retrieve the authentication token
+
+  if (!token) {
+    throw new Error("Authorization token is missing.");
+  }
+
+  const response = await fetch(`${CONTACTS_BASE_PATH}/my-contacts`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`, // Use the token in the Authorization header
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const result = await response.json();
+  console.log(result);
+
+  return result as Contact[]; // Return the array of contacts
+};
 
 export async function createContact(
   input: ContactInput,
   ownerId: string,
 ): Promise<Contact> {
   const dto: Contact = {
+    contactId: "",
     locationIds: input.assocLocationIds,
     nonFilmingIds: [],
     uploadedAt: "",
@@ -13,22 +42,37 @@ export async function createContact(
     ...input,
   };
 
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
-
-  return fetch(``, {
+  return request<Contact>(`${CONTACTS_BASE_PATH}`, {
     method: "POST",
-    headers: headers,
+    authenticate: true,
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(dto),
-  })
-    .then((res) => res.json())
-    .then((data) => data.body as Contact);
+  });
 }
 
-export function getContactById() {}
+export async function getContactsByUserId(userId: string): Promise<Contact[]> {
+  return request<Contact[]>(`${CONTACTS_BASE_PATH}/users/${userId}`, {
+    method: "GET",
+    authenticate: true,
+  });
+}
 
-export function getContactByUserId() {}
+export async function updateContact(contactId: string, input: ContactInput): Promise<Contact> {
+  return request<Contact>(`${CONTACTS_BASE_PATH}/${contactId}`, {
+    method: "PUT",
+    authenticate: true,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(input),
+  });
+}
 
-export function updateContact() {}
-
-export function deleteContact() {}
+export async function deleteContact(contactId: string): Promise<void> {
+  return request<void>(`${CONTACTS_BASE_PATH}/${contactId}`, {
+    method: "DELETE",
+    authenticate: true,
+  });
+}
