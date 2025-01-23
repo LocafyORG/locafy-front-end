@@ -1,6 +1,10 @@
-import { LOGIN_URL, REGISTER_URL, USER_PROFILE_INFO } from "@constants/Endpoints";
+import {
+  LOGIN_URL,
+  REGISTER_URL,
+  USER_PROFILE_INFO,
+} from "@constants/Endpoints";
 import { LoginPayload, RegisterPayload } from "@api/interfaces/Auth";
-import { getAuthToken, setAuthToken } from "./AuthTokenApi";
+import { getAuthToken, setAuthToken } from "@api/auth/authTokenApi";
 import { UserProfile } from "@api/interfaces/User";
 
 // Register function with proxy URL
@@ -36,7 +40,6 @@ export const loginUser = async (payload: LoginPayload): Promise<void> => {
   const data = await response.json();
   console.log("data" + JSON.stringify(data));
 
-
   setAuthToken(data.accessToken);
 };
 
@@ -64,4 +67,3 @@ export const getProfile = async (): Promise<UserProfile | Error> => {
 
   return result as UserProfile;
 };
-

@@ -1,4 +1,4 @@
-import { getAuthToken } from "@api/auth/AuthTokenApi";
+import { getAuthToken } from "@api/auth/authTokenApi";
 import { Contact, ContactInput } from "@api/interfaces/Contacts";
 import { CONTACTS_BASE_PATH } from "@constants/Endpoints";
 import { request } from "@utils/httpClient";
@@ -59,7 +59,10 @@ export async function getContactsByUserId(userId: string): Promise<Contact[]> {
   });
 }
 
-export async function updateContact(contactId: string, input: ContactInput): Promise<Contact> {
+export async function updateContact(
+  contactId: string,
+  input: ContactInput,
+): Promise<Contact> {
   return request<Contact>(`${CONTACTS_BASE_PATH}/${contactId}`, {
     method: "PUT",
     authenticate: true,

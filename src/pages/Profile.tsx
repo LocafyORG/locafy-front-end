@@ -4,7 +4,7 @@ import { CSpinner } from "@coreui/react";
 import { DasboardPageHeader } from "@layouts/DashboardLayout";
 import { UserProfile } from "@api/interfaces/User";
 import { getProfile } from "@api/auth/authenticationAPI";
-import { getAuthToken } from "@api/auth/AuthTokenApi";
+import { getAuthToken } from "@api/auth/authTokenApi";
 
 export default function UserProfilePage() {
   const userId = getAuthToken();
@@ -37,9 +37,15 @@ export default function UserProfilePage() {
       />
       <Paper>
         <h3>User Information</h3>
-        <p><strong>Full Name:</strong> {profile?.firstName} {profile?.lastName}</p>
-        <p><strong>Email:</strong> {profile?.email}</p>
-        <p><strong>Phone:</strong> {profile?.phone}</p>
+        <p>
+          <strong>Full Name:</strong> {profile?.firstName} {profile?.lastName}
+        </p>
+        <p>
+          <strong>Email:</strong> {profile?.email}
+        </p>
+        <p>
+          <strong>Phone:</strong> {profile?.phone}
+        </p>
       </Paper>
     </>
   );

@@ -1,5 +1,5 @@
 import { LOCATIONS_BASE_PATH } from "@constants/Endpoints";
-import { getAuthToken } from "@api/auth/AuthTokenApi";
+import { getAuthToken } from "@api/auth/authTokenApi";
 import { Location } from "@api/interfaces/Location";
 import { request } from "@utils/httpClient";
 

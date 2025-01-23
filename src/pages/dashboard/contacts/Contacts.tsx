@@ -13,12 +13,14 @@ export function Contacts() {
     const fetchContacts = async () => {
       try {
         const fetchedContacts = await getAllContactsForUser(); // Call the function to get contacts
-        const formattedContacts: ListPaneRow[] = fetchedContacts.map((contact) => ({
-          name: contact.name,
-          telNum: contact.phone,
-          email: contact.email,
-          locationId: contact.locationIds.join(", "), // Assuming locationIds is an array
-        }));
+        const formattedContacts: ListPaneRow[] = fetchedContacts.map(
+          (contact) => ({
+            name: contact.name,
+            telNum: contact.phone,
+            email: contact.email,
+            locationId: contact.locationIds.join(", "), // Assuming locationIds is an array
+          }),
+        );
         setContacts(formattedContacts);
       } catch (err) {
         setError("Failed to fetch contacts.");

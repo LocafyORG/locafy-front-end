@@ -68,7 +68,9 @@ export function AddContact() {
             onChange={(e) =>
               setContact({
                 ...contact,
-                assocLocationIds: e.target.value.split(",").map((id) => id.trim()),
+                assocLocationIds: e.target.value
+                  .split(",")
+                  .map((id) => id.trim()),
               })
             }
           />
