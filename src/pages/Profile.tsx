@@ -53,6 +53,10 @@ export default function UserProfilePage() {
         <p className="text-sm text-gray-500">Phone</p>
         <p className="text-lg font-medium text-gray-900">{profile?.phone}</p>
       </div>
+      <div>
+        <p className="text-sm text-gray-500">ID</p>
+        <p className="text-lg font-medium text-gray-900">{profile?.userId}</p>
+      </div>
     </div>
   </div>
 
@@ -64,11 +68,35 @@ export default function UserProfilePage() {
       <p className="text-sm text-gray-600">No recent activity yet.</p>
     </div>
 
-    {/* Bottom Right Card */}
-    <div className="bg-white shadow-lg rounded-lg p-6 h-[240px]">
-      <h3 className="text-lg font-bold text-gray-800 mb-2">Settings</h3>
-      <p className="text-sm text-gray-600">Manage your account settings here.</p>
-    </div>
+   {/* Bottom Right Card */}
+<div className="bg-white shadow-lg rounded-lg p-6 h-[240px]">
+  <h3 className="text-lg font-bold text-gray-800 mb-4">Incoming Bills</h3>
+  <ul className="space-y-3">
+    {/* Example Bill Items */}
+    <li className="flex justify-between items-center">
+      <div>
+        <p className="text-sm font-medium text-gray-900">Monthly membership</p>
+        <p className="text-xs text-gray-500">Due: Jan 30, 2025</p>
+      </div>
+      <p className="text-sm font-semibold text-red-600">$120.00</p>
+    </li>
+    <li className="flex justify-between items-center">
+      <div>
+        <p className="text-sm font-medium text-gray-900">Montly membership</p>
+        <p className="text-xs text-gray-500">Due: Feb 5, 2025</p>
+      </div>
+      <p className="text-sm font-semibold text-red-600">$120.00</p>
+    </li>
+    <li className="flex justify-between items-center">
+      <div>
+        <p className="text-sm font-medium text-gray-900">Extra users</p>
+        <p className="text-xs text-gray-500">Due: Feb 10, 2025</p>
+      </div>
+      <p className="text-sm font-semibold text-red-600">$50.00</p>
+    </li>
+  </ul>
+</div>
+
   </div>
 </div>
 
