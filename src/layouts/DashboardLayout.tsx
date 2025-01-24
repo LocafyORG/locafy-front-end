@@ -69,7 +69,7 @@ export function DasboardPageHeader({
 }: DashboardPageHeaderProps) {
   return (
     <div className="flex flex-row justify-between items-center mt-12 mb-3">
-      <h1 className="text-4xl">{title}</h1>
+      <h1 className="text-4xl pl-4">{title}</h1>
       <div className="flex gap-3">
         {buttons.map((button, index) => (
           <Button {...button} key={index} />
