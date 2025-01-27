@@ -3,11 +3,13 @@ import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import "@styles/pages/dashboard/Contacts.scss";
 import { DasboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllContactsForUser } from "@api/contacts/ContactsApi";
+import { useNavigate } from "react-router";
 
 export function Contacts() {
   const [contacts, setContacts] = useState<ListPaneRow[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -45,7 +47,14 @@ export function Contacts() {
     <>
       <DasboardPageHeader
         title="Contacts"
-        buttons={[{ children: "ADD NEW CONTACT" }]}
+        buttons={[
+          {
+            children: "NEW CONTACT",
+            onClick: () => {
+              navigate("add");
+            },
+          },
+        ]}
       />
       <ListPane2
         data={contacts}
