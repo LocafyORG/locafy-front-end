@@ -107,6 +107,12 @@ export function AddLocation() {
                     </span>
                     <input
                       type="text"
+                      name="postalCode"
+                      onChange={handleInputChange}
+                      placeholder="Postal Code"
+                    />
+                    <input
+                      type="text"
                       name="addressLine1"
                       onChange={handleInputChange}
                       placeholder="Address Line 1"
@@ -131,24 +137,18 @@ export function AddLocation() {
                     />
                     <input
                       type="text"
-                      name="postalCode"
-                      onChange={handleInputChange}
-                      placeholder="Postal Code"
-                    />
-                    <input
-                      type="text"
                       name="country"
                       onChange={handleInputChange}
                       placeholder="Country"
                     />
                     <input
-                      type="number"
+                      type="hidden"
                       name="longitude"
                       onChange={handleInputChange}
                       placeholder="Longitude"
                     />
                     <input
-                      type="number"
+                      type="hidden"
                       name="Latitude"
                       onChange={handleInputChange}
                       placeholder="Add a description"
