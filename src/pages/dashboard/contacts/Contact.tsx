@@ -1,4 +1,3 @@
-import { getContactById } from "@api/contacts/ContactsApi";
 import { Paper } from "@components/Container";
 import { CSpinner } from "@coreui/react";
 import { DasboardPageHeader } from "@layouts/DashboardLayout";
