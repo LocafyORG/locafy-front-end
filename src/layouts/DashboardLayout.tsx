@@ -63,7 +63,7 @@ interface DashboardPageHeaderProps {
   buttons?: ButtonProps[];
 }
 
-export function DasboardPageHeader({
+export function DashboardPageHeader({
   title,
   buttons = [],
 }: DashboardPageHeaderProps) {

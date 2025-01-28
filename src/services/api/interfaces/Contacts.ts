@@ -13,6 +13,7 @@ export interface Contact {
 
 export interface ContactInput {
   name: string;
+  description: string;
   phone: string;
   email: string;
   notes: string;

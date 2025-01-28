@@ -6,7 +6,7 @@ import FilterForm, { FilterFormValues } from "@components/ui/FilterForm";
 import { Row } from "@components/Container";
 import CIcon from "@coreui/icons-react";
 import { cilGrid, cilList } from "@coreui/icons";
-import { DasboardPageHeader } from "@layouts/DashboardLayout";
+import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllLocations } from "@api/locations/LocationsApi";
 import { Location } from "@api/interfaces/Location";
 import { useNavigate } from "react-router";
@@ -50,7 +50,7 @@ export function Locations() {
 
   return (
     <>
-      <DasboardPageHeader
+      <DashboardPageHeader
         title="Locations"
         buttons={[
           {

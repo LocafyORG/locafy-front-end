@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import "@styles/pages/dashboard/Contacts.scss";
-import { DasboardPageHeader } from "@layouts/DashboardLayout";
+import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllContactsForUser } from "@api/contacts/ContactsApi";
 import { useNavigate } from "react-router";
 import { Contact } from "@api/interfaces/Contacts";
@@ -50,7 +50,7 @@ export function Contacts() {
 
   return (
     <>
-      <DasboardPageHeader
+      <DashboardPageHeader
         title="Contacts"
         buttons={[
           {

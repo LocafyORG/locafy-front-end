@@ -5,7 +5,7 @@ import Cheems from "@assets/img/under-development.webp";
 import { fetchProductions } from "@api/productions/ProductionsApi.ts";
 import { Production } from "@api/interfaces/Production.ts";
 import "@styles/pages/dashboard/Productions.scss";
-import { DasboardPageHeader } from "@layouts/DashboardLayout";
+import { DashboardPageHeader } from "@layouts/DashboardLayout";
 
 export function Productions() {
   const [data, setData] = useState<Production[]>([]);
@@ -40,7 +40,7 @@ export function Productions() {
 
   return (
     <>
-      <DasboardPageHeader
+      <DashboardPageHeader
         title="Productions"
         buttons={[{ children: "CREATE NEW PRODUCTION" }]}
       />

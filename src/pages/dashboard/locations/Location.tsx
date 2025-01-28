@@ -1,7 +1,7 @@
 import { getLocationById } from "@api/locations/LocationsApi";
 import { Paper } from "@components/Container";
 import { CSpinner } from "@coreui/react";
-import { DasboardPageHeader } from "@layouts/DashboardLayout";
+import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { useQuery } from "@tanstack/react-query";
 import { Map, useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useEffect, useMemo } from "react";
@@ -25,7 +25,7 @@ export function Location() {
 
   return (
     <>
-      <DasboardPageHeader
+      <DashboardPageHeader
         title={location?.name || "God knows"}
         buttons={[
           {

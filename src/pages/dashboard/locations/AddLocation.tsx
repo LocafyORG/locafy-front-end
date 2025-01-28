@@ -6,7 +6,7 @@ import { MultiItemInput, TextInput } from "@components/Form";
 import { cilXCircle } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import useSubmitState, { SubmitState } from "@hooks/useSubmitState";
-import { DasboardPageHeader } from "@layouts/DashboardLayout";
+import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { FormEvent, useCallback, useMemo, useState } from "react";
 
 export function AddLocation() {
@@ -75,7 +75,7 @@ export function AddLocation() {
 
   return (
     <>
-      <DasboardPageHeader title="Add New Location" />
+      <DashboardPageHeader title="Add New Location" />
 
       <Paper>
         <form>
