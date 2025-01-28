@@ -1,7 +1,6 @@
-import { getContactById } from "@api/contacts/ContactsApi";
 import { Paper } from "@components/Container";
 import { CSpinner } from "@coreui/react";
-import { DasboardPageHeader } from "@layouts/DashboardLayout";
+import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 
@@ -23,7 +22,7 @@ export function Contact() {
 
   return (
     <>
-      <DasboardPageHeader
+      <DashboardPageHeader
         title={contact?.name || "Unknown Contact"}
         buttons={[
           {
@@ -44,3 +43,7 @@ export function Contact() {
     </>
   );
 }
+function getContactById(arg0: string): any {
+  throw new Error("Function not implemented.");
+}
+

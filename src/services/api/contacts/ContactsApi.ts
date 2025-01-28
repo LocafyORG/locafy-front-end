@@ -41,12 +41,12 @@ export async function createContact(
     uploadedById: ownerId,
     ...input,
   };
-
+  const token = getAuthToken();
   return request<Contact>(`${CONTACTS_BASE_PATH}`, {
     method: "POST",
     authenticate: true,
     headers: {
-      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(dto),
   });

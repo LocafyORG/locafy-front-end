@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { Paper } from "@components/Container";
 import { CSpinner } from "@coreui/react";
-import { DasboardPageHeader } from "@layouts/DashboardLayout";
+import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { UserProfile } from "@api/interfaces/User";
 import { getProfile } from "@api/auth/authenticationAPI";
 import { getAuthToken } from "@api/auth/authTokenApi";
@@ -30,7 +29,7 @@ export default function UserProfilePage() {
 
   return (
     <>
-      <DasboardPageHeader
+      <DashboardPageHeader
         title={`${profile?.firstName} ${profile?.lastName}`}
         buttons={[{ children: "EDIT PROFILE", onClick: () => {} }]}
       />
