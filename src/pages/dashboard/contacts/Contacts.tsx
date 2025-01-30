@@ -4,27 +4,20 @@ import "@styles/pages/dashboard/Contacts.scss";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllContactsForUser } from "@api/contacts/ContactsApi";
 import { useNavigate } from "react-router";
+import { Contact } from "@api/interfaces/Contacts";
 
 export function Contacts() {
-  const navigate = useNavigate();
-
-  const [contacts, setContacts] = useState<ListPaneRow[]>([]);
+  const [rows, setRows] = useState<ListPaneRow[]>([]);
+  const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchContacts = async () => {
       try {
         const fetchedContacts = await getAllContactsForUser(); // Call the function to get contacts
-        const formattedContacts: ListPaneRow[] = fetchedContacts.map(
-          (contact) => ({
-            name: contact.name,
-            telNum: contact.phone,
-            email: contact.email,
-            locationId: contact.locationIds.join(", "), // Assuming locationIds is an array
-          }),
-        );
-        setContacts(formattedContacts);
+        setContacts(fetchedContacts);
       } catch (err) {
         setError("Failed to fetch contacts.");
         console.error(err);
@@ -35,6 +28,17 @@ export function Contacts() {
 
     fetchContacts();
   }, []);
+
+  useEffect(() => {
+    const rows: ListPaneRow[] = contacts.map((contact) => ({
+      name: contact.name,
+      telNum: contact.phone,
+      email: contact.email,
+      //locationId: contact.locationIds.join(", "), // Assuming locationIds is an array
+      locationId: "",
+    }));
+    setRows(rows);
+  }, [contacts]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -50,7 +54,7 @@ export function Contacts() {
         title="Contacts"
         buttons={[
           {
-            children: "ADD NEW CONTACT",
+            children: "NEW CONTACT",
             onClick: () => {
               navigate("add");
             },
@@ -58,7 +62,7 @@ export function Contacts() {
         ]}
       />
       <ListPane2
-        data={contacts}
+        data={rows}
         columnNames={{
           name: "Name",
           telNum: "Phone",
@@ -72,6 +76,10 @@ export function Contacts() {
           Edit: (index) => {
             console.log("editing: ", contacts[index]);
           },
+        }}
+        onRowClick={(index) => {
+          console.log(contacts[index]);
+          navigate(`${contacts[index].contactId}`);
         }}
       />
     </>

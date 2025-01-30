@@ -16,6 +16,7 @@ import Register from "@pages/auth/Register";
 import DashboardLayout from "@layouts/DashboardLayout";
 import AuthLayout from "@layouts/AuthLayout";
 import "@styles/App.scss";
+import { Contact } from "@pages/dashboard/contacts/Contact";
 
 /**
  *
@@ -42,6 +43,10 @@ function App() {
           <Route path={DASHBOARD.ADD_LOCATION} element={<AddLocation />} />
           <Route path={DASHBOARD.PRODUCTIONS} element={<Productions />} />
           <Route path={DASHBOARD.CONTACTS} element={<Contacts />} />
+          <Route
+            path={`${DASHBOARD.CONTACTS}/{contactId}`}
+            element={<Contact />}
+          />
           <Route path={DASHBOARD.ADD_CONTACT} element={<AddContact />} />
           <Route path={ROUTES.CALENDAR} element={<Contacts />} />
         </Route>
