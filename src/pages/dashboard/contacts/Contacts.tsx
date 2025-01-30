@@ -5,7 +5,6 @@ import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllContactsForUser } from "@api/contacts/ContactsApi";
 import { useNavigate } from "react-router";
 
-
 export function Contacts() {
   const navigate = useNavigate();
 

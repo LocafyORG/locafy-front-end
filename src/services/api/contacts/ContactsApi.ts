@@ -29,24 +29,24 @@ export const getAllContactsForUser = async (): Promise<Contact[]> => {
 };
 
 export async function createContact(
-  input: ContactInput,
-  ownerId: string,
+  contact: ContactInput,
+  selectedLocation: [],
 ): Promise<Contact> {
-  const dto: Contact = {
-    contactId: "",
-    locationIds: input.assocLocationIds,
-    nonFilmingIds: [],
-    uploadedAt: "",
-    lastUpdated: "",
-    uploadedById: ownerId,
-    ...input,
+  const dto: ContactInput = {
+    name: contact.name,
+    phone: contact.phone,
+    email: contact.email,
+    notes: contact.notes,
+    assocLocationIds: selectedLocation,
   };
+  console.log(dto);
   const token = getAuthToken();
   return request<Contact>(`${CONTACTS_BASE_PATH}`, {
     method: "POST",
     authenticate: true,
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(dto),
   });

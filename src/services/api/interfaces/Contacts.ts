@@ -2,6 +2,7 @@ export interface Contact {
   contactId?: string;
   name: string;
   phone: string;
+  description: string;
   email: string;
   notes: string;
   uploadedById: string;
@@ -13,7 +14,6 @@ export interface Contact {
 
 export interface ContactInput {
   name: string;
-  description: string;
   phone: string;
   email: string;
   notes: string;

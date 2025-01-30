@@ -18,15 +18,14 @@ export async function getLocationById(locationId: string): Promise<Location> {
 }
 
 export async function createLocation(location: Location): Promise<Location> {
-  const bod = JSON.stringify(location);
-  console.log("here!\n", bod);
+  const body = JSON.stringify(location);
   return request<Location>(`${LOCATIONS_BASE_PATH}`, {
     method: "POST",
     authenticate: true,
     headers: {
       "Content-Type": "application/json",
     },
-    body: bod,
+    body: body,
   });
 }
 
