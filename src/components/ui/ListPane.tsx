@@ -32,7 +32,7 @@ export function ListPane2({
 
   return (
     <>
-      <Paper className="p-2 w-screen-xl">
+      <Paper className="p-2 w-screen-xl hover:bg-gray-200 cursor-pointer">
         <table className="w-full">
           <thead className="">
             <tr>
@@ -46,7 +46,6 @@ export function ListPane2({
               ))}
 
               {hasActions ? (
-                /* Redundant space for the action button column */
                 <th className="bg-gray-50 p-3 last:rounded-r-lg"></th>
               ) : null}
             </tr>

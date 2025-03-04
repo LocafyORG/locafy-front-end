@@ -12,6 +12,7 @@ import {
 import { isAuthenticated } from "@api/auth/authTokenApi";
 import "@styles/layouts/DashboardLayout.scss";
 import { Button, ButtonProps } from "@components/Button";
+import { ArrowLeft } from "lucide-react";
 
 export default function DashboardLayout() {
   const location = useLocation();
@@ -61,19 +62,38 @@ export default function DashboardLayout() {
 interface DashboardPageHeaderProps {
   title: string;
   buttons?: ButtonProps[];
+  leftButtons?: ButtonProps[];
 }
 
 export function DashboardPageHeader({
   title,
   buttons = [],
+  leftButtons = [],
 }: DashboardPageHeaderProps) {
   return (
-    <div className="flex flex-row justify-between items-center mt-12 mb-3">
-      <h1 className="text-4xl pl-4">{title}</h1>
-      <div className="flex gap-3">
-        {buttons.map((button, index) => (
-          <Button {...button} key={index} />
-        ))}
+    <div className="mt-12 mb-3">
+      {/* Title on its own row with padding below */}
+      <h1 className="text-4xl text-gray-500 pl-4 pb-3">{title}</h1>
+
+      {/* Left buttons under the title, right-side buttons stay aligned */}
+      <div className="flex flex-row justify-between items-center">
+        <div className="pl-4 flex gap-2">
+          {leftButtons.map((leftButton, index) => (
+            <Button
+              {...leftButton}
+              key={index}
+              className="!bg-white text-gray-500 border border-gray-300 px-4 py-2 rounded-lg shadow-sm 
+                         hover:!bg-gray-100 transition-all duration-200"
+            />
+          ))}
+        </div>
+
+        {/* Right-side buttons */}
+        <div className="flex gap-3">
+          {buttons.map((button, index) => (
+            <Button {...button} key={index} />
+          ))}
+        </div>
       </div>
     </div>
   );

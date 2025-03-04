@@ -22,11 +22,30 @@ export function Location() {
       </div>
     );
   }
+  
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return null;
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    }).format(new Date(dateString));
+  };
 
   return (
     <>
       <DashboardPageHeader
         title={location?.name || "God knows"}
+        leftButtons={[
+          {
+            children: "BACK",
+            onClick: () => {},
+          },
+        ]}
         buttons={[
           {
             children: "SHARE",
@@ -38,8 +57,33 @@ export function Location() {
           },
         ]}
       />
-      <Paper>
-        <p>{location?.notes}</p>
+
+      <Paper className="p-4">
+        {location?.notes && (
+          <p>
+            <strong>Notes:</strong> {location.notes}
+          </p>
+        )}
+        {location?.name && (
+          <p>
+            <strong>Name:</strong> {location.name}
+          </p>
+        )}
+        {location?.locationType && (
+          <p>
+            <strong>Type:</strong> {location.locationType}
+          </p>
+        )}
+        {location?.uploadedAt && (
+          <p>
+            <strong>Uploaded At:</strong> {formatDate(location.uploadedAt)}
+          </p>
+        )}
+        {location?.lastUpdated && (
+          <p>
+            <strong>Last Updated:</strong> {formatDate(location.lastUpdated)}
+          </p>
+        )}
       </Paper>
 
       <div className="overflow-hidden rounded w-full h-[600px]">
@@ -80,7 +124,7 @@ function Heatmap({ radius, opacity }: HeatmapProps) {
     if (!heatmap) return;
 
     heatmap.setData([
-      { location: new google.maps.LatLng(0, 35.34), weight: 0.1 },
+      { location: new google.maps.LatLng(100, 100), weight: 0.1 },
       { location: new google.maps.LatLng(0, 35.3401), weight: 1.5 },
       { location: new google.maps.LatLng(0, 35.3402), weight: 0.5 },
       { location: new google.maps.LatLng(0, 35.3403), weight: 0.1 },

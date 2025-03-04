@@ -34,7 +34,6 @@ export function Contacts() {
       name: contact.name,
       telNum: contact.phone,
       email: contact.email,
-      //locationId: contact.locationIds.join(", "), // Assuming locationIds is an array
       locationId: "",
     }));
     setRows(rows);

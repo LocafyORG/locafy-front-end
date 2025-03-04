@@ -17,7 +17,7 @@ interface CardProps {
 export default function Card({ title, description, image }: CardProps) {
   return (
     <>
-      <CCard>
+      <CCard className="hover:bg-gray-200 cursor-pointer">
         <CCardImage orientation="top" src={image} />
         <CCardBody>
           <CCardTitle>{title}</CCardTitle>

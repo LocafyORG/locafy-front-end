@@ -52,7 +52,7 @@ export async function createContact(
   });
 }
 
-export async function getContactsByUserId(userId: string): Promise<Contact[]> {
+export async function getContactById(userId: string): Promise<Contact[]> {
   return request<Contact[]>(`${CONTACTS_BASE_PATH}/users/${userId}`, {
     method: "GET",
     authenticate: true,

@@ -46,7 +46,7 @@ export function Productions() {
       />
 
       <SortControls onSortChange={(value) => setSortKey(value)} />
-      <div className="card-container">
+      <div className="card-container ">
         {sortedData.map((item) => (
           <Card
             key={item.productionId}

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createContact } from "@api/contacts/ContactsApi";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
+import { getUserLocations } from "@api/locations/LocationsApi";
 
 interface Location {
   id: number;
@@ -15,21 +16,34 @@ export function AddContact() {
     phone: "",
     email: "",
     notes: "",
-    assocLocationIds: [] as string[],
+    assocLocationIds: [] as number[],
   });
 
-  // Initialize the addedLocations state with the correct type
-  const [addedLocations, setAddedLocations] = useState<Location[]>([]); // Now we specify the type as Location[]
+  const [addedLocations, setAddedLocations] = useState<Location[]>([]);
+  const [selectedLocation, setSelectedLocation] = useState<number | "">("");
+  const [locationsApi, setLocationsApi] = useState<Location[]>([]);
 
-  const [selectedLocation, setSelectedLocation] = useState<string>("");
+  useEffect(() => {
+    async function fetchLocations() {
+      try {
+        const locations = await getUserLocations();
+        if (!(locations instanceof Error)) {
+          setLocationsApi(
+            locations.map((location, index) => ({
+              ...location,
+              id: location.id || index + 1,
+            })),
+          );
+        } else {
+          console.error("Error fetching locations:", locations);
+        }
+      } catch (error) {
+        console.error("Failed to fetch locations:", error);
+      }
+    }
+    fetchLocations();
+  }, []);
 
-  const locationsApi = [
-    { id: 1, name: "Location A", address: "123 A St", tags: ["Tag1", "Tag2"] },
-    { id: 2, name: "Location B", address: "456 B Ave", tags: ["Tag3", "Tag4"] },
-    { id: 3, name: "Location C", address: "789 C Rd", tags: ["Tag5", "Tag6"] },
-  ];
-
-  // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setContact((prevContact) => ({
@@ -38,47 +52,43 @@ export function AddContact() {
     }));
   };
 
-  // Handle location selection
   const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedLocation(e.target.value);
+    setSelectedLocation(Number(e.target.value) || "");
   };
 
   const addLocationToList = () => {
-    const location = locationsApi.find(
-      (loc) => loc.id === parseInt(selectedLocation),
-    );
+    if (!selectedLocation) return;
+
+    const location = locationsApi.find((loc) => loc.id === selectedLocation);
 
     if (location && !addedLocations.some((loc) => loc.id === location.id)) {
       setAddedLocations((prevLocations) => [...prevLocations, location]);
-
       setContact((prevContact) => ({
         ...prevContact,
         assocLocationIds: [...prevContact.assocLocationIds, location.id],
       }));
-
       setSelectedLocation("");
     } else {
       console.log("Location already added or invalid selection.");
     }
   };
-  // Delete a location from the list
-  const handleDelete = (index: number) => {
+
+  const handleDelete = (id: number) => {
     setAddedLocations((prevLocations) =>
-      prevLocations.filter((_, i) => i !== index),
+      prevLocations.filter((loc) => loc.id !== id),
     );
     setContact((prevContact) => ({
       ...prevContact,
       assocLocationIds: prevContact.assocLocationIds.filter(
-        (_, i) => i !== index,
-      ), // Remove location ID from contact
+        (locationId) => locationId !== id,
+      ),
     }));
   };
 
-  // Handle form submit
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Submitting contact:", contact);
-    createContact(contact, addedLocations); // Submit the contact with associated locations (unchanged)
+    createContact(contact, addedLocations);
   };
 
   return (
@@ -100,7 +110,6 @@ export function AddContact() {
               className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
           <div>
             <label className="block text-gray-700 font-medium mb-1">
               Phone Number:
@@ -114,7 +123,6 @@ export function AddContact() {
               className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
           <div>
             <label className="block text-gray-700 font-medium mb-1">
               Email:
@@ -128,7 +136,6 @@ export function AddContact() {
               className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
           <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600"
@@ -137,8 +144,6 @@ export function AddContact() {
           </button>
         </form>
       </div>
-
-      {/* Location Selection */}
       <div className="bg-gray-100 shadow-lg rounded-2xl p-6 mt-6">
         <h3 className="text-xl font-semibold mb-2">Location Information</h3>
         <div className="mb-4">
@@ -152,6 +157,7 @@ export function AddContact() {
             id="location"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
             onChange={handleLocationChange}
+            value={selectedLocation}
           >
             <option value="">-- Choose a location --</option>
             {locationsApi.map((location) => (
@@ -161,7 +167,6 @@ export function AddContact() {
             ))}
           </select>
         </div>
-
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2"
           onClick={addLocationToList}
@@ -169,13 +174,15 @@ export function AddContact() {
         >
           Add Location
         </button>
-
         {addedLocations.length > 0 && (
           <div className="mt-6">
             <h4 className="text-lg font-semibold">Added Locations</h4>
             <ul className="mt-2">
-              {addedLocations.map((location, index) => (
-                <li key={index} className="bg-white p-4 rounded-lg shadow mb-3">
+              {addedLocations.map((location) => (
+                <li
+                  key={location.id}
+                  className="bg-white p-4 rounded-lg shadow mb-3"
+                >
                   <div className="flex justify-between items-center">
                     <div className="flex flex-col flex-1">
                       <h5 className="font-semibold">{location.name}</h5>
@@ -183,20 +190,9 @@ export function AddContact() {
                         {location.address}
                       </p>
                     </div>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="text-xs text-gray-500">Tags:</span>
-                      {location.tags.map((tag, i) => (
-                        <span
-                          key={i}
-                          className="bg-gray-200 px-2 py-1 rounded-full text-xs"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
                     <button
                       className="ml-4 bg-red-500 text-white px-2 py-1 rounded-lg text-xs"
-                      onClick={() => handleDelete(index)}
+                      onClick={() => handleDelete(location.id)}
                     >
                       Delete
                     </button>
