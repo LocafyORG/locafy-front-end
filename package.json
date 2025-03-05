@@ -18,6 +18,7 @@
     "@vis.gl/react-google-maps": "^1.4.2",
     "axios": "^1.7.9",
     "jwt-decode": "^4.0.0",
+    "locafy": "file:",
     "lucide-react": "^0.477.0",
     "material-icons": "^1.13.12",
     "react": "^18.3.1",
