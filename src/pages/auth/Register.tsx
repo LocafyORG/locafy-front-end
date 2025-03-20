@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { registerUser } from "@api/auth/authenticationAPI";
 import { RegisterPayload } from "@api/interfaces/Auth";
+import { ErrorResponse } from "@api/interfaces/ErrorResponse";
+
 import "@styles/pages/auth/Register.scss";
 
 function Register() {
@@ -14,6 +16,7 @@ function Register() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,6 +27,7 @@ function Register() {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage(null);
+    setFieldErrors({});
     setSuccessMessage(null);
 
     try {
@@ -31,7 +35,11 @@ function Register() {
       setSuccessMessage("Registration successful! You can now log in.");
       setFormData({ email: "", password: "", firstName: "", lastName: "" });
     } catch (error) {
-      if (error instanceof Error && error.message) {
+      if (error && typeof error === 'object' && 'errors' in error) {
+        const validationError = error as ErrorResponse;
+        setFieldErrors(validationError.errors || {});
+        setErrorMessage(validationError.message);
+      } else if (error instanceof Error){
         setErrorMessage(error.message);
       } else {
         setErrorMessage("Something went wrong on our end");
