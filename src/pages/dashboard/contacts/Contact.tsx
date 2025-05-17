@@ -1,10 +1,11 @@
-import { getContactById } from "@api/contacts/ContactsApi";
+import { useEffect } from "react";
+import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+
+import { getContactById, getLocationByContact } from "@api/contacts/ContactsApi";
+import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { Paper } from "@components/Container";
 import { CSpinner, CAlert } from "@coreui/react";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router";
-import { useEffect } from "react";
 
 export function Contact() {
   const { contactId } = useParams();
@@ -14,9 +15,19 @@ export function Contact() {
     isLoading,
     error,
   } = useQuery({
-    queryFn: () => getContactById(String(contactId)), // Ensures it's always a string
     queryKey: ["contact", contactId],
-    enabled: !!contactId, // Prevents running query if contactId is missing
+    queryFn: () => getContactById(String(contactId)),
+    enabled: !!contactId,
+  });
+
+  const {
+    data: sharedLocations,
+    isLoading: isLoadingSharedLocations,
+    error: sharedLocationsError,
+  } = useQuery({
+    queryKey: ["shared-locations", contactId],
+    queryFn: () => getLocationByContact(String(contactId)),
+    enabled: !!contactId,
   });
 
   useEffect(() => {
@@ -41,10 +52,18 @@ export function Contact() {
     );
   }
 
+  if (!contact) {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <CAlert color="warning">Contact not found.</CAlert>
+      </div>
+    );
+  }
+
   return (
     <>
       <DashboardPageHeader
-        title={contact?.name || "Unknown Contact"}
+        title={contact.name || "Unnamed Contact"}
         buttons={[
           {
             children: "SHARE",
@@ -56,10 +75,36 @@ export function Contact() {
           },
         ]}
       />
+
       <Paper>
-        <p>Email: {contact?.email || "N/A"}</p>
-        <p>Phone: {contact?.telNum || "N/A"}</p>
-        <p>Notes: {contact?.notes || "No notes available"}</p>
+        <p>Email: {contact.email || "N/A"}</p>
+        <p>Phone: {contact.telNum || "N/A"}</p>
+        <p>Notes: {contact.notes || "No notes available"}</p>
+      </Paper>
+
+      {/* Shared Locations Section */}
+      <Paper className="mt-4">
+        <h2 className="text-lg font-semibold mb-2">Shared Locations</h2>
+
+        {isLoadingSharedLocations ? (
+          <CSpinner />
+        ) : sharedLocationsError ? (
+          <CAlert color="danger">Failed to load shared locations.</CAlert>
+        ) : sharedLocations?.length ? (
+          <ul className="space-y-2">
+            {sharedLocations.map((location) => (
+              <li key={location.locationId} className="border-b pb-2">
+                <p className="font-medium">{location.name}</p>
+                <p className="text-sm text-gray-600">
+                  Type: {location.locationType} <br />
+                  Keywords: {location.keywords.join(", ") || "None"}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500">No shared locations found for this contact.</p>
+        )}
       </Paper>
     </>
   );

@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router";
 import Card from "@components/ui/Card";
-import SortControls from "@components/ui/SortControls/SortControls";
 import Cheems from "@assets/img/under-development.webp";
 import { fetchProductions } from "@api/productions/ProductionsApi.ts";
-import { Production } from "@api/interfaces/Production.ts";
+import { Production } from "@api/interfaces/ProductionDTO.ts";
 import "@styles/pages/dashboard/Productions.scss";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 
 export function Productions() {
   const [data, setData] = useState<Production[]>([]);
-  const [sortKey, setSortKey] = useState("title");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProductions = async () => {
@@ -28,12 +29,19 @@ export function Productions() {
     getProductions();
   }, []);
 
-  // Sort data based on the selected key
-  const sortedData = [...data].sort((a, b) => {
-    if (a[sortKey] < b[sortKey]) return -1;
-    if (a[sortKey] > b[sortKey]) return 1;
-    return 0;
-  });
+  const cards = useMemo(() => {
+    if (!data) return [];
+    return data.map((item) => (
+      <Card
+        key={item.productionId}
+        image={Cheems}
+        title={item.title}
+        description={item.description}
+        style={{ cursor: "pointer" }}
+        onClick={() => navigate(`${item.productionId}`)}
+      />
+    ));
+  }, [data, navigate]);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -42,20 +50,15 @@ export function Productions() {
     <>
       <DashboardPageHeader
         title="Productions"
-        buttons={[{ children: "CREATE NEW PRODUCTION" }]}
+        buttons={[
+          {
+            children: "CREATE NEW PRODUCTION",
+            onClick: () => navigate("add"),
+          },
+        ]}
       />
 
-      <SortControls onSortChange={(value) => setSortKey(value)} />
-      <div className="card-container ">
-        {sortedData.map((item) => (
-          <Card
-            key={item.productionId}
-            image={Cheems}
-            title={item.title}
-            description={item.description}
-          />
-        ))}
-      </div>
+      <div className="card-container">{cards}</div>
     </>
   );
 }

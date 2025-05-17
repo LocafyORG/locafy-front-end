@@ -3,10 +3,10 @@ import {
   REGISTER_URL,
   USER_PROFILE_INFO,
 } from "@constants/Endpoints";
-import { LoginPayload, RegisterPayload } from "@api/interfaces/Auth";
+import { LoginPayload, RegisterPayload } from "@api/interfaces/AuthDTO";
 import { getAuthToken, setAuthToken } from "@api/auth/authTokenApi";
-import { UserProfile } from "@api/interfaces/User";
-import { ErrorResponse } from "@api/interfaces/ErrorResponse";
+import { UserProfile } from "@api/interfaces/UserDTO";
+import { ErrorResponse } from "@api/interfaces/ErrorResponseDTO";
 
 // Register function with proxy URL
 export const registerUser = async (payload: RegisterPayload): Promise<void> => {

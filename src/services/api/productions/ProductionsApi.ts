@@ -1,6 +1,7 @@
-import { API_URL } from "@constants/Endpoints";
-import { Production } from "@api/interfaces/Production";
+import { PRODUCTIONS_BASE_PATH } from "@constants/Endpoints";
+import { Production } from "@api/interfaces/ProductionDTO";
 import { getAuthToken } from "@api/auth/authTokenApi";
+import { request } from "@utils/httpClient";
 
 export const fetchProductions = async (): Promise<Production[]> => {
   const token = getAuthToken();
@@ -9,7 +10,7 @@ export const fetchProductions = async (): Promise<Production[]> => {
     throw new Error("No authentication token found. Please log in.");
   }
 
-  const response = await fetch(API_URL, {
+  const response = await fetch(`${PRODUCTIONS_BASE_PATH}/my-productions`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -30,3 +31,17 @@ export const fetchProductions = async (): Promise<Production[]> => {
     description: item.description,
   }));
 };
+
+export async function getProductionById(productionId: string): Promise<Production> {
+  return request<Production>(`${PRODUCTIONS_BASE_PATH}/${productionId}`, {
+    method: "GET",
+    authenticate: true,
+    headers: {
+      Authorization: `Bearer ${getAuthToken()}`,
+      "Content-Type": "application/json",
+    },
+  });
+}
+
+
+

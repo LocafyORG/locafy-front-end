@@ -1,4 +1,4 @@
-import { Address } from "./Address";
+import { Address } from "./AddressDTO";
 
 export interface Location {
   locationId?: string;

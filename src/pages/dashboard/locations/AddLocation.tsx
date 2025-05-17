@@ -1,5 +1,5 @@
-import { Address } from "@api/interfaces/Address";
-import { Location } from "@api/interfaces/Location";
+import { Address } from "@api/interfaces/AddressDTO";
+import { Location } from "@api/interfaces/LocationDTO";
 import { createLocation } from "@api/locations/LocationsApi";
 import { Col, Paper } from "@components/Container";
 import { MultiItemInput, TextInput } from "@components/Form";

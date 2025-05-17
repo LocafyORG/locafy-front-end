@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { LoginPayload } from "@api/interfaces/Auth";
+import { LoginPayload } from "@api/interfaces/AuthDTO";
 import { loginUser } from "@api/auth/authenticationAPI";
 import { ROUTES } from "@constants/Routes";
 import "@styles/pages/auth/Login.scss";

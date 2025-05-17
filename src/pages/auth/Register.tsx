@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { registerUser } from "@api/auth/authenticationAPI";
-import { RegisterPayload } from "@api/interfaces/Auth";
-import { ErrorResponse } from "@api/interfaces/ErrorResponse";
+import { RegisterPayload } from "@api/interfaces/AuthDTO";
+import { ErrorResponse } from "@api/interfaces/ErrorResponseDTO";
 
 import "@styles/pages/auth/Register.scss";
 

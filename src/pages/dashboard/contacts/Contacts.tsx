@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import "@styles/pages/dashboard/Contacts.scss";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { getAllContactsForUser } from "@api/contacts/ContactsApi";
+import { getAllContacts } from "@api/contacts/ContactsApi";
 import { useNavigate } from "react-router";
-import { Contact } from "@api/interfaces/Contacts";
+import { Contact } from "@api/interfaces/ContactsDTO";
 
 export function Contacts() {
   const [rows, setRows] = useState<ListPaneRow[]>([]);
@@ -16,7 +16,7 @@ export function Contacts() {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const fetchedContacts = await getAllContactsForUser(); // Call the function to get contacts
+        const fetchedContacts = await getAllContacts(); // Call the function to get contacts
         setContacts(fetchedContacts);
       } catch (err) {
         setError("Failed to fetch contacts.");

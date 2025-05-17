@@ -49,8 +49,8 @@ export default function DashboardLayout() {
       <Sidebar buttons={navButtons} />
       <div className="flex flex-column items-center justify-start w-full">
         <UserProfile className="flex-grow-0 w-full" />
-        <div className="flex flex-column w-full max-w-screen-xl space-y-4 p-5 pt-0">
-          <Outlet />
+        <div className="flex flex-col w-full max-w-screen-xl pt-0 pr-10">
+        <Outlet />
         </div>
       </div>
     </div>

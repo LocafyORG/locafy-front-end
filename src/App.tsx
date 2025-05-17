@@ -17,6 +17,7 @@ import DashboardLayout from "@layouts/DashboardLayout";
 import AuthLayout from "@layouts/AuthLayout";
 import "@styles/App.scss";
 import { Contact } from "@pages/dashboard/contacts/Contact";
+import { Production } from "@pages/dashboard/productions/Production";
 
 /**
  *
@@ -42,9 +43,13 @@ function App() {
           />
           <Route path={DASHBOARD.ADD_LOCATION} element={<AddLocation />} />
           <Route path={DASHBOARD.PRODUCTIONS} element={<Productions />} />
+          <Route
+            path={`${DASHBOARD.PRODUCTIONS}/:productionId`}
+            element={<Production />}
+          />
           <Route path={DASHBOARD.CONTACTS} element={<Contacts />} />
           <Route
-            path={`${DASHBOARD.CONTACTS}/{contactId}`}
+            path={`${DASHBOARD.CONTACTS}/:contactId`}
             element={<Contact />}
           />
           <Route path={DASHBOARD.ADD_CONTACT} element={<AddContact />} />

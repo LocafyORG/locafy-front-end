@@ -1,64 +1,52 @@
-import { getAuthToken } from "@api/auth/authTokenApi";
-import { Contact, ContactInput } from "@api/interfaces/Contacts";
 import { CONTACTS_BASE_PATH } from "@constants/Endpoints";
+import { getAuthToken } from "@api/auth/authTokenApi";
+import { Contact, ContactInput } from "@api/interfaces/ContactsDTO";
 import { request } from "@utils/httpClient";
 
-export const getAllContactsForUser = async (): Promise<Contact[]> => {
-  const token = getAuthToken(); // Retrieve the authentication token
-
-  if (!token) {
-    throw new Error("Authorization token is missing.");
-  }
-
-  const response = await fetch(`${CONTACTS_BASE_PATH}/my-contacts`, {
+// Get all contacts for the current user
+export async function getAllContacts(): Promise<Contact[]> {
+  return request<Contact[]>(`${CONTACTS_BASE_PATH}/my-contacts`, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // Use the token in the Authorization header
-    },
+    authenticate: true,
   });
+}
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  const result = await response.json();
-  console.log(result);
-
-  return result as Contact[]; // Return the array of contacts
-};
-
+// Create a new contact and associate it with selected location IDs
 export async function createContact(
   contact: ContactInput,
-  selectedLocation: [],
+  selectedLocation: string[],
 ): Promise<Contact> {
   const dto: ContactInput = {
-    name: contact.name,
-    phone: contact.phone,
-    email: contact.email,
-    notes: contact.notes,
+    ...contact,
     assocLocationIds: selectedLocation,
   };
-  console.log(dto);
-  const token = getAuthToken();
+
   return request<Contact>(`${CONTACTS_BASE_PATH}`, {
     method: "POST",
     authenticate: true,
     headers: {
-      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(dto),
   });
 }
 
-export async function getContactById(userId: string): Promise<Contact[]> {
-  return request<Contact[]>(`${CONTACTS_BASE_PATH}/users/${userId}`, {
+// Get a contact by their user ID
+export async function getContactById(userId: string): Promise<Contact> {
+  return request<Contact>(`${CONTACTS_BASE_PATH}/${userId}`, {
     method: "GET",
     authenticate: true,
   });
 }
 
+export async function getLocationByContact(contactId: string): Promise<Location[]> {
+  return request<Location[]>(`${CONTACTS_BASE_PATH}/${contactId}/locations`, {
+    method: "GET",
+    authenticate: true,
+  });
+}
+
+// Update a contact
 export async function updateContact(
   contactId: string,
   input: ContactInput,
@@ -73,6 +61,7 @@ export async function updateContact(
   });
 }
 
+// Delete a contact
 export async function deleteContact(contactId: string): Promise<void> {
   return request<void>(`${CONTACTS_BASE_PATH}/${contactId}`, {
     method: "DELETE",

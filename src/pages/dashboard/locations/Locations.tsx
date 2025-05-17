@@ -8,7 +8,7 @@ import CIcon from "@coreui/icons-react";
 import { cilGrid, cilList } from "@coreui/icons";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllLocations } from "@api/locations/LocationsApi";
-import { Location } from "@api/interfaces/Location";
+import { Location } from "@api/interfaces/LocationDTO";
 import { useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
