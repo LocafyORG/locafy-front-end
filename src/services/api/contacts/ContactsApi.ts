@@ -61,10 +61,17 @@ export async function updateContact(
   });
 }
 
-// Delete a contact
 export async function deleteContact(contactId: string): Promise<void> {
-  return request<void>(`${CONTACTS_BASE_PATH}/${contactId}`, {
+  const token = getAuthToken();
+
+  const res = await fetch(`${CONTACTS_BASE_PATH}/${contactId}`, {
     method: "DELETE",
-    authenticate: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
+
+  if (!res.ok) {
+    throw new Error(`Failed to delete contact with id ${contactId}`);
+  }
 }

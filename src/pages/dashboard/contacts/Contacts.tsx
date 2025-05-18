@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import "@styles/pages/dashboard/Contacts.scss";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { getAllContacts } from "@api/contacts/ContactsApi";
+import { getAllContacts, deleteContact } from "@api/contacts/ContactsApi";
 import { useNavigate } from "react-router";
 import { Contact } from "@api/interfaces/ContactsDTO";
 
 export function Contacts() {
-  const [rows, setRows] = useState<ListPaneRow[]>([]);
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  // Fetch contacts once on mount
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const fetchedContacts = await getAllContacts(); // Call the function to get contacts
+        const fetchedContacts = await getAllContacts();
         setContacts(fetchedContacts);
       } catch (err) {
         setError("Failed to fetch contacts.");
@@ -29,23 +29,30 @@ export function Contacts() {
     fetchContacts();
   }, []);
 
-  useEffect(() => {
-    const rows: ListPaneRow[] = contacts.map((contact) => ({
-      name: contact.name,
-      telNum: contact.phone,
-      email: contact.email,
-      locationId: "",
-    }));
-    setRows(rows);
-  }, [contacts]);
+  // Convert contacts to rows for ListPane2
+  const rows: ListPaneRow[] = contacts.map((contact) => ({
+    name: contact.name,
+    telNum: contact.phone,
+    email: contact.email,
+    locationId: "", // You can fill this if you have location info
+  }));
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // Delete handler that removes the contact from state after deletion
+  const handleDelete = async (index: number) => {
+    const contact = contacts[index];
+    if (!contact || !contact.contactId) return;
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+    try {
+      await deleteContact(contact.contactId);
+      setContacts((prev) => prev.filter((_, i) => i !== index));
+    } catch (err) {
+      console.error("Failed to delete contact:", err);
+      setError("Failed to delete contact.");
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
@@ -60,6 +67,7 @@ export function Contacts() {
           },
         ]}
       />
+
       <ListPane2
         data={rows}
         columnNames={{
@@ -69,16 +77,19 @@ export function Contacts() {
           locationId: "Locations",
         }}
         actions={{
-          Delete: (index) => {
-            console.log("deleting: ", contacts[index]);
-          },
+          Delete: handleDelete,
           Edit: (index) => {
-            console.log("editing: ", contacts[index]);
+            const contact = contacts[index];
+            if (contact?.contactId) {
+              navigate(`${contact.contactId}`);
+            }
           },
         }}
         onRowClick={(index) => {
-          console.log(contacts[index]);
-          navigate(`${contacts[index].contactId}`);
+          const contact = contacts[index];
+          if (contact?.contactId) {
+            navigate(`${contact.contactId}`);
+          }
         }}
       />
     </>
