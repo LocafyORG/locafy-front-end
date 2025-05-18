@@ -44,4 +44,18 @@ export async function getProductionById(productionId: string): Promise<Productio
 }
 
 
+//TODO fix this
+export async function createProduction(production: Production): Promise<Production> {
+  const body = JSON.stringify(production);
+  return request<Production>(`${PRODUCTIONS_BASE_PATH}`, {
+    method: "POST",
+    authenticate: true,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getAuthToken()}`,
+    },
+    body: body,
+  });
+}
+
 

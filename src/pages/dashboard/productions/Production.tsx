@@ -38,7 +38,7 @@ export function Production() {
         leftButtons={[
           {
             children: "BACK",
-            onClick: () => navigate("/productions"),
+            onClick: () => navigate('/dashboard/productions'),
           },
         ]}
         buttons={[

@@ -32,9 +32,9 @@ export function ListPane2({
 
   return (
     <>
-      <Paper className="p-2 w-screen-xl hover:bg-gray-200 cursor-pointer">
+      <Paper className="p-2 w-screen-xl">
         <table className="w-full">
-          <thead className="">
+          <thead>
             <tr>
               {orderedKeys.map((name, colKey) => (
                 <th
@@ -52,12 +52,13 @@ export function ListPane2({
           </thead>
 
           <tbody className="divide-y divide-slate-100">
-            {/* Data Rows */}
             {data.map((d, rowId) => (
               <tr
                 className="hover:bg-gray-100 transition-colors"
                 key={rowId}
-                onClick={() => {
+                onClick={(e) => {
+                  const target = e.target as HTMLElement;
+                  if (target.closest(".actions-menu")) return;
                   onRowClick(rowId);
                 }}
               >
@@ -67,8 +68,7 @@ export function ListPane2({
                   </td>
                 ))}
                 {hasActions ? (
-                  /* Append actions at the very end */
-                  <td>
+                  <td className="relative">
                     <ActionsMenu actions={actions} itemIndex={rowId} />
                   </td>
                 ) : null}
@@ -93,7 +93,11 @@ export function ActionsMenu({
   itemIndex,
 }: ActionsMenuProps) {
   const [menuToggled, setMenuToggled] = useState<boolean>(false);
-  const toggleMenu = () => setMenuToggled((prev) => !prev);
+
+  const toggleMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setMenuToggled((prev) => !prev);
+  };
 
   const closeMenu = (e: React.FocusEvent<HTMLDivElement>) => {
     if (!e.currentTarget.contains(e.relatedTarget)) {
@@ -101,16 +105,40 @@ export function ActionsMenu({
     }
   };
 
+  const handleActionClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    actionName: string
+  ) => {
+    e.stopPropagation();
+    actions[actionName](itemIndex);
+    setMenuToggled(false);
+  };
+
   return (
-    <div className="actions-menu" onBlur={closeMenu}>
-      <button onClick={toggleMenu}>
+    <div
+      className="actions-menu relative inline-block"
+      onBlur={closeMenu}
+      tabIndex={0}
+    >
+      <button
+        onClick={toggleMenu}
+        className="p-1 rounded hover:bg-gray-100 focus:outline-none"
+      >
         {children ? children : <CIcon icon={cilOptions} />}
       </button>
-      <Paper className={`p-1 menu-items ${menuToggled ? "" : "hidden"}`}>
+      <Paper
+        className={`absolute top-full right-0 z-50 mt-2 min-w-[8rem] bg-white shadow-lg rounded-md p-1 flex flex-col ${
+          menuToggled ? "" : "hidden"
+        }`}
+      >
         {Object.keys(actions)
           .sort()
           .map((actionName, index) => (
-            <button key={index} onClick={() => actions[actionName](itemIndex)}>
+            <button
+              key={index}
+              onClick={(e) => handleActionClick(e, actionName)}
+              className="px-3 py-1 text-left hover:bg-gray-100 rounded"
+            >
               {actionName}
             </button>
           ))}

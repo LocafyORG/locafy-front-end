@@ -7,7 +7,6 @@ import {
 } from "@constants/Routes";
 import Home from "@pages/Home";
 import { Locations, AddLocation, Location } from "@pages/dashboard/locations";
-import { Productions } from "@pages/dashboard/productions";
 import { Contacts, AddContact } from "@pages/dashboard/contacts";
 import Profile from "@pages/Profile";
 import Pricing from "@pages/Pricing";
@@ -17,7 +16,11 @@ import DashboardLayout from "@layouts/DashboardLayout";
 import AuthLayout from "@layouts/AuthLayout";
 import "@styles/App.scss";
 import { Contact } from "@pages/dashboard/contacts/Contact";
-import { Production } from "@pages/dashboard/productions/Production";
+import {
+  Productions,
+  Production,
+  AddProduction,
+} from "@pages/dashboard/productions";
 
 /**
  *
@@ -26,15 +29,18 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Routes */}
         <Route path={ROUTES.HOME} element={<Home />} />
         <Route path={ROUTES.PROFILE} element={<Profile />} />
         <Route path={ROUTES.PRICING} element={<Pricing />} />
 
+        {/* Auth Routes */}
         <Route path={BASE_AUTH_PATH} element={<AuthLayout />}>
           <Route index path={ROUTES.LOGIN} element={<Login />} />
           <Route path={ROUTES.REGISTER} element={<Register />} />
         </Route>
 
+        {/* Location Routes */}
         <Route path={BASE_PATH} element={<DashboardLayout />}>
           <Route path={DASHBOARD.LOCATIONS} element={<Locations />} />
           <Route
@@ -42,17 +48,24 @@ function App() {
             element={<Location />}
           />
           <Route path={DASHBOARD.ADD_LOCATION} element={<AddLocation />} />
+
+          {/* Productions Routes */}
           <Route path={DASHBOARD.PRODUCTIONS} element={<Productions />} />
           <Route
             path={`${DASHBOARD.PRODUCTIONS}/:productionId`}
             element={<Production />}
           />
+          <Route path={DASHBOARD.ADD_PRODUCTION} element={<AddProduction />} />
+
+          {/* Contacts Routes */}
           <Route path={DASHBOARD.CONTACTS} element={<Contacts />} />
           <Route
             path={`${DASHBOARD.CONTACTS}/:contactId`}
             element={<Contact />}
           />
           <Route path={DASHBOARD.ADD_CONTACT} element={<AddContact />} />
+
+          {/* Calendar Routes */}
           <Route path={ROUTES.CALENDAR} element={<Contacts />} />
         </Route>
       </Routes>

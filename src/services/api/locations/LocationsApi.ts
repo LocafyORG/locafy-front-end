@@ -38,6 +38,23 @@ export async function getUserLocations(): Promise<Location[] | Error> {
   }).then((res) => res.json());
 }
 
+export async function deleteLocation(locationId: string) {
+  const token = getAuthToken();
+  const res = await fetch(`/api/v1/locations/${locationId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,  // Add auth header here
+    },
+  });
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText || "Failed to delete location");
+  }
+}
+
+
+
 /**
  * Returns a string URL pointing to the image.
  */

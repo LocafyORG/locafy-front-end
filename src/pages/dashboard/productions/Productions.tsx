@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Card from "@components/ui/Card";
 import Cheems from "@assets/img/under-development.webp";
@@ -29,20 +29,6 @@ export function Productions() {
     getProductions();
   }, []);
 
-  const cards = useMemo(() => {
-    if (!data) return [];
-    return data.map((item) => (
-      <Card
-        key={item.productionId}
-        image={Cheems}
-        title={item.title}
-        description={item.description}
-        style={{ cursor: "pointer" }}
-        onClick={() => navigate(`${item.productionId}`)}
-      />
-    ));
-  }, [data, navigate]);
-
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -58,7 +44,18 @@ export function Productions() {
         ]}
       />
 
-      <div className="card-container">{cards}</div>
+      <div className="card-container">
+        {data.map((item) => (
+          <Card
+            key={item.productionId}
+            image={Cheems}
+            title={item.title}
+            description={item.description}
+            style={{ cursor: "pointer" }}
+            onClick={() => {navigate(`${item.productionId}`)}}
+          />
+        ))}
+      </div>
     </>
   );
 }
