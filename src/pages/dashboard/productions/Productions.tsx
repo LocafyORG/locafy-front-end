@@ -51,7 +51,6 @@ export function Productions() {
             image={Cheems}
             title={item.title}
             description={item.description}
-            style={{ cursor: "pointer" }}
             onClick={() => {navigate(`${item.productionId}`)}}
           />
         ))}

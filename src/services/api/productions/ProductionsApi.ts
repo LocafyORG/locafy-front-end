@@ -58,4 +58,20 @@ export async function createProduction(production: Production): Promise<Producti
   });
 }
 
+export async function updateProduction(
+  productionId: string,
+  updatedProduction: Partial<Production>
+): Promise<Production> {
+  const body = JSON.stringify(updatedProduction);
+  return request<Production>(`${PRODUCTIONS_BASE_PATH}/${productionId}`, {
+    method: "PUT", // or "PATCH" if your backend uses partial updates
+    authenticate: true,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getAuthToken()}`,
+    },
+    body: body,
+  });
+}
+
 

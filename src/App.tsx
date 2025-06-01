@@ -21,6 +21,7 @@ import {
   Production,
   AddProduction,
 } from "@pages/dashboard/productions";
+import { EditProduction } from "@pages/dashboard/productions/EditProduction";
 
 /**
  *
@@ -56,6 +57,9 @@ function App() {
             element={<Production />}
           />
           <Route path={DASHBOARD.ADD_PRODUCTION} element={<AddProduction />} />
+          <Route path={`${DASHBOARD.EDIT_PRODUCTION}/:productionId`} element={<EditProduction />} />
+
+          {/* Dashboard Home */}
 
           {/* Contacts Routes */}
           <Route path={DASHBOARD.CONTACTS} element={<Contacts />} />

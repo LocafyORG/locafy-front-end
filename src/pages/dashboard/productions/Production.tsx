@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router";
 import { getProductionById } from "@api/productions/ProductionsApi";
 import Cheems from "@assets/img/under-development.webp";
+import { DASHBOARD } from "@constants/Routes";
 
 export function Production() {
   const { productionId } = useParams<{ productionId: string }>();
@@ -38,7 +39,7 @@ export function Production() {
         leftButtons={[
           {
             children: "BACK",
-            onClick: () => navigate('/dashboard/productions'),
+            onClick: () => navigate("/dashboard/productions"),
           },
         ]}
         buttons={[
@@ -52,7 +53,9 @@ export function Production() {
             children: "EDIT PRODUCTION",
             onClick: () => {
               if (production?.productionId) {
-                navigate(`/productions/edit/${production.productionId}`);
+                navigate(
+                  `${DASHBOARD.EDIT_PRODUCTION}/${production.productionId}`
+                );
               }
             },
           },

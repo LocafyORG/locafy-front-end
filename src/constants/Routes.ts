@@ -1,5 +1,6 @@
 export const BASE_PATH = "/dashboard";
 export const BASE_AUTH_PATH = "/auth";
+
 export const ROUTES = {
   HOME: "/",
   LOCATIONS: `${BASE_PATH}/locations`,
@@ -14,10 +15,18 @@ export const ROUTES = {
 };
 
 export const DASHBOARD = {
-  LOCATIONS: `${BASE_PATH}/locations`,
-  ADD_LOCATION: `${BASE_PATH}/locations/add`,
-  CONTACTS: `${BASE_PATH}/contacts`,
-  ADD_CONTACT: `${BASE_PATH}/contacts/add`,
-  PRODUCTIONS: `${BASE_PATH}/productions`,
-  ADD_PRODUCTION: `${BASE_PATH}/productions/add`,
+  // Location Routes
+  LOCATIONS: ROUTES.LOCATIONS,
+  ADD_LOCATION: `${ROUTES.LOCATIONS}/add`,
+  EDIT_LOCATION: `${ROUTES.LOCATIONS}/edit`,
+
+  // Contact Routes
+  CONTACTS: ROUTES.CONTACTS,
+  ADD_CONTACT: `${ROUTES.CONTACTS}/add`,
+  EDIT_CONTACT: `${ROUTES.CONTACTS}/edit`,
+
+  // Production Routes
+  PRODUCTIONS: ROUTES.PRODUCTIONS,
+  ADD_PRODUCTION: `${ROUTES.PRODUCTIONS}/add`,
+  EDIT_PRODUCTION: `${ROUTES.PRODUCTIONS}/edit`,
 };
