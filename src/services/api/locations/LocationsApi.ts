@@ -53,6 +53,23 @@ export async function deleteLocation(locationId: string) {
   }
 }
 
+export async function updateLocation(
+  locationId: string,
+  updatedLocation: Partial<Location>
+): Promise<Location> {
+  const body = JSON.stringify(updatedLocation);
+  return request<Location>(`${LOCATIONS_BASE_PATH}/${locationId}`, {
+    method: "PUT", // or PATCH, depending on your backend
+    authenticate: true,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getAuthToken()}`,
+    },
+    body: body,
+  });
+}
+
+
 
 
 /**

@@ -13,6 +13,7 @@ import {
 } from "@api/locations/LocationsApi";
 import { Location } from "@api/interfaces/LocationDTO";
 import { useNavigate } from "react-router";
+import { DASHBOARD } from "@constants/Routes";
 
 export function Locations() {
   const navigate = useNavigate();
@@ -142,7 +143,9 @@ export function Locations() {
           Edit: (index: number) => {
             const id = rows[index]?.id;
             if (id !== undefined) {
-              navigate(String(id) + "/edit");
+               navigate(
+                 `${DASHBOARD.EDIT_LOCATION}/${String(id)}`
+               );
             }
           },
           Delete: handleDelete,

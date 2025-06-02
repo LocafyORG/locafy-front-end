@@ -22,6 +22,7 @@ import {
   AddProduction,
 } from "@pages/dashboard/productions";
 import { EditProduction } from "@pages/dashboard/productions/EditProduction";
+import { EditLocation } from "@pages/dashboard/locations/EditLocation";
 
 /**
  *
@@ -49,6 +50,7 @@ function App() {
             element={<Location />}
           />
           <Route path={DASHBOARD.ADD_LOCATION} element={<AddLocation />} />
+          <Route path={`${DASHBOARD.EDIT_LOCATION}/:locationId`} element={<EditLocation />} />
 
           {/* Productions Routes */}
           <Route path={DASHBOARD.PRODUCTIONS} element={<Productions />} />
