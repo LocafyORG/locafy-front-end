@@ -5,6 +5,7 @@ import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllContacts, deleteContact } from "@api/contacts/ContactsApi";
 import { useNavigate } from "react-router";
 import { Contact } from "@api/interfaces/ContactsDTO";
+import { handleSignOut } from "@api/auth/authenticationAPI";
 
 export function Contacts() {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -21,6 +22,9 @@ export function Contacts() {
       } catch (err) {
         setError("Failed to fetch contacts.");
         console.error(err);
+         if (err === "Unauthorized") {
+                handleSignOut(navigate);
+              }
       } finally {
         setLoading(false);
       }

@@ -6,6 +6,7 @@ import { fetchProductions } from "@api/productions/ProductionsApi.ts";
 import { Production } from "@api/interfaces/ProductionDTO.ts";
 import "@styles/pages/dashboard/Productions.scss";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
+import { handleSignOut } from "@api/auth/authenticationAPI";
 
 export function Productions() {
   const [data, setData] = useState<Production[]>([]);
@@ -21,6 +22,9 @@ export function Productions() {
         setData(productions);
       } catch (err) {
         setError((err as Error).message);
+         if (err === "Unauthorized") {
+                handleSignOut(navigate);
+              }
       } finally {
         setIsLoading(false);
       }

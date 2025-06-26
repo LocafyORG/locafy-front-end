@@ -4,9 +4,11 @@ import {
   USER_PROFILE_INFO,
 } from "@constants/Endpoints";
 import { LoginPayload, RegisterPayload } from "@api/interfaces/AuthDTO";
-import { getAuthToken, setAuthToken } from "@api/auth/authTokenApi";
+import { deleteAuthToken, getAuthToken, setAuthToken } from "@api/auth/authTokenApi";
 import { UserProfile } from "@api/interfaces/UserDTO";
 import { ErrorResponse } from "@api/interfaces/ErrorResponseDTO";
+import { ROUTES } from "@constants/Routes";
+import { NavigateFunction } from "react-router";
 
 // Register function with proxy URL
 export const registerUser = async (payload: RegisterPayload): Promise<void> => {
@@ -71,4 +73,9 @@ export const getProfile = async (): Promise<UserProfile | Error> => {
   console.log("HERE" + result);
 
   return result as UserProfile;
+};
+
+export const handleSignOut = (navigate: NavigateFunction) => {
+  deleteAuthToken();
+  navigate(ROUTES.HOME);
 };

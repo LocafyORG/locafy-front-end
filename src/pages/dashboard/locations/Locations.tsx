@@ -14,6 +14,7 @@ import {
 import { Location } from "@api/interfaces/LocationDTO";
 import { useNavigate } from "react-router";
 import { DASHBOARD } from "@constants/Routes";
+import { handleSignOut } from "@api/auth/authenticationAPI";
 
 export function Locations() {
   const navigate = useNavigate();
@@ -31,6 +32,9 @@ export function Locations() {
       setError(null);
     } catch (err: any) {
       setError(err.message || "Failed to load locations");
+      if (err === "Unauthorized") {
+        handleSignOut(navigate);
+      }
     } finally {
       setLoading(false);
     }
