@@ -4,7 +4,11 @@ import {
   USER_PROFILE_INFO,
 } from "@constants/Endpoints";
 import { LoginPayload, RegisterPayload } from "@api/interfaces/AuthDTO";
-import { deleteAuthToken, getAuthToken, setAuthToken } from "@api/auth/authTokenApi";
+import {
+  deleteAuthToken,
+  getAuthToken,
+  setAuthToken,
+} from "@api/auth/authTokenApi";
 import { UserProfile } from "@api/interfaces/UserDTO";
 import { ErrorResponse } from "@api/interfaces/ErrorResponseDTO";
 import { ROUTES } from "@constants/Routes";
@@ -21,8 +25,8 @@ export const registerUser = async (payload: RegisterPayload): Promise<void> => {
   });
 
   if (!response.ok) {
-    const errorData = await response.json() as ErrorResponse;
-    if(errorData.errors) {
+    const errorData = (await response.json()) as ErrorResponse;
+    if (errorData.errors) {
       throw errorData;
     }
     throw new Error(errorData.message || "Registration failed");
@@ -39,7 +43,7 @@ export const loginUser = async (payload: LoginPayload): Promise<void> => {
   });
 
   if (!response.ok) {
-    const errorData = await response.json() as ErrorResponse;
+    const errorData = (await response.json()) as ErrorResponse;
     throw new Error(errorData.message || "Login failed");
   }
 
@@ -65,8 +69,10 @@ export const getProfile = async (): Promise<UserProfile | Error> => {
   });
 
   if (!response.ok) {
-    const errorData = await response.json() as ErrorResponse
-    throw new Error(errorData.message || `Failed to feth profile: ${response.status}`);
+    const errorData = (await response.json()) as ErrorResponse;
+    throw new Error(
+      errorData.message || `Failed to feth profile: ${response.status}`,
+    );
   }
 
   const result = await response.json();

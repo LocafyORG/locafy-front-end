@@ -32,7 +32,9 @@ export const fetchProductions = async (): Promise<Production[]> => {
   }));
 };
 
-export async function getProductionById(productionId: string): Promise<Production> {
+export async function getProductionById(
+  productionId: string,
+): Promise<Production> {
   return request<Production>(`${PRODUCTIONS_BASE_PATH}/${productionId}`, {
     method: "GET",
     authenticate: true,
@@ -43,9 +45,10 @@ export async function getProductionById(productionId: string): Promise<Productio
   });
 }
 
-
 //TODO fix this
-export async function createProduction(production: Production): Promise<Production> {
+export async function createProduction(
+  production: Production,
+): Promise<Production> {
   const body = JSON.stringify(production);
   return request<Production>(`${PRODUCTIONS_BASE_PATH}`, {
     method: "POST",
@@ -60,7 +63,7 @@ export async function createProduction(production: Production): Promise<Producti
 
 export async function updateProduction(
   productionId: string,
-  updatedProduction: Partial<Production>
+  updatedProduction: Partial<Production>,
 ): Promise<Production> {
   const body = JSON.stringify(updatedProduction);
   return request<Production>(`${PRODUCTIONS_BASE_PATH}/${productionId}`, {
@@ -73,5 +76,3 @@ export async function updateProduction(
     body: body,
   });
 }
-
-

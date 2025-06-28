@@ -23,6 +23,7 @@ import {
 } from "@pages/dashboard/productions";
 import { EditProduction } from "@pages/dashboard/productions/EditProduction";
 import { EditLocation } from "@pages/dashboard/locations/EditLocation";
+import { EditContact } from "@pages/dashboard/contacts/EditContact";
 
 /**
  *
@@ -50,7 +51,10 @@ function App() {
             element={<Location />}
           />
           <Route path={DASHBOARD.ADD_LOCATION} element={<AddLocation />} />
-          <Route path={`${DASHBOARD.EDIT_LOCATION}/:locationId`} element={<EditLocation />} />
+          <Route
+            path={`${DASHBOARD.EDIT_LOCATION}/:locationId`}
+            element={<EditLocation />}
+          />
 
           {/* Productions Routes */}
           <Route path={DASHBOARD.PRODUCTIONS} element={<Productions />} />
@@ -59,7 +63,10 @@ function App() {
             element={<Production />}
           />
           <Route path={DASHBOARD.ADD_PRODUCTION} element={<AddProduction />} />
-          <Route path={`${DASHBOARD.EDIT_PRODUCTION}/:productionId`} element={<EditProduction />} />
+          <Route
+            path={`${DASHBOARD.EDIT_PRODUCTION}/:productionId`}
+            element={<EditProduction />}
+          />
 
           {/* Dashboard Home */}
 
@@ -70,7 +77,10 @@ function App() {
             element={<Contact />}
           />
           <Route path={DASHBOARD.ADD_CONTACT} element={<AddContact />} />
-
+          <Route
+            path={`${DASHBOARD.EDIT_CONTACT}/:contactId`}
+            element={<EditContact />}
+          />
           {/* Calendar Routes */}
           <Route path={ROUTES.CALENDAR} element={<Contacts />} />
         </Route>

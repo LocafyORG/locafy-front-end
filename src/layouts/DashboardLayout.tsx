@@ -12,7 +12,6 @@ import {
 import { isAuthenticated } from "@api/auth/authTokenApi";
 import "@styles/layouts/DashboardLayout.scss";
 import { Button, ButtonProps } from "@components/Button";
-import { ArrowLeft } from "lucide-react";
 
 export default function DashboardLayout() {
   const location = useLocation();
@@ -50,7 +49,7 @@ export default function DashboardLayout() {
       <div className="flex flex-column items-center justify-start w-full">
         <UserProfile className="flex-grow-0 w-full" />
         <div className="flex flex-col w-full max-w-screen-xl pt-0 pr-10">
-        <Outlet />
+          <Outlet />
         </div>
       </div>
     </div>

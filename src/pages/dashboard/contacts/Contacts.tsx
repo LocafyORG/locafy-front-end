@@ -6,6 +6,7 @@ import { getAllContacts, deleteContact } from "@api/contacts/ContactsApi";
 import { useNavigate } from "react-router";
 import { Contact } from "@api/interfaces/ContactsDTO";
 import { handleSignOut } from "@api/auth/authenticationAPI";
+import { DASHBOARD } from "@constants/Routes";
 
 export function Contacts() {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -13,7 +14,6 @@ export function Contacts() {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  // Fetch contacts once on mount
   useEffect(() => {
     const fetchContacts = async () => {
       try {
@@ -22,16 +22,16 @@ export function Contacts() {
       } catch (err) {
         setError("Failed to fetch contacts.");
         console.error(err);
-         if (err === "Unauthorized") {
-                handleSignOut(navigate);
-              }
+        if (err === "Unauthorized") {
+          handleSignOut(navigate);
+        }
       } finally {
         setLoading(false);
       }
     };
 
     fetchContacts();
-  }, []);
+  }, [navigate]);
 
   // Convert contacts to rows for ListPane2
   const rows: ListPaneRow[] = contacts.map((contact) => ({
@@ -85,7 +85,9 @@ export function Contacts() {
           Edit: (index) => {
             const contact = contacts[index];
             if (contact?.contactId) {
-              navigate(`${contact.contactId}`);
+              navigate(
+                `${DASHBOARD.EDIT_CONTACT}/${String(contact.contactId)}`
+              );
             }
           },
         }}

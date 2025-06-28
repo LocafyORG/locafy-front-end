@@ -35,11 +35,11 @@ function Register() {
       setSuccessMessage("Registration successful! You can now log in.");
       setFormData({ email: "", password: "", firstName: "", lastName: "" });
     } catch (error) {
-      if (error && typeof error === 'object' && 'errors' in error) {
+      if (error && typeof error === "object" && "errors" in error) {
         const validationError = error as ErrorResponse;
         setFieldErrors(validationError.errors || {});
         setErrorMessage(validationError.message);
-      } else if (error instanceof Error){
+      } else if (error instanceof Error) {
         setErrorMessage(error.message);
       } else {
         setErrorMessage("Something went wrong on our end");
@@ -66,6 +66,9 @@ function Register() {
             onChange={handleInputChange}
             required
           />
+          {fieldErrors.firstName && (
+            <p className="field-error">{fieldErrors.firstName}</p>
+          )}
         </div>
 
         <div className="form-group">
@@ -78,6 +81,9 @@ function Register() {
             onChange={handleInputChange}
             required
           />
+          {fieldErrors.lastName && (
+            <p className="field-error">{fieldErrors.lastName}</p>
+          )}
         </div>
 
         <div className="form-group">
@@ -90,6 +96,9 @@ function Register() {
             onChange={handleInputChange}
             required
           />
+          {fieldErrors.email && (
+            <p className="field-error">{fieldErrors.email}</p>
+          )}
         </div>
 
         <div className="form-group">
@@ -101,8 +110,11 @@ function Register() {
             value={formData.password}
             onChange={handleInputChange}
             required
-            minLength={8} // Example: Enforce minimum password length
+            minLength={8}
           />
+          {fieldErrors.password && (
+            <p className="field-error">{fieldErrors.password}</p>
+          )}
         </div>
 
         <button type="submit" disabled={isSubmitting}>

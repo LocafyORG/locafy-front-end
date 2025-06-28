@@ -39,7 +39,9 @@ export async function getContactById(userId: string): Promise<Contact> {
   });
 }
 
-export async function getLocationByContact(contactId: string): Promise<Location[]> {
+export async function getLocationByContact(
+  contactId: string,
+): Promise<Location[]> {
   return request<Location[]>(`${CONTACTS_BASE_PATH}/${contactId}/locations`, {
     method: "GET",
     authenticate: true,

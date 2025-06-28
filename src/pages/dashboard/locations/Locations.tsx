@@ -7,10 +7,7 @@ import { Row } from "@components/Container";
 import CIcon from "@coreui/icons-react";
 import { cilGrid, cilList } from "@coreui/icons";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import {
-  getAllLocations,
-  deleteLocation,
-} from "@api/locations/LocationsApi";
+import { getAllLocations, deleteLocation } from "@api/locations/LocationsApi";
 import { Location } from "@api/interfaces/LocationDTO";
 import { useNavigate } from "react-router";
 import { DASHBOARD } from "@constants/Routes";
@@ -75,7 +72,10 @@ export function Locations() {
       name: loc.name || "Unnamed",
       address: "Probably Jupiter, IDK",
       tags: loc.keywords.map((word, idx) => (
-        <span key={idx} className="mr-1 inline-block bg-gray-200 px-2 py-1 rounded">
+        <span
+          key={idx}
+          className="mr-1 inline-block bg-gray-200 px-2 py-1 rounded"
+        >
           {word}
         </span>
       )),
@@ -147,9 +147,7 @@ export function Locations() {
           Edit: (index: number) => {
             const id = rows[index]?.id;
             if (id !== undefined) {
-               navigate(
-                 `${DASHBOARD.EDIT_LOCATION}/${String(id)}`
-               );
+              navigate(`${DASHBOARD.EDIT_LOCATION}/${String(id)}`);
             }
           },
           Delete: handleDelete,

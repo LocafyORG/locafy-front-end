@@ -15,7 +15,12 @@ interface CardProps {
   onClick?: () => void;
 }
 
-export default function Card({ title, description, image, onClick }: CardProps) {
+export default function Card({
+  title,
+  description,
+  image,
+  onClick,
+}: CardProps) {
   return (
     <CCard className="hover:bg-gray-200 cursor-pointer" onClick={onClick}>
       <CCardImage orientation="top" src={image} />
@@ -24,9 +29,7 @@ export default function Card({ title, description, image, onClick }: CardProps) 
         <CCardSubtitle>Subtitle</CCardSubtitle>
         <CCardText>{description}</CCardText>
         <CCardText>
-          <small className="text-body-secondary">
-            Last updated 3 mins ago
-          </small>
+          <small className="text-body-secondary">Last updated 3 mins ago</small>
         </CCardText>
       </CCardBody>
     </CCard>

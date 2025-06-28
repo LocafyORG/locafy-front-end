@@ -107,7 +107,7 @@ export function ActionsMenu({
 
   const handleActionClick = (
     e: React.MouseEvent<HTMLButtonElement>,
-    actionName: string
+    actionName: string,
   ) => {
     e.stopPropagation();
     actions[actionName](itemIndex);

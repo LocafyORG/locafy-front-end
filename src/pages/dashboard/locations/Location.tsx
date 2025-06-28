@@ -22,7 +22,7 @@ export function Location() {
       </div>
     );
   }
-  
+
   const formatDate = (dateString?: string) => {
     if (!dateString) return null;
     return new Intl.DateTimeFormat("en-US", {

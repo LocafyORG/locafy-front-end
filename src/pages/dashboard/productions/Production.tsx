@@ -54,7 +54,7 @@ export function Production() {
             onClick: () => {
               if (production?.productionId) {
                 navigate(
-                  `${DASHBOARD.EDIT_PRODUCTION}/${production.productionId}`
+                  `${DASHBOARD.EDIT_PRODUCTION}/${production.productionId}`,
                 );
               }
             },

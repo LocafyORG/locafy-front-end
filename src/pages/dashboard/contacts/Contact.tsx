@@ -1,14 +1,18 @@
 import { useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
-import { getContactById, getLocationByContact } from "@api/contacts/ContactsApi";
+import {
+  getContactById,
+  getLocationByContact,
+} from "@api/contacts/ContactsApi";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { Paper } from "@components/Container";
 import { CSpinner, CAlert } from "@coreui/react";
 
 export function Contact() {
   const { contactId } = useParams();
+  const navigate = useNavigate();
 
   const {
     data: contact,
@@ -60,6 +64,10 @@ export function Contact() {
     );
   }
 
+  // Helper to format dates nicely
+  const formatDate = (dateStr?: string) =>
+    dateStr ? new Date(dateStr).toLocaleString() : "N/A";
+
   return (
     <>
       <DashboardPageHeader
@@ -67,19 +75,27 @@ export function Contact() {
         buttons={[
           {
             children: "SHARE",
-            onClick: () => {},
+            onClick: () => {
+              alert("Share feature coming soon!");
+            },
           },
           {
             children: "EDIT CONTACT",
-            onClick: () => {},
+            onClick: () => {
+              navigate(`/contacts/edit/${contactId}`);
+            },
           },
         ]}
       />
 
       <Paper>
-        <p>Email: {contact.email || "N/A"}</p>
-        <p>Phone: {contact.telNum || "N/A"}</p>
-        <p>Notes: {contact.notes || "No notes available"}</p>
+        <p><strong>Name:</strong> {contact.name || "N/A"}</p>
+        <p><strong>Description:</strong> {contact.description || "No description"}</p>
+        <p><strong>Email:</strong> {contact.email || "N/A"}</p>
+        <p><strong>Phone:</strong> {contact.phone || "N/A"}</p>
+        <p><strong>Notes:</strong> {contact.notes || "No notes available"}</p>
+        <p><strong>Uploaded At:</strong> {formatDate(contact.uploadedAt)}</p>
+        <p><strong>Last Updated:</strong> {formatDate(contact.lastUpdated)}</p>
       </Paper>
 
       {/* Shared Locations Section */}
@@ -90,20 +106,22 @@ export function Contact() {
           <CSpinner />
         ) : sharedLocationsError ? (
           <CAlert color="danger">Failed to load shared locations.</CAlert>
-        ) : sharedLocations?.length ? (
+        ) : sharedLocations && sharedLocations.length > 0 ? (
           <ul className="space-y-2">
             {sharedLocations.map((location) => (
               <li key={location.locationId} className="border-b pb-2">
                 <p className="font-medium">{location.name}</p>
                 <p className="text-sm text-gray-600">
                   Type: {location.locationType} <br />
-                  Keywords: {location.keywords.join(", ") || "None"}
+                  Keywords: {location.keywords?.join(", ") || "None"}
                 </p>
               </li>
             ))}
           </ul>
         ) : (
-          <p className="text-gray-500">No shared locations found for this contact.</p>
+          <p className="text-gray-500">
+            No shared locations found for this contact.
+          </p>
         )}
       </Paper>
     </>

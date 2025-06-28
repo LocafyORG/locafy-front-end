@@ -22,9 +22,9 @@ export function Productions() {
         setData(productions);
       } catch (err) {
         setError((err as Error).message);
-         if (err === "Unauthorized") {
-                handleSignOut(navigate);
-              }
+        if (err === "Unauthorized") {
+          handleSignOut(navigate);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -55,7 +55,9 @@ export function Productions() {
             image={Cheems}
             title={item.title}
             description={item.description}
-            onClick={() => {navigate(`${item.productionId}`)}}
+            onClick={() => {
+              navigate(`${item.productionId}`);
+            }}
           />
         ))}
       </div>
