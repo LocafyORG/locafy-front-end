@@ -32,7 +32,6 @@ export default function FilterForm({
           delayMs={800}
           placeholder="Search"
           onValueChange={onSearchTermChange}
-          name="Search"
         />
       </Row>
       <Row>

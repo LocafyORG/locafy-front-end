@@ -1,6 +1,6 @@
 import { PRODUCTIONS_BASE_PATH } from "@constants/Endpoints";
-import { Production } from "@api/interfaces/ProductionDTO";
-import { getAuthToken } from "@api/auth/authTokenApi";
+import { Production, ProductionInput } from "@api/interfaces/ProductionDTO";
+import { getAuthToken } from "@api/auth/AuthTokenApi";
 import { request } from "@utils/httpClient";
 
 export const fetchProductions = async (): Promise<Production[]> => {
@@ -47,9 +47,9 @@ export async function getProductionById(
 
 //TODO fix this
 export async function createProduction(
-  production: Production,
+  productionInput: ProductionInput
 ): Promise<Production> {
-  const body = JSON.stringify(production);
+  const body = JSON.stringify(productionInput);
   return request<Production>(`${PRODUCTIONS_BASE_PATH}`, {
     method: "POST",
     authenticate: true,
@@ -57,9 +57,10 @@ export async function createProduction(
       "Content-Type": "application/json",
       Authorization: `Bearer ${getAuthToken()}`,
     },
-    body: body,
+    body,
   });
 }
+
 
 export async function updateProduction(
   productionId: string,

@@ -19,3 +19,13 @@ export interface ContactInput {
   notes: string;
   assocLocationIds: string[];
 }
+
+export interface ContactState {
+  name: string;
+  phone: string;
+  email: string;
+  notes: string;
+  description: string;
+  uploadedById: string;
+  locationIds: string[];
+}

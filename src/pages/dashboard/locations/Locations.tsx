@@ -27,9 +27,10 @@ export function Locations() {
       const locations = await getAllLocations();
       setLocalLocations(locations);
       setError(null);
-    } catch (err: any) {
-      setError(err.message || "Failed to load locations");
-      if (err === "Unauthorized") {
+    } catch (err) {
+      setError("Failed to load locations");
+      console.warn(err);
+     if (String(err).includes("Unauthorized")) {
         handleSignOut(navigate);
       }
     } finally {

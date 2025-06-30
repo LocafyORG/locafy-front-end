@@ -1,7 +1,8 @@
 import { CONTACTS_BASE_PATH } from "@constants/Endpoints";
-import { getAuthToken } from "@api/auth/authTokenApi";
+import { getAuthToken } from "@api/auth/AuthTokenApi";
 import { Contact, ContactInput } from "@api/interfaces/ContactsDTO";
 import { request } from "@utils/httpClient";
+import { Location } from "@api/interfaces/LocationDTO";
 
 // Get all contacts for the current user
 export async function getAllContacts(): Promise<Contact[]> {

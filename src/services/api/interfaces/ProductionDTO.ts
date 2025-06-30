@@ -35,3 +35,12 @@ export interface Production {
   createdAt: string;
   lastUpdated: string;
 }
+
+export interface ProductionInput {
+  title: string;
+  description: string;
+  officeAddress?: OfficeAddress;
+  sceneIds?: string[];
+  productionMemberships?: ProductionMemberships;
+  createdById?: string;
+}

@@ -10,14 +10,14 @@ export function AddProduction() {
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
-    try {
-      await createProduction({ title, description });
-      navigate(DASHBOARD.PRODUCTIONS);
-    } catch (error) {
-      console.error("Failed to create production:", error);
-    }
-  };
+const handleSubmit = async () => {
+  try {
+    await createProduction({ title, description });
+    navigate(DASHBOARD.PRODUCTIONS);
+  } catch (error) {
+    console.error("Failed to create production:", error);
+  }
+};
 
   return (
     <>

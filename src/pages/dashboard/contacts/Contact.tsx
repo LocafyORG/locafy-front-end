@@ -10,6 +10,9 @@ import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { Paper } from "@components/Container";
 import { CSpinner, CAlert } from "@coreui/react";
 
+import type { Location } from "@api/interfaces/LocationDTO";
+import type { Contact } from "@api/interfaces/ContactsDTO";
+
 export function Contact() {
   const { contactId } = useParams();
   const navigate = useNavigate();
@@ -18,7 +21,7 @@ export function Contact() {
     data: contact,
     isLoading,
     error,
-  } = useQuery({
+  } = useQuery<Contact, Error>({
     queryKey: ["contact", contactId],
     queryFn: () => getContactById(String(contactId)),
     enabled: !!contactId,
@@ -28,7 +31,7 @@ export function Contact() {
     data: sharedLocations,
     isLoading: isLoadingSharedLocations,
     error: sharedLocationsError,
-  } = useQuery({
+  } = useQuery<Location[], Error>({
     queryKey: ["shared-locations", contactId],
     queryFn: () => getLocationByContact(String(contactId)),
     enabled: !!contactId,
@@ -64,7 +67,6 @@ export function Contact() {
     );
   }
 
-  // Helper to format dates nicely
   const formatDate = (dateStr?: string) =>
     dateStr ? new Date(dateStr).toLocaleString() : "N/A";
 
@@ -98,7 +100,6 @@ export function Contact() {
         <p><strong>Last Updated:</strong> {formatDate(contact.lastUpdated)}</p>
       </Paper>
 
-      {/* Shared Locations Section */}
       <Paper className="mt-4">
         <h2 className="text-lg font-semibold mb-2">Shared Locations</h2>
 

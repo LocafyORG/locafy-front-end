@@ -22,6 +22,8 @@ export function EditLocation() {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -94,7 +96,6 @@ export function EditLocation() {
           {
             children: isSaving ? "SAVING..." : "SAVE",
             onClick: handleSave,
-            disabled: isSaving,
           },
         ]}
       />
@@ -102,14 +103,12 @@ export function EditLocation() {
       <Paper className="p-4 max-w-3xl mx-auto space-y-4">
         <TextInput
           name="name"
-          value={name}
           onChange={(val) => setName(val)}
           placeholder="Location name"
         />
 
         <TextInput
           name="notes"
-          value={notes}
           onChange={(val) => setNotes(val)}
           placeholder="Description"
         />
@@ -117,7 +116,6 @@ export function EditLocation() {
         <MultiItemInput<Address>
           label="Address"
           max={4}
-          initialValues={addresses}
           itemRenderer={(handleInputChange, removeCallback) => (
             <Col className="gap-2 my-2 border-1 border-gray-300 rounded p-3 bg-gray-50">
               <span className="flex justify-end">

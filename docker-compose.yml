@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  locafy-frontend:
+    container_name: locafy-front-end
+    build: .
+    ports:
+      - "3000:3000"
+networks:
+  locafy-network:
+    external: true
+    command: [ "npm", "run", "dev" ]

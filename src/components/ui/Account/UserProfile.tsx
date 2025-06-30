@@ -3,9 +3,9 @@ import { CImage } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import DefaultBadgeImage from "@assets/img/under-development.webp";
 import "./UserProfile.css";
-import { deleteAuthToken } from "@api/auth/authTokenApi";
 import { ROUTES } from "@constants/Routes";
 import { ActionsMenu } from "../ListPane";
+import { deleteAuthToken } from "@api/auth/AuthTokenApi";
 
 interface UserProfileProps {
   badgeImageSrc?: string;

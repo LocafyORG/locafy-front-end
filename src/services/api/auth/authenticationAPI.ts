@@ -8,7 +8,7 @@ import {
   deleteAuthToken,
   getAuthToken,
   setAuthToken,
-} from "@api/auth/authTokenApi";
+} from "@api/auth/AuthTokenApi";
 import { UserProfile } from "@api/interfaces/UserDTO";
 import { ErrorResponse } from "@api/interfaces/ErrorResponseDTO";
 import { ROUTES } from "@constants/Routes";

@@ -4,41 +4,40 @@ import { createContact } from "@api/contacts/ContactsApi";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { getUserLocations } from "@api/locations/LocationsApi";
 import { ROUTES } from "@constants/Routes";
+import { Location } from "@api/interfaces/LocationDTO";
+import { ContactState } from "@api/interfaces/ContactsDTO";
 
-interface Location {
-  id: string;
-  name: string;
-  address: string;
-  tags: string[];
-}
+type ContactField = "name" | "phone" | "email" | "notes";
 
 export function AddContact() {
   const navigate = useNavigate();
 
-  const [contact, setContact] = useState({
+  const [contact, setContact] = useState<ContactState>({
     name: "",
     phone: "",
     email: "",
     notes: "",
     description: "",
-    uploadedById: "mock-user-id", // replace with actual logged-in user ID
-    locationIds: [] as string[],
+    uploadedById: "mock-user-id", // replace with actual user id
+    locationIds: [],
   });
 
   const [addedLocations, setAddedLocations] = useState<Location[]>([]);
-  const [selectedLocation, setSelectedLocation] = useState<string | "">("");
+  const [selectedLocation, setSelectedLocation] = useState<string>("");
   const [locationsApi, setLocationsApi] = useState<Location[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const fields: ContactField[] = ["name", "phone", "email", "notes"];
 
   useEffect(() => {
     async function fetchLocations() {
       try {
         const locations = await getUserLocations();
-        if (!(locations instanceof Error)) {
+        if (Array.isArray(locations)) {
           setLocationsApi(locations);
         } else {
-          console.error("Error fetching locations:", locations);
+          console.error("Returned locations is not an array:", locations);
         }
       } catch (error) {
         console.error("Failed to fetch locations:", error);
@@ -50,7 +49,8 @@ export function AddContact() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
+    const name = e.target.name as ContactField;
+    const value = e.target.value;
     setContact((prevContact) => ({
       ...prevContact,
       [name]: value,
@@ -64,19 +64,26 @@ export function AddContact() {
   const addLocationToList = () => {
     if (!selectedLocation) return;
 
-    const location = locationsApi.find((loc) => loc.id === selectedLocation);
-    if (location && !addedLocations.some((loc) => loc.id === location.id)) {
+    const location = locationsApi.find(
+      (loc) => loc.locationId === selectedLocation
+    );
+
+    if (
+      location &&
+      location.locationId && // ensures locationId is defined
+      !addedLocations.some((loc) => loc.locationId === location.locationId)
+    ) {
       setAddedLocations((prev) => [...prev, location]);
       setContact((prevContact) => ({
         ...prevContact,
-        locationIds: [...prevContact.locationIds, location.id],
+        locationIds: [...prevContact.locationIds, location.locationId!], // non-null assertion safe here
       }));
       setSelectedLocation("");
     }
   };
 
   const handleDelete = (id: string) => {
-    setAddedLocations((prev) => prev.filter((loc) => loc.id !== id));
+    setAddedLocations((prev) => prev.filter((loc) => loc.locationId !== id));
     setContact((prevContact) => ({
       ...prevContact,
       locationIds: prevContact.locationIds.filter((locId) => locId !== id),
@@ -87,22 +94,25 @@ export function AddContact() {
     e.preventDefault();
     setIsSubmitting(true);
     const now = new Date().toISOString();
+
+    // Note: Add assocLocationIds here if your ContactInput requires it.
     const payload = {
       ...contact,
       uploadedAt: now,
       lastUpdated: now,
-      nonFilmingIds: [], // adjust if needed
+      nonFilmingIds: [],
+      assocLocationIds: contact.locationIds, // adjust if needed
     };
 
     try {
-      await createContact(payload, addedLocations);
+      // Pass only locationIds array if that's what createContact expects
+      await createContact(payload, contact.locationIds);
       setSuccess(true);
       setTimeout(() => {
-        navigate(ROUTES.CONTACTS); // change redirect as needed
+        navigate(ROUTES.CONTACTS);
       }, 2000);
     } catch (error) {
       console.error("Failed to create contact:", error);
-      // Add error state if you want
     } finally {
       setIsSubmitting(false);
     }
@@ -120,7 +130,7 @@ export function AddContact() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {["name", "phone", "email", "notes"].map((field) => (
+          {fields.map((field) => (
             <div key={field}>
               <label className="block text-gray-700 font-medium mb-1">
                 {field[0].toUpperCase() + field.slice(1)}:
@@ -128,7 +138,7 @@ export function AddContact() {
               <input
                 type={field === "email" ? "email" : "text"}
                 name={field}
-                value={(contact as any)[field]}
+                value={contact[field]}
                 onChange={handleChange}
                 required
                 disabled={isSubmitting}
@@ -181,7 +191,7 @@ export function AddContact() {
           >
             <option value="">-- Choose a location --</option>
             {locationsApi.map((location) => (
-              <option key={location.id} value={location.id}>
+              <option key={location.locationId} value={location.locationId}>
                 {location.name}
               </option>
             ))}
@@ -191,6 +201,7 @@ export function AddContact() {
           className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 disabled:opacity-50"
           onClick={addLocationToList}
           disabled={!selectedLocation || isSubmitting}
+          type="button"
         >
           Add Location
         </button>
@@ -201,17 +212,18 @@ export function AddContact() {
             <ul className="mt-2">
               {addedLocations.map((location) => (
                 <li
-                  key={location.id}
+                  key={location.locationId}
                   className="bg-white p-4 rounded-lg shadow mb-3 flex justify-between items-center"
                 >
                   <div className="flex flex-col flex-1">
                     <h5 className="font-semibold">{location.name}</h5>
-                    <p className="text-sm text-gray-600">{location.address}</p>
+                    <p className="text-sm text-gray-600"></p>
                   </div>
                   <button
                     className="ml-4 bg-red-500 text-white px-2 py-1 rounded-lg text-xs"
-                    onClick={() => handleDelete(location.id)}
+                    onClick={() => handleDelete(location.locationId!)}
                     disabled={isSubmitting}
+                    type="button"
                   >
                     Delete
                   </button>

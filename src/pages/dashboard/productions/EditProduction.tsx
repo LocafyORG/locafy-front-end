@@ -75,7 +75,6 @@ export function EditProduction() {
           {
             children: isSaving ? "SAVING..." : "SAVE",
             onClick: handleSave,
-            disabled: isSaving,
           },
         ]}
       />
