@@ -1,5 +1,9 @@
 @use "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Animation */
   --anim-none: 0s;

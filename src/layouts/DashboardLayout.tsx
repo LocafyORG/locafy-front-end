@@ -3,12 +3,6 @@ import Sidebar from "@/components/ui/Sidebar";
 import UserProfile from "@/components/ui/Account/UserProfile";
 import { Navigate, Outlet, useLocation } from "react-router";
 import { ROUTES } from "@/constants/Routes";
-import {
-  cilLocationPin,
-  cilCamera,
-  cilContact,
-  cilCalendar,
-} from "@coreui/icons";
 import { isAuthenticated } from "@/services/api/auth/authTokenApi";
 import "@/styles/layouts/DashboardLayout.scss";
 import { Button, ButtonProps } from "@/components/Button";
@@ -19,22 +13,22 @@ export default function DashboardLayout() {
   const [navButtons] = useState([
     {
       label: "Productions",
-      coreUiIcon: cilCamera,
+      coreUiIcon: [],
       to: ROUTES.PRODUCTIONS,
     },
     {
       label: "Locations",
-      coreUiIcon: cilLocationPin,
+      coreUiIcon: [],
       to: ROUTES.LOCATIONS,
     },
     {
       label: "Contacts",
-      coreUiIcon: cilContact,
+      coreUiIcon: [],
       to: ROUTES.CONTACTS,
     },
     {
       label: "Calendar",
-      coreUiIcon: cilCalendar,
+      coreUiIcon: [],
       to: ROUTES.CALENDAR,
     },
   ]);

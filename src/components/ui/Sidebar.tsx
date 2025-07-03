@@ -1,5 +1,3 @@
-import CIcon from "@coreui/icons-react";
-import { CSidebar } from "@coreui/react";
 import { NavLink } from "react-router";
 import "@/styles/components/ui/Sidebar.scss";
 
@@ -10,10 +8,12 @@ interface SidebarProps {
 export default function Sidebar({ buttons = [] }: SidebarProps) {
   return (
     <>
+      {/*
       <CSidebar className="cust-sidebar">
         <SidebarBrand />
         <SidebarNav buttons={buttons} />
       </CSidebar>
+      */}
     </>
   );
 }

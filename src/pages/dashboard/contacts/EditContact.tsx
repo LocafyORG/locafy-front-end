@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router";
 import { getContactById, updateContact } from "@/services/api/contacts/ContactsApi";
 import { getUserLocations } from "@/services/api/locations/LocationsApi";
 import { DashboardPageHeader } from "@/layouts/DashboardLayout";
-import { CSpinner } from "@coreui/react";
 import { DASHBOARD } from "@/constants/Routes";
 
 interface Location {
@@ -141,7 +140,7 @@ export function EditContact() {
   if (isLoading) {
     return (
       <div className="w-full h-full flex justify-center items-center">
-        <CSpinner />
+        <h1>Loading...</h1>
       </div>
     );
   }

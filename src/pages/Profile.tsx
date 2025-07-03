@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { CSpinner } from "@coreui/react";
 import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { UserProfile } from "@/services/api/interfaces/UserDTO";
 import { getProfile } from "@/services/api/auth/authenticationAPI";
@@ -16,7 +15,7 @@ export default function UserProfilePage() {
   if (isLoading) {
     return (
       <div className="w-full h-full flex justify-center align-center top-50 left-0 fixed bg-white bg-opacity-50 z-50">
-        <CSpinner />
+        Loading...
       </div>
     );
   }

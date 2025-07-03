@@ -1,13 +1,3 @@
-import {
-  CContainer,
-  CRow,
-  CCol,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CButton,
-} from "@coreui/react";
-import Header from "@/components/ui/Header/Header";
 import "@/styles/pages/Pricing.scss";
 
 const PricingPage = () => {
@@ -53,7 +43,12 @@ const PricingPage = () => {
     },
   ];
 
-  return (
+  return <></>;
+};
+
+export default PricingPage;
+
+/*
     <CContainer className="py-5">
       <Header />
       <CRow className="justify-content-center text-center">
@@ -66,7 +61,6 @@ const PricingPage = () => {
         </CCol>
       </CRow>
 
-      {/* Pricing Cards */}
       <CRow className="mt-5">
         {pricingPlans.map((plan, index) => (
           <CCol md="4" className="mb-4" key={index}>
@@ -98,7 +92,4 @@ const PricingPage = () => {
         ))}
       </CRow>
     </CContainer>
-  );
-};
-
-export default PricingPage;
+ */

@@ -3,13 +3,10 @@ import { useNavigate, useParams } from "react-router";
 import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { Paper, Col } from "@/components/Container";
 import { TextInput, MultiItemInput } from "@/components/Form";
-import { cilXCircle } from "@coreui/icons";
-import CIcon from "@coreui/icons-react";
 import { Address } from "@/services/api/interfaces/AddressDTO";
 import { getLocationById, updateLocation } from "@/services/api/locations/LocationsApi";
 import { Location } from "@/services/api/interfaces/LocationDTO";
 import { DASHBOARD } from "@/constants/Routes";
-import { CSpinner } from "@coreui/react";
 
 export function EditLocation() {
   const { locationId } = useParams<{ locationId: string }>();
@@ -71,7 +68,7 @@ export function EditLocation() {
   if (isLoading) {
     return (
       <div className="w-full h-full flex justify-center items-center">
-        <CSpinner />
+        <h1>Loading...</h1>
       </div>
     );
   }
@@ -121,11 +118,7 @@ export function EditLocation() {
           itemRenderer={(handleInputChange, removeCallback) => (
             <Col className="gap-2 my-2 border-1 border-gray-300 rounded p-3 bg-gray-50">
               <span className="flex justify-end">
-                <CIcon
-                  className="hover:cursor-pointer"
-                  icon={cilXCircle}
-                  onClick={removeCallback}
-                />
+                {/*icon here*/}
               </span>
               <input
                 type="text"

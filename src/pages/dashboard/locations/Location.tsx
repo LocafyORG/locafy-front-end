@@ -1,6 +1,5 @@
 import { getLocationById } from "@/services/api/locations/LocationsApi";
 import { Paper } from "@/components/Container";
-import { CSpinner } from "@coreui/react";
 import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { useQuery } from "@tanstack/react-query";
 import { Map, useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
@@ -18,7 +17,7 @@ export function Location() {
   if (isLoading) {
     return (
       <div className="w-full h-full flex justify-center align-center">
-        <CSpinner className="" />
+        <h1>Loading...</h1>
       </div>
     );
   }

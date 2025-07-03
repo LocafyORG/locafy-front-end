@@ -8,7 +8,6 @@ import {
 } from "@/services/api/contacts/ContactsApi";
 import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { Paper } from "@/components/Container";
-import { CSpinner, CAlert } from "@coreui/react";
 
 export function Contact() {
   const { contactId } = useParams();
@@ -43,7 +42,7 @@ export function Contact() {
   if (isLoading) {
     return (
       <div className="w-full h-full flex justify-center items-center">
-        <CSpinner />
+        loading
       </div>
     );
   }
@@ -51,7 +50,7 @@ export function Contact() {
   if (error) {
     return (
       <div className="w-full h-full flex justify-center items-center">
-        <CAlert color="danger">Failed to load contact details.</CAlert>
+        Failed to load contact details.
       </div>
     );
   }

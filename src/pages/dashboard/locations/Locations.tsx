@@ -1,11 +1,8 @@
 import { useCallback, useMemo, useState, useEffect } from "react";
 import { ListPane2, ListPaneRow } from "@/components/ui/ListPane";
-import { CFormSwitch, CImage } from "@coreui/react";
 import fallbackImage from "@/assets/img/under-development.webp";
 import FilterForm, { FilterFormValues } from "@/components/ui/FilterForm";
 import { Row } from "@/components/Container";
-import CIcon from "@coreui/icons-react";
-import { cilGrid, cilList } from "@coreui/icons";
 import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { getAllLocations, deleteLocation } from "@/services/api/locations/LocationsApi";
 import { Location } from "@/services/api/interfaces/LocationDTO";
@@ -60,15 +57,6 @@ export function Locations() {
   const rows = useMemo<ListPaneRow[]>(() => {
     return localLocations.map((loc) => ({
       id: loc.locationId,
-      thumbnail: (
-        <CImage
-          src={fallbackImage}
-          width={120}
-          height={80}
-          rounded
-          alt="Location thumbnail"
-        />
-      ),
       name: loc.name || "Unnamed",
       address: "Probably Jupiter, IDK",
       tags: loc.keywords.map((word, idx) => (
@@ -128,9 +116,6 @@ export function Locations() {
         </Row>
 
         <Row>
-          Toggle Map: <CFormSwitch />
-          <CIcon icon={cilGrid} className="ml-2" />
-          <CIcon icon={cilList} className="ml-2" />
         </Row>
       </Row>
 

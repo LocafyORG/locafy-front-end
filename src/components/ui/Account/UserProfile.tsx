@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router";
-import { CImage } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
 import DefaultBadgeImage from "@/assets/img/under-development.webp";
 import "./UserProfile.css";
 import { deleteAuthToken } from "@/services/api/auth/authTokenApi";
@@ -38,12 +36,6 @@ export default function UserProfile({
           Logout: handleSignOut,
         }}
       >
-        <CImage
-          className="user-badge"
-          src={badgeImageSrc}
-          width={40}
-          height={40}
-        />
       </ActionsMenu>
 
       {actionButtons.map((button, index) => (

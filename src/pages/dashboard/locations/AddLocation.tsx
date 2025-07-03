@@ -3,8 +3,6 @@ import { Location } from "@/services/api/interfaces/LocationDTO";
 import { createLocation } from "@/services/api/locations/LocationsApi";
 import { Col, Paper } from "@/components/Container";
 import { MultiItemInput, TextInput } from "@/components/Form";
-import { cilXCircle } from "@coreui/icons";
-import CIcon from "@coreui/icons-react";
 import useSubmitState, { SubmitState } from "@/hooks/useSubmitState";
 import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { FormEvent, useCallback, useMemo, useState } from "react";
@@ -99,11 +97,7 @@ export function AddLocation() {
                 (handleInputChange, removeCallback) => (
                   <Col className="gap-2 my-2 border-1 border-gray-300 rounded p-3 bg-gray-50">
                     <span className="flex justify-end">
-                      <CIcon
-                        className="hover:cursor-pointer"
-                        icon={cilXCircle}
-                        onClick={removeCallback}
-                      />
+                      {/*Icon here*/}
                     </span>
                     <input
                       type="text"

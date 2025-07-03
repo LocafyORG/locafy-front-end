@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { Paper } from "@/components/Container";
-import { CSpinner } from "@coreui/react";
 import {
   getProductionById,
   updateProduction,
@@ -52,7 +51,7 @@ export function EditProduction() {
   if (isLoading) {
     return (
       <div className="w-full h-full flex justify-center items-center">
-        <CSpinner />
+        <h1>Loading...</h1>
       </div>
     );
   }

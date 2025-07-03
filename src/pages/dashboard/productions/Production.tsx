@@ -1,5 +1,4 @@
 import { Paper } from "@/components/Container";
-import { CSpinner } from "@coreui/react";
 import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router";
@@ -23,7 +22,7 @@ export function Production() {
   if (isLoading) {
     return (
       <div className="w-full h-full flex justify-center items-center">
-        <CSpinner />
+        <h1>Loading</h1>
       </div>
     );
   }
