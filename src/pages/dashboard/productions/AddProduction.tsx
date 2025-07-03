@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { Paper } from "@components/Container";
-import { DASHBOARD } from "@constants/Routes";
-import { createProduction } from "@api/productions/ProductionsApi";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
+import { Paper } from "@/components/Container";
+import { DASHBOARD } from "@/constants/Routes";
+import { createProduction } from "@/services/api/productions/ProductionsApi";
 
 export function AddProduction() {
   const [title, setTitle] = useState("");

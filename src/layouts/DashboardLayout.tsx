@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import Sidebar from "@components/ui/Sidebar";
-import UserProfile from "@components/ui/Account/UserProfile";
+import Sidebar from "@/components/ui/Sidebar";
+import UserProfile from "@/components/ui/Account/UserProfile";
 import { Navigate, Outlet, useLocation } from "react-router";
-import { ROUTES } from "@constants/Routes";
+import { ROUTES } from "@/constants/Routes";
 import {
   cilLocationPin,
   cilCamera,
   cilContact,
   cilCalendar,
 } from "@coreui/icons";
-import { isAuthenticated } from "@api/auth/authTokenApi";
-import "@styles/layouts/DashboardLayout.scss";
-import { Button, ButtonProps } from "@components/Button";
+import { isAuthenticated } from "@/services/api/auth/authTokenApi";
+import "@/styles/layouts/DashboardLayout.scss";
+import { Button, ButtonProps } from "@/components/Button";
 
 export default function DashboardLayout() {
   const location = useLocation();

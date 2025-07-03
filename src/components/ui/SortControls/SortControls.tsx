@@ -1,4 +1,4 @@
-import { Paper } from "@components/Container";
+import { Paper } from "@/components/Container";
 
 interface SortOption {
   label: string;

@@ -1,7 +1,7 @@
-import { LOCATIONS_BASE_PATH } from "@constants/Endpoints";
-import { getAuthToken } from "@api/auth/authTokenApi";
-import { Location } from "@api/interfaces/LocationDTO";
-import { request } from "@utils/httpClient";
+import { LOCATIONS_BASE_PATH } from "@/constants/Endpoints";
+import { getAuthToken } from "@/services/api/auth/authTokenApi";
+import { Location } from "@/services/api/interfaces/LocationDTO";
+import { request } from "@/utils/httpClient";
 
 export async function getAllLocations(): Promise<Location[]> {
   return request<Location[]>(`${LOCATIONS_BASE_PATH}/all`, {

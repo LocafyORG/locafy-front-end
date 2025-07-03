@@ -1,9 +1,9 @@
-import "@styles/pages/Home.scss";
-import { Screen } from "@components/ui/PageBlock";
-import { Col, Row } from "@components/Container";
+import "@/styles/pages/Home.scss";
+import { Screen } from "@/components/ui/PageBlock";
+import { Col, Row } from "@/components/Container";
 import { Link } from "react-router";
-import { ROUTES } from "@constants/Routes";
-import { Button } from "@components/Button";
+import { ROUTES } from "@/constants/Routes";
+import { Button } from "@/components/Button";
 
 /**
  * Hero

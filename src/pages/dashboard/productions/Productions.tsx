@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import Card from "@components/ui/Card";
-import Cheems from "@assets/img/under-development.webp";
-import { fetchProductions } from "@api/productions/ProductionsApi.ts";
-import { Production } from "@api/interfaces/ProductionDTO.ts";
-import "@styles/pages/dashboard/Productions.scss";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { handleSignOut } from "@api/auth/authenticationAPI";
+import Card from "@/components/ui/Card";
+import Cheems from "@/assets/img/under-development.webp";
+import { fetchProductions } from "@/services/api/productions/ProductionsApi.ts";
+import { Production } from "@/services/api/interfaces/ProductionDTO.ts";
+import "@/styles/pages/dashboard/Productions.scss";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
+import { handleSignOut } from "@/services/api/auth/authenticationAPI";
 
 export function Productions() {
   const [data, setData] = useState<Production[]>([]);

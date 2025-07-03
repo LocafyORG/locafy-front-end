@@ -1,7 +1,7 @@
-import { getLocationById } from "@api/locations/LocationsApi";
-import { Paper } from "@components/Container";
+import { getLocationById } from "@/services/api/locations/LocationsApi";
+import { Paper } from "@/components/Container";
 import { CSpinner } from "@coreui/react";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { useQuery } from "@tanstack/react-query";
 import { Map, useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { useEffect, useMemo } from "react";

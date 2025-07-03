@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { createContact } from "@api/contacts/ContactsApi";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { getUserLocations } from "@api/locations/LocationsApi";
-import { ROUTES } from "@constants/Routes";
+import { createContact } from "@/services/api/contacts/ContactsApi";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
+import { getUserLocations } from "@/services/api/locations/LocationsApi";
+import { ROUTES } from "@/constants/Routes";
 
 interface Location {
   id: string;

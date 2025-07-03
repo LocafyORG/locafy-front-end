@@ -5,9 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getContactById,
   getLocationByContact,
-} from "@api/contacts/ContactsApi";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { Paper } from "@components/Container";
+} from "@/services/api/contacts/ContactsApi";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
+import { Paper } from "@/components/Container";
 import { CSpinner, CAlert } from "@coreui/react";
 
 export function Contact() {

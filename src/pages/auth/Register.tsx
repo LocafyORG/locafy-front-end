@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { registerUser } from "@api/auth/authenticationAPI";
-import { RegisterPayload } from "@api/interfaces/AuthDTO";
-import { ErrorResponse } from "@api/interfaces/ErrorResponseDTO";
+import { registerUser } from "@/services/api/auth/authenticationAPI";
+import { RegisterPayload } from "@/services/api/interfaces/AuthDTO";
+import { ErrorResponse } from "@/services/api/interfaces/ErrorResponseDTO";
 
-import "@styles/pages/auth/Register.scss";
+import "@/styles/pages/auth/Register.scss";
 
 function Register() {
   const [formData, setFormData] = useState<RegisterPayload>({

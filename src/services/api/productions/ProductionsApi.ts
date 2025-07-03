@@ -1,7 +1,7 @@
-import { PRODUCTIONS_BASE_PATH } from "@constants/Endpoints";
-import { Production } from "@api/interfaces/ProductionDTO";
-import { getAuthToken } from "@api/auth/authTokenApi";
-import { request } from "@utils/httpClient";
+import { PRODUCTIONS_BASE_PATH } from "@/constants/Endpoints";
+import { Production } from "@/services/api/interfaces/ProductionDTO";
+import { getAuthToken } from "@/services/api/auth/authTokenApi";
+import { request } from "@/utils/httpClient";
 
 export const fetchProductions = async (): Promise<Production[]> => {
   const token = getAuthToken();

@@ -2,16 +2,16 @@ import {
   LOGIN_URL,
   REGISTER_URL,
   USER_PROFILE_INFO,
-} from "@constants/Endpoints";
-import { LoginPayload, RegisterPayload } from "@api/interfaces/AuthDTO";
+} from "@/constants/Endpoints";
+import { LoginPayload, RegisterPayload } from "@/services/api/interfaces/AuthDTO";
 import {
   deleteAuthToken,
   getAuthToken,
   setAuthToken,
-} from "@api/auth/authTokenApi";
-import { UserProfile } from "@api/interfaces/UserDTO";
-import { ErrorResponse } from "@api/interfaces/ErrorResponseDTO";
-import { ROUTES } from "@constants/Routes";
+} from "@/services/api/auth/authTokenApi";
+import { UserProfile } from "@/services/api/interfaces/UserDTO";
+import { ErrorResponse } from "@/services/api/interfaces/ErrorResponseDTO";
+import { ROUTES } from "@/constants/Routes";
 import { NavigateFunction } from "react-router";
 
 // Register function with proxy URL

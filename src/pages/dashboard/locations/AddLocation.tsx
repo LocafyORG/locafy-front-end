@@ -1,12 +1,12 @@
-import { Address } from "@api/interfaces/AddressDTO";
-import { Location } from "@api/interfaces/LocationDTO";
-import { createLocation } from "@api/locations/LocationsApi";
-import { Col, Paper } from "@components/Container";
-import { MultiItemInput, TextInput } from "@components/Form";
+import { Address } from "@/services/api/interfaces/AddressDTO";
+import { Location } from "@/services/api/interfaces/LocationDTO";
+import { createLocation } from "@/services/api/locations/LocationsApi";
+import { Col, Paper } from "@/components/Container";
+import { MultiItemInput, TextInput } from "@/components/Form";
 import { cilXCircle } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
-import useSubmitState, { SubmitState } from "@hooks/useSubmitState";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
+import useSubmitState, { SubmitState } from "@/hooks/useSubmitState";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { FormEvent, useCallback, useMemo, useState } from "react";
 
 export function AddLocation() {

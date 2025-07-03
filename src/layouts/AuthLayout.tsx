@@ -1,6 +1,6 @@
-import { isAuthenticated } from "@api/auth/authTokenApi";
-import { Col, Row } from "@components/Container";
-import { ROUTES } from "@constants/Routes";
+import { isAuthenticated } from "@/services/api/auth/authTokenApi";
+import { Col, Row } from "@/components/Container";
+import { ROUTES } from "@/constants/Routes";
 import { Navigate, Outlet } from "react-router";
 
 export default function AuthLayout() {

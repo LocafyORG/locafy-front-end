@@ -1,17 +1,17 @@
 import { useCallback, useMemo, useState, useEffect } from "react";
-import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
+import { ListPane2, ListPaneRow } from "@/components/ui/ListPane";
 import { CFormSwitch, CImage } from "@coreui/react";
-import fallbackImage from "@assets/img/under-development.webp";
-import FilterForm, { FilterFormValues } from "@components/ui/FilterForm";
-import { Row } from "@components/Container";
+import fallbackImage from "@/assets/img/under-development.webp";
+import FilterForm, { FilterFormValues } from "@/components/ui/FilterForm";
+import { Row } from "@/components/Container";
 import CIcon from "@coreui/icons-react";
 import { cilGrid, cilList } from "@coreui/icons";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { getAllLocations, deleteLocation } from "@api/locations/LocationsApi";
-import { Location } from "@api/interfaces/LocationDTO";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
+import { getAllLocations, deleteLocation } from "@/services/api/locations/LocationsApi";
+import { Location } from "@/services/api/interfaces/LocationDTO";
 import { useNavigate } from "react-router";
-import { DASHBOARD } from "@constants/Routes";
-import { handleSignOut } from "@api/auth/authenticationAPI";
+import { DASHBOARD } from "@/constants/Routes";
+import { handleSignOut } from "@/services/api/auth/authenticationAPI";
 
 export function Locations() {
   const navigate = useNavigate();

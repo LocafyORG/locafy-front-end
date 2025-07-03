@@ -1,8 +1,8 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import CIcon from "@coreui/icons-react";
 import { cilOptions } from "@coreui/icons";
-import { Paper } from "@components/Container";
-import "@styles/components/ui/ListPane.scss";
+import { Paper } from "@/components/Container";
+import "@/styles/components/ui/ListPane.scss";
 
 export type ListPaneRow = { [key: string]: ReactNode };
 type RowActions = { [key: string]: (index: number) => void };

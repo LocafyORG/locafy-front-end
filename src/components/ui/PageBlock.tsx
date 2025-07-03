@@ -1,4 +1,4 @@
-import { Col } from "@components/Container";
+import { Col } from "@/components/Container";
 import { ReactNode } from "react";
 
 interface PageBlockProps {

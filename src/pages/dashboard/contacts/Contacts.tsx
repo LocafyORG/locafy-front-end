@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
-import "@styles/pages/dashboard/Contacts.scss";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { getAllContacts, deleteContact } from "@api/contacts/ContactsApi";
+import { ListPane2, ListPaneRow } from "@/components/ui/ListPane";
+import "@/styles/pages/dashboard/Contacts.scss";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
+import { getAllContacts, deleteContact } from "@/services/api/contacts/ContactsApi";
 import { useNavigate } from "react-router";
-import { Contact } from "@api/interfaces/ContactsDTO";
-import { handleSignOut } from "@api/auth/authenticationAPI";
-import { DASHBOARD } from "@constants/Routes";
+import { Contact } from "@/services/api/interfaces/ContactsDTO";
+import { handleSignOut } from "@/services/api/auth/authenticationAPI";
+import { DASHBOARD } from "@/constants/Routes";
 
 export function Contacts() {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -66,7 +66,7 @@ export function Contacts() {
           {
             children: "NEW CONTACT",
             onClick: () => {
-              navigate("add");
+              navigate(DASHBOARD.ADD_CONTACT);
             },
           },
         ]}

@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { Paper, Col } from "@components/Container";
-import { TextInput, MultiItemInput } from "@components/Form";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
+import { Paper, Col } from "@/components/Container";
+import { TextInput, MultiItemInput } from "@/components/Form";
 import { cilXCircle } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
-import { Address } from "@api/interfaces/AddressDTO";
-import { getLocationById, updateLocation } from "@api/locations/LocationsApi";
-import { Location } from "@api/interfaces/LocationDTO";
-import { DASHBOARD } from "@constants/Routes";
+import { Address } from "@/services/api/interfaces/AddressDTO";
+import { getLocationById, updateLocation } from "@/services/api/locations/LocationsApi";
+import { Location } from "@/services/api/interfaces/LocationDTO";
+import { DASHBOARD } from "@/constants/Routes";
 import { CSpinner } from "@coreui/react";
 
 export function EditLocation() {

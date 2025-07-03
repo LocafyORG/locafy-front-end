@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { Paper } from "@components/Container";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
+import { Paper } from "@/components/Container";
 import { CSpinner } from "@coreui/react";
 import {
   getProductionById,
   updateProduction,
-} from "@api/productions/ProductionsApi";
-import { DASHBOARD } from "@constants/Routes";
+} from "@/services/api/productions/ProductionsApi";
+import { DASHBOARD } from "@/constants/Routes";
 
 export function EditProduction() {
   const { productionId } = useParams<{ productionId: string }>();

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { CSpinner } from "@coreui/react";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { UserProfile } from "@api/interfaces/UserDTO";
-import { getProfile } from "@api/auth/authenticationAPI";
-import { getAuthToken } from "@api/auth/authTokenApi";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
+import { UserProfile } from "@/services/api/interfaces/UserDTO";
+import { getProfile } from "@/services/api/auth/authenticationAPI";
+import { getAuthToken } from "@/services/api/auth/authTokenApi";
 
 export default function UserProfilePage() {
   const userId = getAuthToken();

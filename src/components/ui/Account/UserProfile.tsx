@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router";
 import { CImage } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import DefaultBadgeImage from "@assets/img/under-development.webp";
+import DefaultBadgeImage from "@/assets/img/under-development.webp";
 import "./UserProfile.css";
-import { deleteAuthToken } from "@api/auth/authTokenApi";
-import { ROUTES } from "@constants/Routes";
+import { deleteAuthToken } from "@/services/api/auth/authTokenApi";
+import { ROUTES } from "@/constants/Routes";
 import { ActionsMenu } from "../ListPane";
 
 interface UserProfileProps {

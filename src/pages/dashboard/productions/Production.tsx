@@ -1,11 +1,11 @@
-import { Paper } from "@components/Container";
+import { Paper } from "@/components/Container";
 import { CSpinner } from "@coreui/react";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router";
-import { getProductionById } from "@api/productions/ProductionsApi";
-import Cheems from "@assets/img/under-development.webp";
-import { DASHBOARD } from "@constants/Routes";
+import { getProductionById } from "@/services/api/productions/ProductionsApi";
+import Cheems from "@/assets/img/under-development.webp";
+import { DASHBOARD } from "@/constants/Routes";
 
 export function Production() {
   const { productionId } = useParams<{ productionId: string }>();

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import { getContactById, updateContact } from "@api/contacts/ContactsApi";
-import { getUserLocations } from "@api/locations/LocationsApi";
-import { DashboardPageHeader } from "@layouts/DashboardLayout";
+import { getContactById, updateContact } from "@/services/api/contacts/ContactsApi";
+import { getUserLocations } from "@/services/api/locations/LocationsApi";
+import { DashboardPageHeader } from "@/layouts/DashboardLayout";
 import { CSpinner } from "@coreui/react";
+import { DASHBOARD } from "@/constants/Routes";
 
 interface Location {
   id: string; // changed to string for consistency with DTO
@@ -128,7 +129,7 @@ export function EditContact() {
       };
 
       await updateContact(contactId, contactInput);
-      navigate("/dashboard/contacts");
+      navigate(DASHBOARD.CONTACTS);
     } catch (err) {
       console.error("Error saving contact:", err);
       setError("Failed to save contact.");

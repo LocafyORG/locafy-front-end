@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import { Col, Row } from "./Container";
-import useDebounce from "@hooks/Debounce";
+import useDebounce from "@/hooks/Debounce";
 import { Button } from "./Button";
 
 interface TagSelectProps {

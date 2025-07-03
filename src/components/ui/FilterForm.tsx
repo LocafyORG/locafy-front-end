@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import { Paper, Row } from "@components/Container";
-import { DebounceTextInput, TagSelect } from "@components/Form";
-import styles from "@styles/components/ui/FilterForm.module.scss";
+import { Paper, Row } from "@/components/Container";
+import { DebounceTextInput, TagSelect } from "@/components/Form";
+import styles from "@/styles/components/ui/FilterForm.module.scss";
 
 interface FilterFormProps {
   initialValues?: FilterFormValues;

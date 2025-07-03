@@ -4,26 +4,26 @@ import {
   DASHBOARD,
   BASE_PATH,
   ROUTES,
-} from "@constants/Routes";
-import Home from "@pages/Home";
-import { Locations, AddLocation, Location } from "@pages/dashboard/locations";
-import { Contacts, AddContact } from "@pages/dashboard/contacts";
-import Profile from "@pages/Profile";
-import Pricing from "@pages/Pricing";
-import Login from "@pages/auth/Login";
-import Register from "@pages/auth/Register";
-import DashboardLayout from "@layouts/DashboardLayout";
-import AuthLayout from "@layouts/AuthLayout";
-import "@styles/App.scss";
-import { Contact } from "@pages/dashboard/contacts/Contact";
+} from "@/constants/Routes";
+import Home from "@/pages/Home";
+import { Locations, AddLocation, Location } from "@/pages/dashboard/locations";
+import { Contacts, AddContact } from "@/pages/dashboard/contacts";
+import Profile from "@/pages/Profile";
+import Pricing from "@/pages/Pricing";
+import Login from "@/pages/auth/Login";
+import Register from "@/pages/auth/Register";
+import DashboardLayout from "@/layouts/DashboardLayout";
+import AuthLayout from "@/layouts/AuthLayout";
+import "@/styles/App.scss";
+import { Contact } from "@/pages/dashboard/contacts/Contact";
 import {
   Productions,
   Production,
   AddProduction,
-} from "@pages/dashboard/productions";
-import { EditProduction } from "@pages/dashboard/productions/EditProduction";
-import { EditLocation } from "@pages/dashboard/locations/EditLocation";
-import { EditContact } from "@pages/dashboard/contacts/EditContact";
+} from "@/pages/dashboard/productions";
+import { EditProduction } from "@/pages/dashboard/productions/EditProduction";
+import { EditLocation } from "@/pages/dashboard/locations/EditLocation";
+import { EditContact } from "@/pages/dashboard/contacts/EditContact";
 
 /**
  *
