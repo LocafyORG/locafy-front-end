@@ -3,9 +3,8 @@ import { Paper } from "@components/Container";
 import { CSpinner } from "@coreui/react";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { useQuery } from "@tanstack/react-query";
-import { Map, useMap, useMapsLibrary } from "@vis.gl/react-google-maps";
-import { useEffect, useMemo } from "react";
 import { useParams } from "react-router";
+import { MapView } from "@components/mapView";
 
 export function Location() {
   const { locationId } = useParams();
@@ -17,8 +16,8 @@ export function Location() {
 
   if (isLoading) {
     return (
-      <div className="w-full h-full flex justify-center align-center">
-        <CSpinner className="" />
+      <div className="w-full h-full flex justify-center items-center">
+        <CSpinner />
       </div>
     );
   }
@@ -36,10 +35,21 @@ export function Location() {
     }).format(new Date(dateString));
   };
 
+  const addresses = location
+    ? Object.values(location.addresses).filter(
+        (addr) => addr.latitude && addr.longitude
+      )
+    : [];
+
+  const firstAddress = addresses[0];
+  const mapCoords = firstAddress
+    ? { lat: firstAddress.latitude, lng: firstAddress.longitude }
+    : { lat: 43.65, lng: -79.4 };
+
   return (
     <>
       <DashboardPageHeader
-        title={location?.name || "God knows"}
+        title={location?.name || "Unknown Location"}
         leftButtons={[
           {
             children: "BACK",
@@ -58,7 +68,7 @@ export function Location() {
         ]}
       />
 
-      <Paper className="p-4">
+      <Paper className="p-4 space-y-4">
         {location?.notes && (
           <p>
             <strong>Notes:</strong> {location.notes}
@@ -84,62 +94,46 @@ export function Location() {
             <strong>Last Updated:</strong> {formatDate(location.lastUpdated)}
           </p>
         )}
+
+        <div> {/* TODO: USE ADDRESSCARD COMPONENT*/}
+          <h2 className="text-lg font-semibold mb-2">Addresses</h2>
+          {addresses.length === 0 && <p>No addresses available.</p>}
+
+          {addresses.map((address, idx) => (
+            <div key={idx} className="border rounded shadow p-4 mb-4 bg-white">
+              {address.addressLine1 && (
+                <div className="mb-3">
+                  <h3 className="font-semibold mb-1">Address Line 1</h3>
+                  <p>{address.addressLine1}</p>
+                  <p>
+                    <strong>Latitude:</strong> {address.latitude}
+                  </p>
+                  <p>
+                    <strong>Longitude:</strong> {address.longitude}
+                  </p>
+                </div>
+              )}
+
+              {address.addressLine2 && (
+                <div>
+                  <h3 className="font-semibold mb-1">Address Line 2</h3>
+                  <p>{address.addressLine2}</p>
+                  <p>
+                    <strong>Latitude:</strong> {address.latitude}
+                  </p>
+                  <p>
+                    <strong>Longitude:</strong> {address.longitude}
+                  </p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </Paper>
 
       <div className="overflow-hidden rounded w-full h-[600px]">
-        <Map
-          disableDefaultUI={true}
-          defaultZoom={9}
-          defaultCenter={{ lng: 35.34, lat: 0 }}
-        >
-          <Heatmap radius={50} opacity={0.5} />
-        </Map>
+        <MapView lat={mapCoords.lat} lng={mapCoords.lng} zoom={15} />
       </div>
     </>
   );
-}
-
-interface HeatmapProps {
-  radius: number;
-  opacity: number;
-}
-
-function Heatmap({ radius, opacity }: HeatmapProps) {
-  const map = useMap();
-  const visualization = useMapsLibrary("visualization");
-
-  // Initialize the heatmap layer
-  const heatmap = useMemo(() => {
-    if (!visualization || !map) return null;
-
-    return new google.maps.visualization.HeatmapLayer({
-      map: map,
-      radius: radius,
-      opacity: opacity,
-    });
-  }, [visualization, map, radius, opacity]);
-
-  // Set the heatmap data
-  useEffect(() => {
-    if (!heatmap) return;
-
-    heatmap.setData([
-      { location: new google.maps.LatLng(100, 100), weight: 0.1 },
-      { location: new google.maps.LatLng(0, 35.3401), weight: 1.5 },
-      { location: new google.maps.LatLng(0, 35.3402), weight: 0.5 },
-      { location: new google.maps.LatLng(0, 35.3403), weight: 0.1 },
-      { location: new google.maps.LatLng(0, 35.3404), weight: 1.1 },
-    ]);
-  }, [heatmap]);
-
-  // Clean up the heatmap layer
-  useEffect(() => {
-    return () => {
-      if (heatmap) {
-        heatmap.setMap(null);
-      }
-    };
-  }, [heatmap]);
-
-  return null;
 }

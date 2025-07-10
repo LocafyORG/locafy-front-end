@@ -10,7 +10,8 @@
       "@api/*": ["src/services/api/*"],
       "@styles/*": ["src/styles/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@src/*": ["src/*"],
     }
   },
   "files": [],

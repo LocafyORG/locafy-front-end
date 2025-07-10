@@ -6,7 +6,11 @@ services:
     build: .
     ports:
       - "3000:3000"
+    command: ["npm", "run", "dev"]
+    networks:
+      - default
+
 networks:
-  locafy-network:
-    external: true
-    command: [ "npm", "run", "dev" ]
+  default:
+    external:
+      name: locafy-net

@@ -3,6 +3,8 @@ import { Location } from "@api/interfaces/LocationDTO";
 import { createLocation } from "@api/locations/LocationsApi";
 import { Col, Paper } from "@components/Container";
 import { MultiItemInput, TextInput } from "@components/Form";
+import { LocationSearchInput } from "@components/LocationSearchInput";
+import { MapView } from "@components/mapView";
 import { cilXCircle } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import useSubmitState, { SubmitState } from "@hooks/useSubmitState";
@@ -12,6 +14,8 @@ import { FormEvent, useCallback, useMemo, useState } from "react";
 export function AddLocation() {
   const [submitState, switchState] = useSubmitState();
   const [submissionInfo, setSubmissionInfo] = useState("");
+  const [coords, setCoords] = useState<Record<number, { lat: number; lng: number }>>({});
+
   const submissionModal = useMemo(() => {
     switch (submitState) {
       case SubmitState.Success:
@@ -22,6 +26,7 @@ export function AddLocation() {
         return null;
     }
   }, [submitState, submissionInfo]);
+
   const [data, setData] = useState<Location>({
     addresses: {},
     name: "",
@@ -32,26 +37,28 @@ export function AddLocation() {
     contactIds: [],
     locationPhotoIds: [],
   });
+
   const onTextChange = useCallback(
     (value: string, name: string) => {
-      setData((prev) => {
-        return {
-          ...prev,
-          [name]: value,
-        };
-      });
+      setData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
     },
-    [setData],
+    []
   );
+
   const onAddressesChange = useCallback((addresses: Address[]) => {
-    setData((prev) => {
-      const newMap = new Map();
-      addresses.forEach((address, i) => {
-        newMap.set(i, address);
-      });
-      return { ...prev, addresses: Object.fromEntries(newMap) };
+    const newMap = new Map();
+    addresses.forEach((address, i) => {
+      newMap.set(i, address);
     });
+    setData((prev) => ({
+      ...prev,
+      addresses: Object.fromEntries(newMap),
+    }));
   }, []);
+
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLInputElement>) => {
       e.preventDefault();
@@ -59,9 +66,7 @@ export function AddLocation() {
         switchState(SubmitState.Loading);
         createLocation(data)
           .then((loc) => {
-            setSubmissionInfo(
-              loc.locationId || "Location ID is empty for some reason.",
-            );
+            setSubmissionInfo(loc.locationId || "Location ID is empty for some reason.");
             switchState(SubmitState.Success);
           })
           .catch((e) => {
@@ -70,13 +75,51 @@ export function AddLocation() {
           });
       }
     },
-    [data, switchState, submitState],
+    [data, switchState, submitState]
+  );
+
+  const handleAddressLine1Select = useCallback(
+    (index: number) =>
+      (lat: number, lon: number, displayName: string) => {
+        setCoords((prev) => ({
+          ...prev,
+          [index]: { lat, lng: lon },
+        }));
+
+        setData((prev) => {
+          const updated = { ...prev };
+          const current = updated.addresses[index] || {};
+          updated.addresses[index] = {
+            ...current,
+            addressLine1: displayName,
+            latitude: lat,
+            longitude: lon,
+          };
+          return updated;
+        });
+      },
+    []
+  );
+
+  const handleAddressLine2Select = useCallback(
+    (index: number) =>
+      (_: number, __: number, displayName: string) => {
+        setData((prev) => {
+          const updated = { ...prev };
+          const current = updated.addresses[index] || {};
+          updated.addresses[index] = {
+            ...current,
+            addressLine2: displayName,
+          };
+          return updated;
+        });
+      },
+    []
   );
 
   return (
     <>
       <DashboardPageHeader title="Add New Location" />
-
       <Paper>
         <form>
           <Col>
@@ -91,71 +134,64 @@ export function AddLocation() {
               placeholder="Add a description"
             />
 
-            {/* This is crazy, chat. */}
             <MultiItemInput<Address>
               label="Address"
               max={4}
-              itemRenderer={useCallback(
-                (handleInputChange, removeCallback) => (
-                  <Col className="gap-2 my-2 border-1 border-gray-300 rounded p-3 bg-gray-50">
-                    <span className="flex justify-end">
-                      <CIcon
-                        className="hover:cursor-pointer"
-                        icon={cilXCircle}
-                        onClick={removeCallback}
-                      />
-                    </span>
-                    <input
-                      type="text"
-                      name="postalCode"
-                      onChange={handleInputChange}
-                      placeholder="Postal Code"
+              itemRenderer={(handleInputChange, removeCallback, index) => (
+                <Col key={index} className="gap-2 my-2 border border-gray-300 rounded p-3 bg-gray-50">
+                  <span className="flex justify-end">
+                    <CIcon
+                      className="hover:cursor-pointer"
+                      icon={cilXCircle}
+                      onClick={removeCallback}
                     />
-                    <input
-                      type="text"
-                      name="addressLine1"
-                      onChange={handleInputChange}
-                      placeholder="Address Line 1"
-                    />
-                    <input
-                      type="text"
-                      name="addressLine2"
-                      onChange={handleInputChange}
-                      placeholder="Address Line 2"
-                    />
-                    <input
-                      type="text"
-                      name="stateProvinceRegion"
-                      onChange={handleInputChange}
-                      placeholder="Province or State"
-                    />
-                    <input
-                      type="text"
-                      name="city"
-                      onChange={handleInputChange}
-                      placeholder="City"
-                    />
-                    <input
-                      type="text"
-                      name="country"
-                      onChange={handleInputChange}
-                      placeholder="Country"
-                    />
-                    <input
-                      type="hidden"
-                      name="longitude"
-                      onChange={handleInputChange}
-                      placeholder="Longitude"
-                    />
-                    <input
-                      type="hidden"
-                      name="Latitude"
-                      onChange={handleInputChange}
-                      placeholder="Add a description"
-                    />
-                  </Col>
-                ),
-                [],
+                  </span>
+
+                  <input
+                    type="text"
+                    name="postalCode"
+                    onChange={handleInputChange}
+                    placeholder="Postal Code"
+                  />
+
+                  {/* Address Line 1 with coordinates */}
+                  <LocationSearchInput
+                    placeholder="Address Line 1"
+                    onSelect={handleAddressLine1Select(index)}
+                  />
+
+                  {/* Address Line 2 with only text */}
+                  <LocationSearchInput
+                    placeholder="Address Line 2"
+                    disableCoords
+                    onSelect={handleAddressLine2Select(index)}
+                  />
+
+                  {coords[index] && (
+                    <div className="mt-4 h-[300px]">
+                      <MapView lat={coords[index].lat} lng={coords[index].lng} />
+                    </div>
+                  )}
+
+                  <input
+                    type="text"
+                    name="stateProvinceRegion"
+                    onChange={handleInputChange}
+                    placeholder="Province or State"
+                  />
+                  <input
+                    type="text"
+                    name="city"
+                    onChange={handleInputChange}
+                    placeholder="City"
+                  />
+                  <input
+                    type="text"
+                    name="country"
+                    onChange={handleInputChange}
+                    placeholder="Country"
+                  />
+                </Col>
               )}
               onDataChange={onAddressesChange}
             />
