@@ -19,7 +19,7 @@ export const LocationSearchInput: React.FC<Props> = ({
   const fetchResults = useCallback(async (q: string) => {
     if (!q) return;
     const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}`
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}`,
     );
     const data = await res.json();
     setResults(data);

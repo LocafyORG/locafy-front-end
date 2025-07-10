@@ -29,31 +29,12 @@ export async function createLocation(location: Location): Promise<Location> {
   });
 }
 
-export async function getUserLocations(): Promise<Location[] | Error> {
-  try {
-    const res = await fetch(`${LOCATIONS_BASE_PATH}/user`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${getAuthToken()}`,
-      },
-    });
-    const locations = await res.json();
-
-    // Normalize locations: ensure every location has a unique 'id' string property
-    if (Array.isArray(locations)) {
-      return locations.map((location: Location, index: number) => ({
-        ...location,
-        id:
-          location.locationId ?? // fallback if your backend uses locationId
-          `location-${index}`, // fallback unique string
-      }));
-    }
-    return new Error("Unexpected response format");
-  } catch (error) {
-    return new Error("Failed to fetch user locations");
-  }
+export async function getUserLocations(): Promise<Location[]> {
+  return request<Location[]>(`${LOCATIONS_BASE_PATH}/user`, {
+    method: "GET",
+    authenticate: true,
+  });
 }
-
 
 export async function deleteLocation(locationId: string) {
   const token = getAuthToken();

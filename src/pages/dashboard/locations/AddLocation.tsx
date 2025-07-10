@@ -1,31 +1,86 @@
 import { Address } from "@api/interfaces/AddressDTO";
 import { Location } from "@api/interfaces/LocationDTO";
 import { createLocation } from "@api/locations/LocationsApi";
-import { Col, Paper } from "@components/Container";
-import { MultiItemInput, TextInput } from "@components/Form";
+import { Paper } from "@components/Container";
+import { TextInput } from "@components/Form";
 import { LocationSearchInput } from "@components/LocationSearchInput";
-import { MapView } from "@components/mapView";
-import { cilXCircle } from "@coreui/icons";
-import CIcon from "@coreui/icons-react";
 import useSubmitState, { SubmitState } from "@hooks/useSubmitState";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { FormEvent, useCallback, useMemo, useState } from "react";
+import { FaMapMarkerAlt, FaSave, FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router";
+
+// Helper function to parse address components
+const parseAddressComponents = (displayName: string) => {
+  const parts = displayName.split(',').map(part => part.trim());
+  
+  // Try to extract components based on common patterns
+  const addressLine1 = parts[0] || '';
+  const city = parts[1] || '';
+  const stateProvince = parts[2] || '';
+  const postalCode = parts[3] || '';
+  const country = parts[4] || '';
+  
+  return {
+    addressLine1,
+    city,
+    stateProvinceRegion: stateProvince,
+    postalCode,
+    country
+  };
+};
 
 export function AddLocation() {
+  const navigate = useNavigate();
   const [submitState, switchState] = useSubmitState();
   const [submissionInfo, setSubmissionInfo] = useState("");
-  const [coords, setCoords] = useState<Record<number, { lat: number; lng: number }>>({});
 
   const submissionModal = useMemo(() => {
     switch (submitState) {
       case SubmitState.Success:
-        return <h1>Success: {submissionInfo}</h1>;
+        return (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FaMapMarkerAlt className="text-green-600 text-2xl" />
+                </div>
+                <h2 className="text-xl font-bold text-gray-800 mb-2">Location Created!</h2>
+                <p className="text-gray-600 mb-4">Your location has been successfully added.</p>
+                <button
+                  onClick={() => navigate("/dashboard/locations")}
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition"
+                >
+                  Back to Locations
+                </button>
+              </div>
+            </div>
+          </div>
+        );
       case SubmitState.Fail:
-        return <h1>Error: {submissionInfo}</h1>;
+        return (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FaMapMarkerAlt className="text-red-600 text-2xl" />
+                </div>
+                <h2 className="text-xl font-bold text-gray-800 mb-2">Error</h2>
+                <p className="text-gray-600 mb-4">{submissionInfo}</p>
+                <button
+                  onClick={() => switchState(SubmitState.Success)}
+                  className="w-full bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition"
+                >
+                  Try Again
+                </button>
+              </div>
+            </div>
+          </div>
+        );
       default:
         return null;
     }
-  }, [submitState, submissionInfo]);
+  }, [submitState, submissionInfo, navigate, switchState]);
 
   const [data, setData] = useState<Location>({
     addresses: {},
@@ -48,16 +103,25 @@ export function AddLocation() {
     []
   );
 
-  const onAddressesChange = useCallback((addresses: Address[]) => {
-    const newMap = new Map();
-    addresses.forEach((address, i) => {
-      newMap.set(i, address);
-    });
-    setData((prev) => ({
-      ...prev,
-      addresses: Object.fromEntries(newMap),
-    }));
-  }, []);
+  const handleAddressLine1Select = useCallback(
+    (index: number) =>
+      (lat: number, lon: number, displayName: string) => {
+        const parsedComponents = parseAddressComponents(displayName);
+
+        setData((prev) => {
+          const updated = { ...prev };
+          const current = updated.addresses[index] || {};
+          updated.addresses[index] = {
+            ...current,
+            ...parsedComponents,
+            latitude: lat,
+            longitude: lon,
+          };
+          return updated;
+        });
+      },
+    []
+  );
 
   const handleSubmit = useCallback(
     (e: FormEvent<HTMLInputElement>) => {
@@ -78,133 +142,185 @@ export function AddLocation() {
     [data, switchState, submitState]
   );
 
-  const handleAddressLine1Select = useCallback(
-    (index: number) =>
-      (lat: number, lon: number, displayName: string) => {
-        setCoords((prev) => ({
-          ...prev,
-          [index]: { lat, lng: lon },
-        }));
-
-        setData((prev) => {
-          const updated = { ...prev };
-          const current = updated.addresses[index] || {};
-          updated.addresses[index] = {
-            ...current,
-            addressLine1: displayName,
-            latitude: lat,
-            longitude: lon,
-          };
-          return updated;
-        });
-      },
-    []
-  );
-
-  const handleAddressLine2Select = useCallback(
-    (index: number) =>
-      (_: number, __: number, displayName: string) => {
-        setData((prev) => {
-          const updated = { ...prev };
-          const current = updated.addresses[index] || {};
-          updated.addresses[index] = {
-            ...current,
-            addressLine2: displayName,
-          };
-          return updated;
-        });
-      },
-    []
-  );
-
   return (
     <>
-      <DashboardPageHeader title="Add New Location" />
-      <Paper>
-        <form>
-          <Col>
-            <TextInput
-              name="name"
-              onChange={onTextChange}
-              placeholder="Location name"
-            />
-            <TextInput
-              name="notes"
-              onChange={onTextChange}
-              placeholder="Add a description"
-            />
+      <DashboardPageHeader 
+        title="Add New Location"
+        leftButtons={[
+          {
+            children: (
+              <span className="flex items-center gap-2">
+                <FaArrowLeft /> BACK
+              </span>
+            ),
+            onClick: () => navigate("/dashboard/locations"),
+            className: "flex items-center gap-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition"
+          },
+        ]}
+      />
 
-            <MultiItemInput<Address>
-              label="Address"
-              max={4}
-              itemRenderer={(handleInputChange, removeCallback, index) => (
-                <Col key={index} className="gap-2 my-2 border border-gray-300 rounded p-3 bg-gray-50">
-                  <span className="flex justify-end">
-                    <CIcon
-                      className="hover:cursor-pointer"
-                      icon={cilXCircle}
-                      onClick={removeCallback}
-                    />
-                  </span>
+      <div className="max-w-4xl mx-auto mt-8">
+        <Paper className="p-8 bg-white shadow-xl rounded-xl border border-gray-100">
+          <div className="flex items-center gap-3 mb-6">
+            <FaMapMarkerAlt className="text-blue-500 text-xl" />
+            <h2 className="text-2xl font-bold text-gray-800">Location Information</h2>
+          </div>
 
-                  <input
-                    type="text"
-                    name="postalCode"
-                    onChange={handleInputChange}
-                    placeholder="Postal Code"
+          <form>
+            <div className="space-y-6">
+              {/* Basic Information */}
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Location Name *
+                  </label>
+                  <TextInput
+                    name="name"
+                    onChange={onTextChange}
+                    placeholder="Enter location name"
                   />
+                </div>
 
-                  {/* Address Line 1 with coordinates */}
-                  <LocationSearchInput
-                    placeholder="Address Line 1"
-                    onSelect={handleAddressLine1Select(index)}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Location Type
+                  </label>
+                  <TextInput
+                    name="locationType"
+                    onChange={onTextChange}
+                    placeholder="e.g., Office, Studio, Outdoor"
                   />
+                </div>
 
-                  {/* Address Line 2 with only text */}
-                  <LocationSearchInput
-                    placeholder="Address Line 2"
-                    disableCoords
-                    onSelect={handleAddressLine2Select(index)}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Description
+                  </label>
+                  <TextInput
+                    name="notes"
+                    onChange={onTextChange}
+                    placeholder="Add a description or notes about this location"
                   />
+                </div>
+              </div>
 
-                  {coords[index] && (
-                    <div className="mt-4 h-[300px]">
-                      <MapView lat={coords[index].lat} lng={coords[index].lng} />
+              {/* Addresses */}
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <FaMapMarkerAlt className="text-purple-500 text-xl" />
+                  <h3 className="text-lg font-semibold text-gray-800">Addresses</h3>
+                </div>
+
+                <div className="space-y-4">
+                  {Object.entries(data.addresses).map(([index, address], idx) => (
+                    <div key={index} className="border border-gray-200 rounded-lg p-6 bg-gray-50">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="font-semibold text-gray-800">Address {idx + 1}</h4>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setData(prev => {
+                              const newAddresses = { ...prev.addresses };
+                              delete newAddresses[index];
+                              return { ...prev, addresses: newAddresses };
+                            });
+                          }}
+                          className="text-red-600 hover:text-red-700 font-medium text-sm transition"
+                        >
+                          Remove
+                        </button>
+                      </div>
+
+                      <div className="space-y-4">
+                        {/* Single Address Input */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Address *
+                          </label>
+                          <LocationSearchInput
+                            placeholder="Search for address..."
+                            onSelect={handleAddressLine1Select(parseInt(index))}
+                          />
+                        </div>
+
+                        {/* Show selected address info */}
+                        {address.addressLine1 && (
+                          <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                            <div className="flex items-center gap-2 mb-2">
+                              <FaMapMarkerAlt className="text-green-500" />
+                              <span className="text-sm font-medium text-green-700">Selected Address</span>
+                            </div>
+                            <p className="text-sm text-green-800">
+                              {address.addressLine1}
+                              {address.city && `, ${address.city}`}
+                              {address.stateProvinceRegion && `, ${address.stateProvinceRegion}`}
+                              {address.postalCode && `, ${address.postalCode}`}
+                              {address.country && `, ${address.country}`}
+                            </p>
+                            {address.latitude && address.longitude && (
+                              <p className="text-xs text-green-600 mt-1">
+                                Coordinates: {address.latitude.toFixed(4)}, {address.longitude.toFixed(4)}
+                              </p>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
+                  ))}
+
+                  {/* Add Address Button */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newIndex = Object.keys(data.addresses).length;
+                      setData(prev => ({
+                        ...prev,
+                        addresses: {
+                          ...prev.addresses,
+                          [newIndex]: {}
+                        }
+                      }));
+                    }}
+                    className="w-full p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-gray-400 transition-colors text-gray-600 hover:text-gray-700"
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      <FaMapMarkerAlt className="text-gray-400" />
+                      <span>Add Another Address</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="flex justify-center pt-8 border-t border-gray-200">
+                <button
+                  type="submit"
+                  onClick={(e) => {
+                    console.log('Submitting data:', data);
+                    handleSubmit(e as unknown as FormEvent<HTMLInputElement>);
+                  }}
+                  disabled={submitState === SubmitState.Loading}
+                  className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-500 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none"
+                >
+                  {submitState === SubmitState.Loading ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                      Creating Location...
+                    </>
+                  ) : (
+                    <>
+                      <FaSave className="text-lg" />
+                      <span className="text-lg font-semibold">Create Location</span>
+                    </>
                   )}
+                </button>
+              </div>
+            </div>
+          </form>
+        </Paper>
+      </div>
 
-                  <input
-                    type="text"
-                    name="stateProvinceRegion"
-                    onChange={handleInputChange}
-                    placeholder="Province or State"
-                  />
-                  <input
-                    type="text"
-                    name="city"
-                    onChange={handleInputChange}
-                    placeholder="City"
-                  />
-                  <input
-                    type="text"
-                    name="country"
-                    onChange={handleInputChange}
-                    placeholder="Country"
-                  />
-                </Col>
-              )}
-              onDataChange={onAddressesChange}
-            />
-
-            {submissionModal}
-            <input
-              type="submit"
-              value="Add New Location"
-              onClick={handleSubmit}
-            />
-          </Col>
-        </form>
-      </Paper>
+      {submissionModal}
     </>
   );
 }

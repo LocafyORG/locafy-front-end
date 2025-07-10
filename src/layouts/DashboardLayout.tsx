@@ -44,11 +44,13 @@ export default function DashboardLayout() {
   }, [location]);
 
   return auth ? (
-    <div className="dashboard-layout overflow-hidden">
-      <Sidebar buttons={navButtons} />
-      <div className="flex flex-column items-center justify-start w-full">
+    <div className="dashboard-layout">
+      <div className="sidebar-fixed">
+        <Sidebar buttons={navButtons} />
+      </div>
+      <div className="main-content-scrollable">
         <UserProfile className="flex-grow-0 w-full" />
-        <div className="flex flex-col w-full max-w-screen-xl pt-0 pr-10">
+        <div className="content-wrapper">
           <Outlet />
         </div>
       </div>

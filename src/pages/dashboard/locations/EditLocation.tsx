@@ -22,8 +22,6 @@ export function EditLocation() {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  
-
   useEffect(() => {
     const fetchData = async () => {
       try {

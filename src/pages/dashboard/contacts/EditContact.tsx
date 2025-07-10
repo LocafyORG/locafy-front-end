@@ -29,100 +29,99 @@ export function EditContact() {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
- useEffect(() => {
-  const fetchData = async () => {
-    if (!contactId) {
-      setError("No contact ID provided");
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const [contactData, locationList] = await Promise.all([
-        getContactById(contactId),
-        getUserLocations(),
-      ]);
-
-      if (!contactData || typeof contactData !== "object") {
-        throw new Error("Invalid contact data");
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!contactId) {
+        setError("No contact ID provided");
+        setIsLoading(false);
+        return;
       }
 
-      if (!Array.isArray(locationList)) {
-        throw new Error("Invalid locations list");
+      try {
+        const [contactData, locationList] = await Promise.all([
+          getContactById(contactId),
+          getUserLocations(),
+        ]);
+
+        if (!contactData || typeof contactData !== "object") {
+          throw new Error("Invalid contact data");
+        }
+
+        if (!Array.isArray(locationList)) {
+          throw new Error("Invalid locations list");
+        }
+
+        setContact({
+          name: contactData.name ?? "",
+          phone: contactData.phone ?? "",
+          email: contactData.email ?? "",
+          notes: contactData.notes ?? "",
+          description: contactData.description ?? "",
+          uploadedById: contactData.uploadedById ?? "",
+          locationIds: contactData.locationIds ?? [],
+        });
+
+        const safeLocationList = Array.isArray(locationList)
+          ? locationList
+          : [];
+        const safeLocationIds = Array.isArray(contactData.locationIds)
+          ? contactData.locationIds
+          : [];
+
+        setLocationsApi(safeLocationList);
+
+        const preselected = safeLocationList.filter(
+          (loc) =>
+            typeof loc.locationId === "string" &&
+            safeLocationIds.includes(loc.locationId),
+        );
+        setAddedLocations(preselected);
+      } catch (err: unknown) {
+        console.error("Error loading contact:", err);
+        setError("Failed to load contact.");
+      } finally {
+        setIsLoading(false);
       }
+    };
 
-      setContact({
-        name: contactData.name ?? "",
-        phone: contactData.phone ?? "",
-        email: contactData.email ?? "",
-        notes: contactData.notes ?? "",
-        description: contactData.description ?? "",
-        uploadedById: contactData.uploadedById ?? "",
-        locationIds: contactData.locationIds ?? [],
-      });
-
-      const safeLocationList = Array.isArray(locationList) ? locationList : [];
-      const safeLocationIds = Array.isArray(contactData.locationIds)
-        ? contactData.locationIds
-        : [];
-
-      setLocationsApi(safeLocationList);
-
-      const preselected = safeLocationList.filter(
-        (loc) =>
-          typeof loc.locationId === "string" &&
-          safeLocationIds.includes(loc.locationId)
-      );
-      setAddedLocations(preselected);
-
-    } catch (err: unknown) {
-      console.error("Error loading contact:", err);
-      setError("Failed to load contact.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  fetchData();
-}, [contactId]);
-
+    fetchData();
+  }, [contactId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setContact(prev => ({ ...prev, [name]: value }));
+    setContact((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedLocation(e.target.value);
   };
 
-const addLocationToList = () => {
-  if (!selectedLocation) return;
+  const addLocationToList = () => {
+    if (!selectedLocation) return;
 
-  const location = locationsApi.find(
-    (loc) => loc.locationId === selectedLocation
-  );
-  if (!location || typeof location.locationId !== "string") return;
+    const location = locationsApi.find(
+      (loc) => loc.locationId === selectedLocation,
+    );
+    if (!location || typeof location.locationId !== "string") return;
 
-  if (addedLocations.find((loc) => loc.locationId === location.locationId)) return;
+    if (addedLocations.find((loc) => loc.locationId === location.locationId))
+      return;
 
-  setAddedLocations((prev) => [...prev, location]);
+    setAddedLocations((prev) => [...prev, location]);
 
-  setContact((prev) => ({
-    ...prev,
-    locationIds: [...prev.locationIds, location.locationId as string],
-  }));
+    setContact((prev) => ({
+      ...prev,
+      locationIds: [...prev.locationIds, location.locationId as string],
+    }));
 
-  setSelectedLocation("");
-};
-
-
+    setSelectedLocation("");
+  };
 
   const handleDeleteLocation = (id: string) => {
-    setAddedLocations(prev => prev.filter(loc => loc.locationId !== id));
-    setContact(prev => ({
+    setAddedLocations((prev) => prev.filter((loc) => loc.locationId !== id));
+    setContact((prev) => ({
       ...prev,
-      locationIds: prev.locationIds.filter(lid => lid !== id),
+      locationIds: prev.locationIds.filter((lid) => lid !== id),
     }));
   };
 

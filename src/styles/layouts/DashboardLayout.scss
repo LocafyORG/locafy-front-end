@@ -5,8 +5,31 @@
 
 .dashboard-layout {
   display: flex;
-  flex-direction: row;
   min-height: 100vh;
+  position: relative;
+}
+
+.sidebar-fixed {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  z-index: 1000;
+}
+
+.main-content-scrollable {
+  flex: 1;
+  margin-left: 280px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.content-wrapper {
+  padding: 0 2rem 2rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .sidebar-container {

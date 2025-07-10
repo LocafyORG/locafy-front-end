@@ -17,7 +17,11 @@ export interface ContactInput {
   phone: string;
   email: string;
   notes: string;
-  assocLocationIds: string[];
+  description: string;
+  uploadedById: string;
+  locationIds: string[];
+  uploadedAt?: string;
+  lastUpdated?: string;
 }
 
 export interface ContactState {

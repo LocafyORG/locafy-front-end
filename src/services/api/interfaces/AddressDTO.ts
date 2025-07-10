@@ -13,5 +13,3 @@ export interface Address {
   uploadedAt?: string;
   lastUpdated?: string;
 }
-
-

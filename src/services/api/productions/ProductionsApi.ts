@@ -47,7 +47,7 @@ export async function getProductionById(
 
 //TODO fix this
 export async function createProduction(
-  productionInput: ProductionInput
+  productionInput: ProductionInput,
 ): Promise<Production> {
   const body = JSON.stringify(productionInput);
   return request<Production>(`${PRODUCTIONS_BASE_PATH}`, {
@@ -60,7 +60,6 @@ export async function createProduction(
     body,
   });
 }
-
 
 export async function updateProduction(
   productionId: string,

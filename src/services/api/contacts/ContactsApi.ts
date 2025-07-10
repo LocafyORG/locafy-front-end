@@ -15,20 +15,14 @@ export async function getAllContacts(): Promise<Contact[]> {
 // Create a new contact and associate it with selected location IDs
 export async function createContact(
   contact: ContactInput,
-  selectedLocation: string[],
 ): Promise<Contact> {
-  const dto: ContactInput = {
-    ...contact,
-    assocLocationIds: selectedLocation,
-  };
-
   return request<Contact>(`${CONTACTS_BASE_PATH}`, {
     method: "POST",
     authenticate: true,
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(dto),
+    body: JSON.stringify(contact),
   });
 }
 
