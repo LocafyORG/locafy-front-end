@@ -3,7 +3,7 @@ import { CSpinner } from "@coreui/react";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { UserProfile } from "@api/interfaces/UserDTO";
 import { getProfile } from "@api/auth/authenticationAPI";
-import { getAuthToken } from "@api/auth/AuthTokenApi";
+import { getAuthToken } from "@api/auth/authTokenApi";
 import {
   FaUser,
   FaEnvelope,

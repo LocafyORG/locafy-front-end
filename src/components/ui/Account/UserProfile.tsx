@@ -5,7 +5,7 @@ import DefaultBadgeImage from "@assets/img/under-development.webp";
 import "./UserProfile.css";
 import { ROUTES } from "@constants/Routes";
 import { ActionsMenu } from "../ListPane";
-import { deleteAuthToken } from "@api/auth/AuthTokenApi";
+import { deleteAuthToken } from "@api/auth/authTokenApi";
 
 interface UserProfileProps {
   badgeImageSrc?: string;

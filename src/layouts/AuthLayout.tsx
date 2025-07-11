@@ -1,4 +1,4 @@
-import { isAuthenticated } from "@api/auth/AuthTokenApi";
+import { isAuthenticated } from "@api/auth/authTokenApi";
 import { Col, Row } from "@components/Container";
 import { ROUTES } from "@constants/Routes";
 import { Navigate, Outlet } from "react-router";

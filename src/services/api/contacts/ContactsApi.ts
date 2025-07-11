@@ -1,5 +1,5 @@
 import { CONTACTS_BASE_PATH } from "@constants/Endpoints";
-import { getAuthToken } from "@api/auth/AuthTokenApi";
+import { getAuthToken } from "@api/auth/authTokenApi";
 import { Contact, ContactInput } from "@api/interfaces/ContactsDTO";
 import { request } from "@utils/httpClient";
 import { Location } from "@api/interfaces/LocationDTO";

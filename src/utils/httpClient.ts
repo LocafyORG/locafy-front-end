@@ -1,4 +1,4 @@
-import { getAuthToken } from "@api/auth/AuthTokenApi";
+import { getAuthToken } from "@api/auth/authTokenApi";
 
 export class HttpError extends Error {
   code: number;
