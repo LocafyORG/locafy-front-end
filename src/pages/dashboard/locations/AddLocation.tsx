@@ -6,7 +6,7 @@ import { TextInput } from "@components/Form";
 import { LocationSearchInput } from "@components/LocationSearchInput";
 import useSubmitState, { SubmitState } from "@hooks/useSubmitState";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { FormEvent, useCallback, useMemo, useState } from "react";
+import { FormEvent, useCallback, useMemo, useState, useRef } from "react";
 import { FaMapMarkerAlt, FaSave, FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router";
 
@@ -29,6 +29,100 @@ const parseAddressComponents = (displayName: string) => {
     country
   };
 };
+
+// Premade tags for selection
+const PREMADE_TAGS = [
+  "Indoors",
+  "Outdoors",
+  "Stdio",
+  "Large",
+  "Small",
+  "Remote",
+  "Onsite",
+  "Offsite",
+  "Free",
+];
+
+// TagsInput component
+function TagsInput({ value, onChange }: { value: string[]; onChange: (tags: string[]) => void }) {
+  const [input, setInput] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Add tag if not duplicate and not empty
+  const addTag = (tag: string) => {
+    const trimmed = tag.trim();
+    if (trimmed && !value.includes(trimmed)) {
+      onChange([...value, trimmed]);
+    }
+    setInput("");
+    if (inputRef.current) inputRef.current.focus();
+  };
+
+  // Remove tag by index
+  const removeTag = (idx: number) => {
+    onChange(value.filter((_, i) => i !== idx));
+  };
+
+  // Handle Enter key
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && input.trim()) {
+      e.preventDefault();
+      addTag(input);
+    }
+  };
+
+  return (
+    <div>
+      <div className="flex flex-wrap gap-2 mb-2">
+        {value.map((tag, idx) => (
+          <span key={tag} className="inline-flex items-center bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">
+            {tag}
+            <button
+              type="button"
+              className="ml-2 text-white hover:text-white focus:outline-none bg-purple-500 rounded-full px-2"
+              onClick={() => removeTag(idx)}
+              aria-label={`Remove tag ${tag}`}
+            >
+              ×
+            </button>
+          </span>
+        ))}
+      </div>
+      <div className="flex gap-2 mb-2 flex-wrap">
+        {PREMADE_TAGS.map((tag) => (
+          <button
+            type="button"
+            key={tag}
+            className={`px-3 py-1 rounded-full border text-sm transition ${value.includes(tag) ? 'bg-purple-500 text-white border-purple-500' : 'bg-white text-purple-700 border-purple-300 hover:bg-purple-100'}`}
+            onClick={() => addTag(tag)}
+            disabled={value.includes(tag)}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+      <div className="flex gap-2">
+        <input
+          ref={inputRef}
+          type="text"
+          className="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          placeholder="Add custom tag and press Enter"
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+        <button
+          type="button"
+          className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition"
+          onClick={() => addTag(input)}
+          disabled={!input.trim()}
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export function AddLocation() {
   const navigate = useNavigate();
@@ -202,6 +296,17 @@ export function AddLocation() {
                     placeholder="Add a description or notes about this location"
                   />
                 </div>
+
+                {/* Tags Input */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Tags
+                  </label>
+                  <TagsInput
+                    value={data.keywords}
+                    onChange={(newTags) => setData(prev => ({ ...prev, keywords: newTags }))}
+                  />
+                </div>
               </div>
 
               {/* Addresses */}
@@ -225,7 +330,7 @@ export function AddLocation() {
                               return { ...prev, addresses: newAddresses };
                             });
                           }}
-                          className="text-red-600 hover:text-red-700 font-medium text-sm transition"
+                          className="text-white hover:text-white font-medium text-sm transition bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
                         >
                           Remove
                         </button>
@@ -281,11 +386,11 @@ export function AddLocation() {
                         }
                       }));
                     }}
-                    className="w-full p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-gray-400 transition-colors text-gray-600 hover:text-gray-700"
+                    className="w-full p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-gray-400 transition-colors bg-purple-500"
                   >
                     <div className="flex items-center justify-center gap-2">
-                      <FaMapMarkerAlt className="text-gray-400" />
-                      <span>Add Another Address</span>
+                      <FaMapMarkerAlt className="text-gray-200" />
+                      <span className="text-white">Add Another Address</span>
                     </div>
                   </button>
                 </div>

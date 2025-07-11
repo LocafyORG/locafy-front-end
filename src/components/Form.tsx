@@ -112,6 +112,7 @@ export function DebounceTextInput({
 interface TextInputProps {
   name: string;
   onChange: (value: string, name: string) => void;
+  value?: string;
   delay?: number;
   placeholder?: string;
 }
@@ -119,6 +120,7 @@ interface TextInputProps {
 export function TextInput({
   name,
   onChange,
+  value = "",
   placeholder = "",
 }: TextInputProps) {
   const handleChange = useCallback(
@@ -134,6 +136,7 @@ export function TextInput({
         type="text"
         placeholder={placeholder}
         name={name}
+        value={value}
         onChange={handleChange}
       />
     </>

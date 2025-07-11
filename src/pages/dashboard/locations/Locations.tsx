@@ -356,7 +356,7 @@ export function Locations() {
               <button 
                 className={`px-3 py-1 rounded-lg font-medium transition ${
                   locationFilter === 'all' 
-                    ? 'bg-blue-100 text-blue-700' 
+                    ? 'bg-blue-500 text-white' 
                     : 'text-gray-600 hover:bg-gray-100'
                 }`}
                 onClick={() => setLocationFilter('all')}
@@ -366,7 +366,7 @@ export function Locations() {
               <button 
                 className={`px-3 py-1 rounded-lg font-medium transition ${
                   locationFilter === 'my' 
-                    ? 'bg-blue-100 text-blue-700' 
+                    ? 'bg-blue-500 text-white' 
                     : 'text-gray-600 hover:bg-gray-100'
                 }`}
                 onClick={() => setLocationFilter('my')}
@@ -376,7 +376,7 @@ export function Locations() {
               <button 
                 className={`px-3 py-1 rounded-lg font-medium transition ${
                   locationFilter === 'shared' 
-                    ? 'bg-blue-100 text-blue-700' 
+                    ? 'bg-blue-500 text-white' 
                     : 'text-gray-600 hover:bg-gray-100'
                 }`}
                 onClick={() => setLocationFilter('shared')}

@@ -4,17 +4,26 @@ type Props = {
   onSelect: (lat: number, lon: number, displayName: string) => void;
   placeholder?: string;
   disableCoords?: boolean;
+  value?: string;
 };
 
 export const LocationSearchInput: React.FC<Props> = ({
   onSelect,
   placeholder = "Search address...",
   disableCoords = false,
+  value,
 }) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(value || "");
   const [results, setResults] = useState<any[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const justSelectedRef = useRef(false);
+
+  // Keep query in sync with value prop
+  useEffect(() => {
+    if (typeof value === "string" && value !== query) {
+      setQuery(value);
+    }
+  }, [value]);
 
   const fetchResults = useCallback(async (q: string) => {
     if (!q) return;
