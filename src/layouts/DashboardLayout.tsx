@@ -9,7 +9,7 @@ import {
   cilContact,
   cilCalendar,
 } from "@coreui/icons";
-import { isAuthenticated } from "@api/auth/AuthTokenApi";
+import { isAuthenticated } from "@api/auth/authTokenApi";
 import "@styles/layouts/DashboardLayout.scss";
 import { Button, ButtonProps } from "@components/Button";
 
