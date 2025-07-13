@@ -6,9 +6,74 @@ services:
     build: .
     ports:
       - "3000:3000"
-    command: ["npm", "run", "dev"]
+    environment:
+      - VITE_API_BASE_URL=http://backend:8080
+    depends_on:
+      - backend
     networks:
       - default
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - minio
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    networks:
+      - default
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9090:9090"
+    command: server /data --console-address ":9090"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    networks:
+      - default
+
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 5;
+      /usr/bin/mc alias set myminio http://minio:9000 minioadmin minioadmin;
+      /usr/bin/mc mb myminio/locus-point;
+      /usr/bin/mc policy set download myminio/locus-point;
+      exit 0;
+      "
+    networks:
+      - default
+
+  db:
+    image: postgis/postgis:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - default
+
+volumes:
+  postgres-data:
 
 networks:
   default:

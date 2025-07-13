@@ -1,13 +1,16 @@
-import { Address } from "@api/interfaces/AddressDTO";
 import { Location } from "@api/interfaces/LocationDTO";
 import { createLocation } from "@api/locations/LocationsApi";
+import { uploadLocationPhotos, LocationPhotoUpload } from "@api/locations/LocationPhotosApi";
 import { Paper } from "@components/Container";
 import { TextInput } from "@components/Form";
 import { LocationSearchInput } from "@components/LocationSearchInput";
+import { BulkPhotoUpload } from "@components/BulkPhotoUpload";
+import { UploadProgressBar } from "@components/ui/UploadProgressBar";
+import { useUploadProgress } from "@hooks/useUploadProgress";
 import useSubmitState, { SubmitState } from "@hooks/useSubmitState";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { FormEvent, useCallback, useMemo, useState, useRef } from "react";
-import { FaMapMarkerAlt, FaSave, FaArrowLeft } from "react-icons/fa";
+import { FaMapMarkerAlt, FaSave, FaArrowLeft, FaCamera } from "react-icons/fa";
 import { useNavigate } from "react-router";
 
 // Helper function to parse address components
@@ -187,6 +190,9 @@ export function AddLocation() {
     locationPhotoIds: [],
   });
 
+  const [selectedPhotos, setSelectedPhotos] = useState<LocationPhotoUpload[]>([]);
+  const { uploadState, startUpload, updateProgress, finishUpload } = useUploadProgress();
+
   const onTextChange = useCallback(
     (value: string, name: string) => {
       setData((prev) => ({
@@ -218,22 +224,31 @@ export function AddLocation() {
   );
 
   const handleSubmit = useCallback(
-    (e: FormEvent<HTMLInputElement>) => {
+    async (e: FormEvent<HTMLInputElement>) => {
       e.preventDefault();
       if (submitState !== SubmitState.Loading) {
         switchState(SubmitState.Loading);
-        createLocation(data)
-          .then((loc) => {
-            setSubmissionInfo(loc.locationId || "Location ID is empty for some reason.");
-            switchState(SubmitState.Success);
-          })
-          .catch((e) => {
-            setSubmissionInfo(e.name);
-            switchState(SubmitState.Fail);
-          });
+        try {
+          // First create the location
+          const location = await createLocation(data);
+          
+          // Then upload photos if any are selected
+          if (selectedPhotos.length > 0) {
+            startUpload(selectedPhotos.length);
+            await uploadLocationPhotos(location.locationId!, selectedPhotos, updateProgress);
+            finishUpload();
+          }
+          
+          setSubmissionInfo(location.locationId || "Location ID is empty for some reason.");
+          switchState(SubmitState.Success);
+        } catch (e: unknown) {
+          const error = e as Error;
+          setSubmissionInfo(error.name || error.message || "An error occurred");
+          switchState(SubmitState.Fail);
+        }
       }
     },
-    [data, switchState, submitState]
+    [data, selectedPhotos, switchState, submitState, startUpload, updateProgress, finishUpload]
   );
 
   return (
@@ -270,6 +285,7 @@ export function AddLocation() {
                   </label>
                   <TextInput
                     name="name"
+                    value={data.name}
                     onChange={onTextChange}
                     placeholder="Enter location name"
                   />
@@ -281,6 +297,7 @@ export function AddLocation() {
                   </label>
                   <TextInput
                     name="locationType"
+                    value={data.locationType}
                     onChange={onTextChange}
                     placeholder="e.g., Office, Studio, Outdoor"
                   />
@@ -292,6 +309,7 @@ export function AddLocation() {
                   </label>
                   <TextInput
                     name="notes"
+                    value={data.notes}
                     onChange={onTextChange}
                     placeholder="Add a description or notes about this location"
                   />
@@ -396,6 +414,20 @@ export function AddLocation() {
                 </div>
               </div>
 
+              {/* Photo Upload Section */}
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <FaCamera className="text-green-500 text-xl" />
+                  <h3 className="text-lg font-semibold text-gray-800">Location Photos</h3>
+                </div>
+                
+                <BulkPhotoUpload
+                  onPhotosSelected={setSelectedPhotos}
+                  maxFiles={20}
+                  maxFileSize={50}
+                />
+              </div>
+
               {/* Submit Button */}
               <div className="flex justify-center pt-8 border-t border-gray-200">
                 <button
@@ -426,6 +458,16 @@ export function AddLocation() {
       </div>
 
       {submissionModal}
+      
+      {/* Upload Progress Bar */}
+      <UploadProgressBar
+        progress={uploadState.progress}
+        totalFiles={uploadState.totalFiles}
+        currentFileIndex={uploadState.currentFileIndex}
+        uploadedFiles={uploadState.uploadedFiles}
+        failedFiles={uploadState.failedFiles}
+        isUploading={uploadState.isUploading}
+      />
     </>
   );
 }

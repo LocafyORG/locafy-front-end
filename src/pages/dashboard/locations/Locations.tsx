@@ -1,15 +1,15 @@
 import { useCallback, useMemo, useState, useEffect } from "react";
 import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import { CFormSwitch, CImage } from "@coreui/react";
-import fallbackImage from "@assets/img/under-development.webp";
 import FilterForm, { FilterFormValues } from "@components/ui/FilterForm";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllLocations, deleteLocation } from "@api/locations/LocationsApi";
+import { getLocationPhotos, LocationPhotoResponse } from "@api/locations/LocationPhotosApi";
 import { Location } from "@api/interfaces/LocationDTO";
 import { useNavigate } from "react-router";
 import { DASHBOARD } from "@constants/Routes";
 import { handleSignOut } from "@api/auth/authenticationAPI";
-import { FaMapMarkerAlt, FaPlus, FaFilter, FaEdit, FaTrash, FaSearch, FaTh, FaBars, FaCalendarAlt, FaTag } from "react-icons/fa";
+import { FaMapMarkerAlt, FaPlus, FaFilter, FaEdit, FaTrash, FaSearch, FaTh, FaBars, FaCalendarAlt, FaTag, FaImage, FaMap } from "react-icons/fa";
 import { MapView } from "@components/mapView";
 
 type ViewMode = 'list' | 'grid';
@@ -22,8 +22,23 @@ export function Locations() {
   const [showMap, setShowMap] = useState(false);
 
   const [localLocations, setLocalLocations] = useState<Location[]>([]);
+  const [locationPhotos, setLocationPhotos] = useState<Record<string, LocationPhotoResponse[]>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Fetch photos for a location
+  const fetchLocationPhotos = useCallback(async (locationId: string) => {
+    try {
+      const photos = await getLocationPhotos(locationId);
+      setLocationPhotos(prev => ({
+        ...prev,
+        [locationId]: photos
+      }));
+    } catch (err) {
+      console.warn(`Failed to fetch photos for location ${locationId}:`, err);
+      // Don't set error state for photo fetch failures
+    }
+  }, []);
 
   // Fetch locations
   const fetchLocations = useCallback(async () => {
@@ -48,6 +63,14 @@ export function Locations() {
       console.log('Locations page - unique locations:', uniqueLocations); // Debug log
       console.log('Locations page - unique count:', uniqueLocations.length); // Debug log
       setLocalLocations(uniqueLocations);
+      
+      // Fetch photos for each location
+      uniqueLocations.forEach(location => {
+        if (location.locationId) {
+          fetchLocationPhotos(location.locationId);
+        }
+      });
+      
       setError(null);
     } catch (err) {
       setError("Failed to load locations");
@@ -58,7 +81,7 @@ export function Locations() {
     } finally {
       setLoading(false);
     }
-  }, [navigate]);
+  }, [navigate, fetchLocationPhotos]);
 
   // Initial load
   useEffect(() => {
@@ -132,17 +155,49 @@ export function Locations() {
     }).format(new Date(dateString));
   };
 
-  const rows = useMemo<ListPaneRow[]>(() => {
-    return filteredLocations.map((loc) => ({
-      id: loc.locationId,
-      thumbnail: (
+  // Helper function to get location thumbnail
+  const getLocationThumbnail = (location: Location) => {
+    const photos = locationPhotos[location.locationId || ''] || [];
+    const firstPhoto = photos.find(photo => photo.isPrimary) || photos[0];
+    
+    if (firstPhoto) {
+      // Use the photo image endpoint
+      return `/api/v1/location-photos/${firstPhoto.fileId}/image`;
+    }
+    
+    // Return undefined for fallback icon
+    return undefined;
+  };
+
+  // Thumbnail component
+  const LocationThumbnail = ({ location }: { location: Location }) => {
+    const photoUrl = getLocationThumbnail(location);
+    
+    if (photoUrl) {
+      return (
         <CImage
-          src={fallbackImage}
+          src={photoUrl}
           width={120}
           height={80}
           rounded
           alt="Location thumbnail"
+          className="object-cover"
         />
+      );
+    }
+    
+    return (
+      <div className="w-[120px] h-[80px] bg-gray-100 rounded flex items-center justify-center">
+        <FaImage className="text-gray-400 text-2xl" />
+      </div>
+    );
+  };
+
+  const rows = useMemo<ListPaneRow[]>(() => {
+    return filteredLocations.map((loc) => ({
+      id: loc.locationId,
+      thumbnail: (
+        <LocationThumbnail location={loc} />
       ),
       name: loc.name || "Unnamed Location",
       address: formatAddress(loc),
@@ -217,13 +272,19 @@ export function Locations() {
           onClick={() => navigate(String(location.locationId))}
         >
           <div className="relative">
-            <CImage
-              src={fallbackImage}
-              width="100%"
-              height={160}
-              className="object-cover"
-              alt="Location thumbnail"
-            />
+            {getLocationThumbnail(location) ? (
+              <CImage
+                src={getLocationThumbnail(location)}
+                width="100%"
+                height={160}
+                className="object-cover"
+                alt="Location thumbnail"
+              />
+            ) : (
+              <div className="w-full h-[160px] bg-gray-100 flex items-center justify-center">
+                <FaImage className="text-gray-400 text-4xl" />
+              </div>
+            )}
             <div className="absolute top-2 right-2 flex gap-1">
               <button
                 className="p-1 bg-white/80 hover:bg-white rounded transition"

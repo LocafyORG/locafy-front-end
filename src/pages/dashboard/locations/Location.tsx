@@ -1,10 +1,16 @@
 import { getLocationById } from "@api/locations/LocationsApi";
+import { uploadLocationPhotos, LocationPhotoUpload } from "@api/locations/LocationPhotosApi";
 import { Paper } from "@components/Container";
 import { CSpinner } from "@coreui/react";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
+import { PhotoFileSystem } from "@components/PhotoFileSystem";
+import { BulkPhotoUpload } from "@components/BulkPhotoUpload";
+import { UploadProgressBar } from "@components/ui/UploadProgressBar";
+import { useUploadProgress } from "@hooks/useUploadProgress";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router";
 import { MapView } from "@components/mapView";
+import { useState, useCallback } from "react";
 import {
   FaMapMarkerAlt,
   FaEdit,
@@ -19,12 +25,21 @@ import {
   FaBuilding,
   FaCity,
   FaGlobe,
+  FaImages,
+  FaCamera,
+  FaTimes,
 } from "react-icons/fa";
 import { DASHBOARD } from "@constants/Routes";
 
 export function Location() {
   const { locationId } = useParams();
   const navigate = useNavigate();
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [selectedPhotos, setSelectedPhotos] = useState<LocationPhotoUpload[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [existingPhotos, setExistingPhotos] = useState<Array<{ fileName: string; fileSize: number }>>([]);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const { uploadState, startUpload, updateProgress, finishUpload } = useUploadProgress();
 
   const {
     data: location,
@@ -41,6 +56,36 @@ export function Location() {
       mapSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const handleUploadPhotos = useCallback(async () => {
+    if (selectedPhotos.length === 0 || !location?.locationId) return;
+    
+    setIsUploading(true);
+    startUpload(selectedPhotos.length);
+    
+    try {
+      await uploadLocationPhotos(location.locationId, selectedPhotos, updateProgress);
+      setSelectedPhotos([]);
+      setShowUploadModal(false);
+      
+      // Update existing photos list with newly uploaded photos
+      const newExistingPhotos = selectedPhotos.map(photo => ({
+        fileName: photo.file.name,
+        fileSize: photo.file.size
+      }));
+      setExistingPhotos(prev => [...prev, ...newExistingPhotos]);
+      
+      // Refresh the page or refetch data to show new photos
+      window.location.reload();
+    } catch (error) {
+      console.error('Error uploading photos:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to upload photos. Please try again.';
+      setUploadError(errorMessage);
+    } finally {
+      setIsUploading(false);
+      finishUpload();
+    }
+  }, [selectedPhotos, location?.locationId, startUpload, updateProgress, finishUpload]);
 
   if (isLoading) {
     return (
@@ -107,7 +152,14 @@ export function Location() {
     : { lat: 43.65, lng: -79.4 };
 
   // Helper function to format full address
-  const formatFullAddress = (address: any) => {
+  const formatFullAddress = (address: { 
+    addressLine1?: string; 
+    addressLine2?: string; 
+    city?: string; 
+    stateProvinceRegion?: string; 
+    postalCode?: string; 
+    country?: string; 
+  }) => {
     const parts = [
       address.addressLine1,
       address.addressLine2,
@@ -427,9 +479,45 @@ export function Location() {
                     Edit Details
                   </span>
                 </button>
+                <button
+                  className="w-full flex items-center gap-3 p-3 bg-orange-50 hover:bg-orange-100 rounded-lg transition"
+                  onClick={() => setShowUploadModal(true)}
+                >
+                  <FaCamera className="text-orange-500" />
+                  <span className="font-medium text-gray-700">
+                    Upload Photos
+                  </span>
+                </button>
               </div>
             </Paper>
           </div>
+        </div>
+
+        {/* Photo Library Section */}
+        <div className="mb-8">
+          <Paper className="p-6 bg-white shadow-xl rounded-xl border border-gray-100">
+            <div className="flex items-center gap-3 mb-6">
+              <FaImages className="text-purple-500 text-xl" />
+              <h2 className="text-xl font-bold text-gray-800">Photo Library</h2>
+            </div>
+            {location?.locationId && (
+              <PhotoFileSystem 
+                locationId={location.locationId}
+                onPhotoDelete={(photoId) => {
+                  console.log('Photo deleted:', photoId);
+                }}
+                onPhotoUpdate={(photoId, updates) => {
+                  console.log('Photo updated:', photoId, updates);
+                }}
+                onPhotosLoaded={(photos) => {
+                  setExistingPhotos(photos.map(photo => ({
+                    fileName: photo.fileName,
+                    fileSize: photo.fileSize
+                  })));
+                }}
+              />
+            )}
+          </Paper>
         </div>
 
         {/* Map Section */}
@@ -450,6 +538,89 @@ export function Location() {
           </Paper>
         </div>
       </div>
+
+      {/* Upload Photos Modal */}
+      {showUploadModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b">
+              <h3 className="text-lg font-semibold">Upload Photos</h3>
+              <button
+                onClick={() => setShowUploadModal(false)}
+                className="text-gray-500 hover:text-gray-700 text-2xl"
+              >
+                <FaTimes />
+              </button>
+            </div>
+            
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-6">
+              {uploadError && (
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                  <div className="flex justify-between items-center">
+                    <span>{uploadError}</span>
+                    <button
+                      onClick={() => setUploadError(null)}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      ×
+                    </button>
+                  </div>
+                </div>
+              )}
+              <BulkPhotoUpload
+                onPhotosSelected={setSelectedPhotos}
+                maxFiles={20}
+                maxFileSize={50}
+                existingPhotos={existingPhotos}
+              />
+            </div>
+
+            {/* Footer */}
+            <div className="flex items-center justify-between p-6 border-t bg-gray-50">
+              <div className="text-sm text-gray-600">
+                {selectedPhotos.length} photo(s) selected
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setShowUploadModal(false)}
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUploadPhotos}
+                  disabled={selectedPhotos.length === 0 || isUploading}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                >
+                  {isUploading ? (
+                    <>
+                      <CSpinner size="sm" />
+                      Uploading...
+                    </>
+                  ) : (
+                    <>
+                      <FaCamera />
+                      Upload Photos
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Upload Progress Bar */}
+      <UploadProgressBar
+        progress={uploadState.progress}
+        totalFiles={uploadState.totalFiles}
+        currentFileIndex={uploadState.currentFileIndex}
+        uploadedFiles={uploadState.uploadedFiles}
+        failedFiles={uploadState.failedFiles}
+        isUploading={uploadState.isUploading}
+      />
     </>
   );
 }

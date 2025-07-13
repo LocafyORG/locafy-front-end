@@ -25,9 +25,11 @@ export default defineConfig({
   },
   plugins: [react()],
   server: {
+    host: "0.0.0.0",
+    port: 3000,
     proxy: {
       "/api": {
-        target: "http://localhost:8080", // Backend URL
+        target: process.env.VITE_API_BASE_URL || "http://localhost:8080", // Backend URL
         changeOrigin: true,
         rewrite: (path) => path,
       },
