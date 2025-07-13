@@ -4,6 +4,7 @@ import { Col, Row } from "@components/Container";
 import { Link } from "react-router";
 import { ROUTES } from "@constants/Routes";
 import { Button } from "@components/Button";
+import { HeroSection, FeatureCard } from "@components/ui";
 
 /**
  * Hero
@@ -15,37 +16,32 @@ import { Button } from "@components/Button";
 function Home() {
   return (
     <Col className="overflow-x-hidden">
-      <Col className="h-screen w-screen bg-[url(/src/assets/img/wave1.svg)] bg-no-repeat bg-cover bg-bottom items-center">
-        <Col className="*:drop-shadow-xl w-1/4 justify-center items-center text-center">
-          <h1 className="text-7xl text-indigo-950 font-extrabold">
-            LocusPoint
-          </h1>
-          <p className="text-2xl text-slate-600">
-            designed to streamline the organization and management of filming
-            locations.
-          </p>
-          <Button>
-            <Link to={ROUTES.LOCATIONS}>Get Started</Link>
-          </Button>
-        </Col>
-      </Col>
+      <HeroSection
+        title="LocusPoint"
+        description="designed to streamline the organization and management of filming locations."
+        backgroundImage="/src/assets/img/wave1.svg"
+      >
+        <Button>
+          <Link to={ROUTES.LOCATIONS}>Get Started</Link>
+        </Button>
+      </HeroSection>
 
       <Screen className="relative bg-indigo-500 m-0">
         <Row className="m-12 mb-0 h-[320px] z-10 items-end">
           <FeatureCard
-            src="/src/assets/img/landing/icon-contacts.svg"
+            icon="/src/assets/img/landing/icon-contacts.svg"
             title="Collaboration"
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus."
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus."
           />
           <FeatureCard
-            src="/src/assets/img/landing/icon-images.svg"
+            icon="/src/assets/img/landing/icon-images.svg"
             title="Locations"
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus."
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus."
           />
           <FeatureCard
-            src="/src/assets/img/landing/icon-contacts.svg"
+            icon="/src/assets/img/landing/icon-contacts.svg"
             title="Whatever"
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus."
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eget ante metus."
           />
         </Row>
       </Screen>
@@ -160,20 +156,6 @@ function Home() {
   );
 }
 
-interface FeatureCardProps {
-  src: string;
-  title: string;
-  desc: string;
-}
 
-function FeatureCard({ src, title, desc }: FeatureCardProps) {
-  return (
-    <Col className="*:drop-shadow-xl w-[480px] text-center flex-grow-0 items-center">
-      <span className={`bg-[url(${src})] h-[80px] w-[80px] bg-contain`} />
-      <h3 className="text-amber-300 text-5xl font-bold">{title}</h3>
-      <p className="text-amber-100 text-2xl">{desc}</p>
-    </Col>
-  );
-}
 
 export default Home;

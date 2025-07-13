@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import "@styles/pages/dashboard/Contacts.scss";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { getAllContacts, deleteContact } from "@api/contacts/ContactsApi";
@@ -8,6 +7,7 @@ import { Contact } from "@api/interfaces/ContactsDTO";
 import { handleSignOut } from "@api/auth/authenticationAPI";
 import { DASHBOARD } from "@constants/Routes";
 import { FaUserCircle, FaPhone, FaEnvelope, FaPlus } from "react-icons/fa";
+import { LoadingSpinner, ErrorState, EmptyState, DataTable, type DataTableColumn } from "@components/ui";
 
 export function Contacts() {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -34,18 +34,36 @@ export function Contacts() {
     fetchContacts();
   }, [navigate]);
 
-  // Convert contacts to rows for ListPane2
-  const rows: ListPaneRow[] = contacts.map((contact) => ({
-    name: contact.name,
-    telNum: contact.phone,
-    email: contact.email,
-    locationId: "",
-    _avatar:
-      contact.name
-        ?.split(" ")
-        .map((n) => n[0])
-        .join("") || "?",
-  }));
+  // Define table columns
+  const columns: DataTableColumn[] = [
+    {
+      key: 'name',
+      label: 'Name',
+      icon: <FaUserCircle className="text-gray-400" />,
+      render: (value, row) => (
+        <div className="flex items-center gap-3">
+          <span className="inline-flex items-center justify-center w-9 h-9 bg-gray-200 rounded-full text-lg font-bold text-gray-700">
+            {(row.name as string)?.split(" ").map((n: string) => n[0]).join("") || "?"}
+          </span>
+          <span className="font-medium text-gray-800 group-hover:underline">
+            {value as string}
+          </span>
+        </div>
+      )
+    },
+    {
+      key: 'phone',
+      label: 'Phone',
+      icon: <FaPhone className="text-green-500" />,
+      render: (value) => (value as string) || <span className="text-gray-400">N/A</span>
+    },
+    {
+      key: 'email',
+      label: 'Email',
+      icon: <FaEnvelope className="text-blue-500" />,
+      render: (value) => (value as string) || <span className="text-gray-400">N/A</span>
+    }
+  ];
 
   // Delete handler that removes the contact from state after deletion
   const handleDelete = async (index: number) => {
@@ -61,18 +79,19 @@ export function Contacts() {
     }
   };
 
-  if (loading)
+  if (loading) {
+    return <LoadingSpinner message="Loading contacts..." />;
+  }
+  
+  if (error) {
     return (
-      <div className="flex justify-center items-center h-64 text-lg">
-        Loading...
-      </div>
+      <ErrorState
+        icon={<FaUserCircle className="text-red-500 text-4xl" />}
+        title="Error loading contacts"
+        error={error}
+      />
     );
-  if (error)
-    return (
-      <div className="flex justify-center items-center h-64 text-red-600 text-lg">
-        {error}
-      </div>
-    );
+  }
 
   return (
     <>
@@ -94,92 +113,41 @@ export function Contacts() {
         ]}
       />
 
-      <div className="mt-6 mb-8 bg-white shadow rounded-lg p-4">
+      <div className="mt-6 mb-8">
         {contacts.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-48 text-gray-500">
-            <FaUserCircle size={48} className="mb-2" />
-            <div className="text-lg">No contacts found.</div>
-            <div className="text-sm">
-              Click <span className="font-semibold">NEW CONTACT</span> to add
-              your first contact.
-            </div>
-          </div>
+          <EmptyState
+            icon={<FaUserCircle size={48} className="text-gray-400" />}
+            title="No contacts found"
+            description="Click NEW CONTACT to add your first contact."
+          />
         ) : (
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 text-left">Name</th>
-                <th className="px-4 py-2 text-left">
-                  <FaPhone className="inline mr-1 text-green-500" />
-                  Phone
-                </th>
-                <th className="px-4 py-2 text-left">
-                  <FaEnvelope className="inline mr-1 text-blue-500" />
-                  Email
-                </th>
-                <th className="px-4 py-2 text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contacts.map((contact, idx) => (
-                <tr
-                  key={contact.contactId}
-                  className="hover:bg-blue-50 transition cursor-pointer group"
-                  onClick={() => {
-                    if (contact?.contactId) {
-                      navigate(`${contact.contactId}`);
-                    }
-                  }}
-                >
-                  <td className="px-4 py-3 flex items-center gap-3">
-                    <span className="inline-flex items-center justify-center w-9 h-9 bg-gray-200 rounded-full text-lg font-bold text-gray-700">
-                      {contact.name
-                        ?.split(" ")
-                        .map((n) => n[0])
-                        .join("") || "?"}
-                    </span>
-                    <span className="font-medium text-gray-800 group-hover:underline">
-                      {contact.name}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-gray-700">
-                    {contact.phone || (
-                      <span className="text-gray-400">N/A</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-gray-700">
-                    {contact.email || (
-                      <span className="text-gray-400">N/A</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 flex gap-2">
-                    <button
-                      className="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded transition text-sm"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (contact?.contactId) {
-                          navigate(
-                            `${DASHBOARD.EDIT_CONTACT}/${String(contact.contactId)}`,
-                          );
-                        }
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="px-3 py-1 bg-red-100 hover:bg-red-200 text-red-700 rounded transition text-sm"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDelete(idx);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable
+            columns={columns}
+            data={contacts as unknown as Record<string, unknown>[]}
+            onRowClick={(contact) => {
+              if (contact?.contactId) {
+                navigate(`${contact.contactId}`);
+              }
+            }}
+            actions={[
+              {
+                label: 'Edit',
+                onClick: (contact) => {
+                  if (contact?.contactId) {
+                    navigate(`${DASHBOARD.EDIT_CONTACT}/${String(contact.contactId)}`);
+                  }
+                },
+                variant: 'secondary'
+              },
+              {
+                label: 'Delete',
+                onClick: (contact, index) => handleDelete(index),
+                variant: 'danger'
+              }
+            ]}
+            emptyMessage="No contacts found"
+            emptyIcon={<FaUserCircle className="text-gray-400 text-4xl" />}
+          />
         )}
       </div>
     </>

@@ -84,8 +84,17 @@
 }
 
 .card {
-  width: 18rem;
-  margin: 1rem 0; /* Add vertical margin only */
+  width: 100%;
+  margin: 0; /* Remove margin since GridLayout handles spacing */
+}
+
+.ui-production-card {
+  min-height: 250px !important;
+  transition: transform 0.2s ease;
+}
+
+.ui-production-card:hover {
+  transform: translateY(-2px);
 }
 
 .sort-controls {

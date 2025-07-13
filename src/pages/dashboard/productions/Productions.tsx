@@ -7,6 +7,7 @@ import { Production } from "@api/interfaces/ProductionDTO.ts";
 import "@styles/pages/dashboard/Productions.scss";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
 import { handleSignOut } from "@api/auth/authenticationAPI";
+import { LoadingSpinner, ErrorState, GridLayout } from "@components/ui";
 
 export function Productions() {
   const [data, setData] = useState<Production[]>([]);
@@ -33,8 +34,8 @@ export function Productions() {
     getProductions();
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (isLoading) return <LoadingSpinner message="Loading productions..." />;
+  if (error) return <ErrorState title="Error loading productions" error={error} />;
 
   return (
     <>
@@ -48,7 +49,7 @@ export function Productions() {
         ]}
       />
 
-      <div className="card-container">
+      <GridLayout columns={4} gap="md" className="card-container">
         {data.map((item) => (
           <Card
             key={item.productionId}
@@ -60,7 +61,7 @@ export function Productions() {
             }}
           />
         ))}
-      </div>
+      </GridLayout>
     </>
   );
 }

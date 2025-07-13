@@ -4,6 +4,7 @@ import { RegisterPayload } from "@api/interfaces/AuthDTO";
 import { ErrorResponse } from "@api/interfaces/ErrorResponseDTO";
 
 import "@styles/pages/auth/Register.scss";
+import { FormContainer, FormField, FormButton } from "@components/ui";
 
 function Register() {
   const [formData, setFormData] = useState<RegisterPayload>({
@@ -51,76 +52,61 @@ function Register() {
 
   return (
     <div className="signup-container">
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit} className="signup-form">
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        {successMessage && <p className="success-message">{successMessage}</p>}
+      <FormContainer
+        title="Sign Up"
+        onSubmit={handleSubmit}
+        errorMessage={errorMessage}
+        successMessage={successMessage}
+      >
+        <FormField
+          label="First Name"
+          name="firstName"
+          type="text"
+          value={formData.firstName}
+          onChange={handleInputChange}
+          required
+          error={fieldErrors.firstName}
+        />
 
-        <div className="form-group">
-          <label htmlFor="firstName">First Name</label>
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-            required
-          />
-          {fieldErrors.firstName && (
-            <p className="field-error">{fieldErrors.firstName}</p>
-          )}
-        </div>
+        <FormField
+          label="Last Name"
+          name="lastName"
+          type="text"
+          value={formData.lastName}
+          onChange={handleInputChange}
+          required
+          error={fieldErrors.lastName}
+        />
 
-        <div className="form-group">
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            required
-          />
-          {fieldErrors.lastName && (
-            <p className="field-error">{fieldErrors.lastName}</p>
-          )}
-        </div>
+        <FormField
+          label="Email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+          error={fieldErrors.email}
+        />
 
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-          {fieldErrors.email && (
-            <p className="field-error">{fieldErrors.email}</p>
-          )}
-        </div>
+        <FormField
+          label="Password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+          minLength={8}
+          error={fieldErrors.password}
+        />
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-            minLength={8}
-          />
-          {fieldErrors.password && (
-            <p className="field-error">{fieldErrors.password}</p>
-          )}
-        </div>
-
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Sign Up"}
-        </button>
-      </form>
+        <FormButton
+          type="submit"
+          loading={isSubmitting}
+          loadingText="Submitting..."
+        >
+          Sign Up
+        </FormButton>
+      </FormContainer>
     </div>
   );
 }

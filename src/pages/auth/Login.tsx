@@ -4,6 +4,7 @@ import { LoginPayload } from "@api/interfaces/AuthDTO";
 import { loginUser } from "@api/auth/authenticationAPI";
 import { ROUTES } from "@constants/Routes";
 import "@styles/pages/auth/Login.scss";
+import { FormContainer, FormField, FormButton } from "@components/ui";
 
 function Login() {
   const navigate = useNavigate(); // React Router hook for navigation
@@ -45,39 +46,38 @@ function Login() {
 
   return (
     <div className="login-container">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} className="login-form">
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        {successMessage && <p className="success-message">{successMessage}</p>}
+      <FormContainer
+        title="Login"
+        onSubmit={handleSubmit}
+        errorMessage={errorMessage}
+        successMessage={successMessage}
+      >
+        <FormField
+          label="Email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+        />
 
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
+        <FormField
+          label="Password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          required
+        />
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-
-        <button type="submit" disabled={isSubmitting} onClick={handleSubmit}>
-          {isSubmitting ? "Logging in..." : "Login"}
-        </button>
-      </form>
+        <FormButton
+          type="submit"
+          loading={isSubmitting}
+          loadingText="Logging in..."
+        >
+          Login
+        </FormButton>
+      </FormContainer>
 
       <div className="register-link">
         <p>Don't have an account?</p>
