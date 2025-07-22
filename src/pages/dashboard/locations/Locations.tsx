@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState, useEffect } from "react";
 import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import FilterForm, { FilterFormValues } from "@components/ui/FilterForm";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { getAllLocations, deleteLocation } from "@api/locations/LocationsApi";
+import { getAllLocations, getUserLocations, deleteLocation } from "@api/locations/LocationsApi";
 import { getLocationPhotos, LocationPhotoResponse } from "@api/locations/LocationPhotosApi";
 import { Location } from "@api/interfaces/LocationDTO";
 import { useNavigate } from "react-router";
@@ -48,7 +48,7 @@ export function Locations() {
   const fetchLocations = useCallback(async () => {
     try {
       setLoading(true);
-      const locations = await getAllLocations();
+      const locations = await getUserLocations();
       console.log('Locations page - fetched locations:', locations); // Debug log
       console.log('Locations page - count:', locations.length); // Debug log
       
