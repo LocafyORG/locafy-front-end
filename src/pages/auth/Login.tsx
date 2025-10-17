@@ -58,7 +58,7 @@ function Login() {
           type="email"
           value={formData.email}
           onChange={handleInputChange}
-          required
+
         />
 
         <FormField
@@ -67,7 +67,7 @@ function Login() {
           type="password"
           value={formData.password}
           onChange={handleInputChange}
-          required
+
         />
 
         <FormButton

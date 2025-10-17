@@ -6,6 +6,7 @@ import "./UserProfile.css";
 import { ROUTES } from "@constants/Routes";
 import { ActionsMenu } from "../ListPane";
 import { deleteAuthToken } from "@api/auth/authTokenApi";
+import { ThemeToggle } from "../ThemeToggle";
 
 interface UserProfileProps {
   badgeImageSrc?: string;
@@ -31,20 +32,24 @@ export default function UserProfile({
 
   return (
     <div className={`icon-container ${className}`}>
-      <ActionsMenu
-        itemIndex={0}
-        actions={{
-          Profile: handleViewProfile,
-          Logout: handleSignOut,
-        }}
-      >
-        <CImage
-          className="user-badge"
-          src={badgeImageSrc}
-          width={40}
-          height={40}
-        />
-      </ActionsMenu>
+      <div className="flex items-center gap-4">
+        <ThemeToggle />
+        
+        <ActionsMenu
+          itemIndex={0}
+          actions={{
+            Profile: handleViewProfile,
+            Logout: handleSignOut,
+          }}
+        >
+          <CImage
+            className="user-badge"
+            src={badgeImageSrc}
+            width={40}
+            height={40}
+          />
+        </ActionsMenu>
+      </div>
 
       {actionButtons.map((button, index) => (
         <ActionButton

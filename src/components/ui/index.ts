@@ -7,6 +7,7 @@ export { LoadingSpinner } from './LoadingSpinner';
 export { ErrorState } from './ErrorState';
 export { LocationCard } from './LocationCard';
 export { ResultsHeader } from './ResultsHeader';
+export { ThemeToggle } from './ThemeToggle';
 
 // Form Components
 export { FormField } from './FormField';
@@ -21,6 +22,9 @@ export { BillItem } from './BillItem';
 
 // Table Components
 export { DataTable, type DataTableColumn } from './DataTable';
+
+// Chart Components
+export { ContactsOrgChartReactFlow } from './ContactsOrgChartReactFlow';
 
 // Layout Components
 export { PageLayout } from './PageLayout';

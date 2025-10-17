@@ -40,7 +40,7 @@ export function TagSelect({
   return (
     <>
       <Col className="space-0">
-        <span className="text-neutral-500 text-xs">Tags</span>
+        <span className="text-neutral-500 dark:text-gray-400 text-xs">Tags</span>
         <Row className="mt-1">
           {tags.map((tag, index) => (
             <Chip text={tag} onClick={onChipClick} key={index} />
@@ -68,7 +68,11 @@ function Chip({ text, className = "", onClick = () => {} }: ChipProps) {
     <>
       <input
         type="button"
-        className={`${active ? "bg-primary-500 text-white" : "bg-neutral-100 hover:bg-primary-300 hover:text-white"} border-none text-sm m-1 p-2 rounded-full cursor-pointer transition-colors ${className}`}
+        className={`${
+          active 
+            ? "bg-blue-500 text-white" 
+            : "bg-gray-100 dark:bg-gray-600 hover:bg-blue-300 dark:hover:bg-blue-700 hover:text-white text-gray-700 dark:text-gray-200"
+        } border-none text-sm m-1 p-2 rounded-full cursor-pointer transition-colors ${className}`}
         onClick={onChipClick}
         value={text}
       />
@@ -104,6 +108,7 @@ export function DebounceTextInput({
         type="text"
         placeholder={placeholder}
         onChange={handleInputChange}
+        className="w-full bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-md p-2 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
       />
     </>
   );

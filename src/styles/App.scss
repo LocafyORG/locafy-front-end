@@ -1,3 +1,6 @@
+// Import dark mode styles
+@use './dark-mode.scss';
+
 :root {
   --body-background: #f7f7f9;
   --light-hightlight-background: #ededed;

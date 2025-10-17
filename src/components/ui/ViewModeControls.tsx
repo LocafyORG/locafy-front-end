@@ -55,8 +55,8 @@ export const ViewModeControls: React.FC<ViewModeControlsProps> = ({
           key={mode}
           className={`p-2 rounded-lg transition ${
             currentMode === mode
-              ? 'bg-blue-100 text-blue-600'
-              : 'bg-gray-100 hover:bg-gray-200 text-gray-600'
+              ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
+              : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300'
           }`}
           onClick={() => onModeChange(mode)}
           title={getModeLabel(mode)}
@@ -67,12 +67,12 @@ export const ViewModeControls: React.FC<ViewModeControlsProps> = ({
       
       {showMapToggle && onMapToggle && (
         <div className="flex items-center gap-2 ml-4">
-          <span className="text-sm text-gray-600">Map View:</span>
+          <span className="text-sm text-gray-600 dark:text-gray-300">Map View:</span>
           <input
             type="checkbox"
             checked={mapEnabled}
             onChange={(e) => onMapToggle(e.target.checked)}
-            className="scale-90"
+            className="scale-90 accent-blue-500"
           />
         </div>
       )}

@@ -24,14 +24,16 @@ import {
 import { EditProduction } from "@pages/dashboard/productions/EditProduction";
 import { EditLocation } from "@pages/dashboard/locations/EditLocation";
 import { EditContact } from "@pages/dashboard/contacts/EditContact";
+import { ThemeProvider } from "@contexts";
 
 /**
  *
  */
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
         {/* Public Routes */}
         <Route path={ROUTES.HOME} element={<Home />} />
         <Route path={ROUTES.PROFILE} element={<Profile />} />
@@ -85,7 +87,8 @@ function App() {
           <Route path={ROUTES.CALENDAR} element={<Contacts />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

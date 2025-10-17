@@ -29,7 +29,7 @@ export const FilterTabs: React.FC<FilterTabsProps> = ({
           className={`px-3 py-1 rounded-lg font-medium transition ${
             activeFilter === option.key
               ? 'bg-blue-500 text-white'
-              : 'text-gray-600 hover:bg-gray-100'
+              : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
           }`}
           onClick={() => onFilterChange(option.key)}
         >

@@ -36,7 +36,7 @@ export default function FilterForm({
       </Row>
       <Row>
         <select
-          className="bg-white border-1 border-slate-300 rounded-md p-2"
+          className="bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-md p-2 text-gray-900 dark:text-white"
           onChange={(e) => {
             console.log(e.currentTarget.value);
           }}
@@ -44,7 +44,10 @@ export default function FilterForm({
           <option>Newest</option>
           <option>Oldest</option>
         </select>
-        <input type="datetime-local" />
+        <input 
+          type="datetime-local" 
+          className="bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-md p-2 text-gray-900 dark:text-white"
+        />
       </Row>
       <Row>
         <TagSelect tags={tags} onActiveTagsChange={onActiveTagsChange} />

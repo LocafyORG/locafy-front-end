@@ -6,13 +6,15 @@ import { useNavigate } from "react-router";
 import { Contact } from "@api/interfaces/ContactsDTO";
 import { handleSignOut } from "@api/auth/authenticationAPI";
 import { DASHBOARD } from "@constants/Routes";
-import { FaUserCircle, FaPhone, FaEnvelope, FaPlus } from "react-icons/fa";
+import { FaUserCircle, FaPhone, FaEnvelope, FaPlus, FaTable, FaProjectDiagram } from "react-icons/fa";
 import { LoadingSpinner, ErrorState, EmptyState, DataTable, type DataTableColumn } from "@components/ui";
+import { ContactsOrgChartReactFlow } from "@components/ui/ContactsOrgChartReactFlow";
 
 export function Contacts() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'table' | 'chart'>('table');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -100,6 +102,34 @@ export function Contacts() {
         buttons={[
           {
             children: (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setViewMode('table')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded transition ${
+                    viewMode === 'table'
+                      ? 'bg-gray-600 text-white'
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
+                >
+                  <FaTable /> TABLE
+                </button>
+                <button
+                  onClick={() => setViewMode('chart')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded transition ${
+                    viewMode === 'chart'
+                      ? 'bg-gray-600 text-white'
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
+                >
+                  <FaProjectDiagram /> CHART
+                </button>
+              </div>
+            ),
+            onClick: () => {},
+            className: "flex items-center gap-2",
+          },
+          {
+            children: (
               <span className="flex items-center gap-2">
                 <FaPlus /> NEW CONTACT
               </span>
@@ -120,7 +150,7 @@ export function Contacts() {
             title="No contacts found"
             description="Click NEW CONTACT to add your first contact."
           />
-        ) : (
+        ) : viewMode === 'table' ? (
           <DataTable
             columns={columns}
             data={contacts as unknown as Record<string, unknown>[]}
@@ -141,13 +171,39 @@ export function Contacts() {
               },
               {
                 label: 'Delete',
-                onClick: (contact, index) => handleDelete(index),
+                onClick: (_, index) => handleDelete(index),
                 variant: 'danger'
               }
             ]}
             emptyMessage="No contacts found"
             emptyIcon={<FaUserCircle className="text-gray-400 text-4xl" />}
           />
+        ) : (
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Contacts Organization Chart</h3>
+              <p className="text-sm text-gray-600">
+                Click on any contact node to view details. Drag to rearrange the chart.
+              </p>
+            </div>
+            <ContactsOrgChartReactFlow
+              contacts={contacts}
+              onContactSelect={(contact) => {
+                if (contact?.contactId) {
+                  navigate(`${contact.contactId}`);
+                }
+              }}
+              allowLinking={true}
+              persistData={true}
+              storageKey="locafy-contacts-chart"
+              onLinksChange={(links) => {
+                console.log('Custom links:', links);
+                // Links are automatically persisted to localStorage
+                // You can also save these to your backend if needed
+              }}
+              className="w-full"
+            />
+          </div>
         )}
       </div>
     </>

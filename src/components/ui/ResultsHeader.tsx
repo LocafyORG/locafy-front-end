@@ -29,13 +29,13 @@ export const ResultsHeader: React.FC<ResultsHeaderProps> = ({
   className = ""
 }) => {
   return (
-    <div className={`ui-results-header bg-white shadow-lg rounded-xl p-4 mb-6 border border-gray-100 ${className}`}>
+    <div className={`ui-results-header bg-white dark:bg-gray-800 shadow-lg rounded-xl p-4 mb-6 border border-gray-100 dark:border-gray-700 ${className}`}>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         {/* Results and Filters */}
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
-            <FaSearch className="text-gray-400" />
-            <span className="text-sm text-gray-600">
+            <FaSearch className="text-gray-400 dark:text-gray-500" />
+            <span className="text-sm text-gray-600 dark:text-gray-300">
               {resultCount} Results
             </span>
           </div>

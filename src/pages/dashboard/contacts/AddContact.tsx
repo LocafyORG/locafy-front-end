@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { createContact } from "@api/contacts/ContactsApi";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { getUserLocations } from "@api/locations/LocationsApi";
+import { getAllLocations, getUserLocations } from "@api/locations/LocationsApi";
 import { ROUTES } from "@constants/Routes";
 import { Location } from "@api/interfaces/LocationDTO";
 import { ContactState, ContactInput } from "@api/interfaces/ContactsDTO";
@@ -38,7 +38,7 @@ export function AddContact() {
       try {
         setLoading(true);
         setError(null);
-        const locations = await getUserLocations();
+        const locations = await getAllLocations();
         console.log('AddContact - fetched locations:', locations); // Debug log
         console.log('AddContact - count:', locations.length); // Debug log
         

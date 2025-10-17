@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState, useEffect } from "react";
 import { ListPane2, ListPaneRow } from "@components/ui/ListPane";
 import FilterForm, { FilterFormValues } from "@components/ui/FilterForm";
 import { DashboardPageHeader } from "@layouts/DashboardLayout";
-import { getAllLocations, getUserLocations, deleteLocation } from "@api/locations/LocationsApi";
+import { getAllLocations, deleteLocation } from "@api/locations/LocationsApi";
 import { getLocationPhotos, LocationPhotoResponse } from "@api/locations/LocationPhotosApi";
 import { Location } from "@api/interfaces/LocationDTO";
 import { useNavigate } from "react-router";
@@ -48,7 +48,7 @@ export function Locations() {
   const fetchLocations = useCallback(async () => {
     try {
       setLoading(true);
-      const locations = await getUserLocations();
+      const locations = await getAllLocations();
       console.log('Locations page - fetched locations:', locations); // Debug log
       console.log('Locations page - count:', locations.length); // Debug log
       
@@ -152,21 +152,21 @@ export function Locations() {
 
 
   // Helper function to get location thumbnail
-  const getLocationThumbnail = (location: Location) => {
+  const getLocationThumbnail = useCallback((location: Location) => {
     const photos = locationPhotos[location.locationId || ''] || [];
     const firstPhoto = photos.find(photo => photo.isPrimary) || photos[0];
     
     if (firstPhoto) {
-      // Use the photo image endpoint
-      return `/api/v1/location-photos/${firstPhoto.fileId}/image`;
+      // Use the public photo image endpoint
+      return `/api/v1/location-photos/public/${firstPhoto.fileId}/image`;
     }
     
     // Return undefined for fallback icon
     return undefined;
-  };
+  }, [locationPhotos]);
 
   // Thumbnail component
-  const LocationThumbnail = ({ location }: { location: Location }) => {
+  const LocationThumbnail = useCallback(({ location }: { location: Location }) => {
     const photoUrl = getLocationThumbnail(location);
     
     return (
@@ -177,7 +177,7 @@ export function Locations() {
         height={80}
       />
     );
-  };
+  }, [getLocationThumbnail]);
 
   const rows = useMemo<ListPaneRow[]>(() => {
     return filteredLocations.map((loc) => ({
@@ -190,14 +190,14 @@ export function Locations() {
       tags: loc.keywords.map((word, idx) => (
         <span
           key={idx}
-          className="mr-1 inline-block bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-medium"
+          className="mr-1 inline-block bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-1 rounded text-xs font-medium"
         >
           {word}
         </span>
       )),
       scout: getLocationTypeDisplay(loc),
     }));
-  }, [filteredLocations]);
+  }, [filteredLocations, LocationThumbnail]);
 
   const onSearchTermChange = useCallback((searchTerm: string) => {
     console.log("Search term: ", searchTerm);
@@ -231,12 +231,12 @@ export function Locations() {
       : -79.4;
 
     return (
-      <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100">
-        <div className="p-4 border-b border-gray-200">
+      <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3">
             <FaMap className="text-blue-500 text-xl" />
-            <h3 className="text-lg font-semibold text-gray-800">Location Map</h3>
-            <span className="text-sm text-gray-500">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Location Map</h3>
+            <span className="text-sm text-gray-500 dark:text-gray-400">
               {locationsWithCoords.length} locations with coordinates
             </span>
           </div>
@@ -299,10 +299,10 @@ export function Locations() {
       />
 
       {/* Enhanced Filter Section */}
-      <div className="bg-white shadow-lg rounded-xl p-6 mb-6 border border-gray-100">
+      <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 mb-6 border border-gray-100 dark:border-gray-700">
         <div className="flex items-center gap-3 mb-4">
           <FaFilter className="text-blue-500 text-xl" />
-          <h3 className="text-lg font-semibold text-gray-800">Filter & Search</h3>
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-white">Filter & Search</h3>
         </div>
         <FilterForm
           initialValues={{
@@ -337,7 +337,7 @@ export function Locations() {
       ) : viewMode === 'grid' ? (
         <GridView />
       ) : (
-        <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-100">
+        <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
           <ListPane2
             columnNames={{
               thumbnail: "THUMBNAIL",

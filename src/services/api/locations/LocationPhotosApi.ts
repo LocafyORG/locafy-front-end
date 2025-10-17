@@ -1,4 +1,4 @@
-import { getAuthToken } from "@api/auth/authTokenApi";
+import { getAuthToken } from "@api/auth/AuthTokenApi";
 
 export interface LocationPhotoUpload {
   file: File;

@@ -24,9 +24,10 @@
     "material-icons": "^1.13.14",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-leaflet": "^4.2.1",
     "react-icons": "^5.5.0",
-    "react-router": "^7.6.3"
+    "react-leaflet": "^4.2.1",
+    "react-router": "^7.6.3",
+    "reactflow": "^11.11.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

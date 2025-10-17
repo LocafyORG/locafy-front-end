@@ -1,0 +1,517 @@
+// Dark Mode Styles
+.dark {
+  // Global dark mode variables - improved contrast
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --border-primary: #475569;
+  --border-secondary: #64748b;
+  --accent-primary: #3b82f6;
+  --accent-secondary: #10b981;
+  --shadow-primary: rgba(0, 0, 0, 0.4);
+}
+
+.light {
+  // Global light mode variables
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --text-muted: #6b7280;
+  --border-primary: #e5e7eb;
+  --border-secondary: #d1d5db;
+  --accent-primary: #3b82f6;
+  --accent-secondary: #10b981;
+  --shadow-primary: rgba(0, 0, 0, 0.1);
+}
+
+// Apply dark mode styles
+.dark {
+  // Body and root elements
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+
+  // Global text color fix
+  * {
+    color: inherit;
+  }
+
+  // Ensure all text elements have proper colors
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center, dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend, table, caption,
+  tbody, tfoot, thead, tr, th, td, article, aside,
+  canvas, details, embed, figure, figcaption,
+  footer, header, hgroup, menu, nav, output, ruby,
+  section, summary, time, mark, audio, video {
+    color: var(--text-primary);
+  }
+
+  // Dashboard Layout
+  .dashboard-layout {
+    background-color: var(--bg-primary);
+  }
+
+  // Sidebar
+  .sidebar {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-primary) !important;
+    color: var(--text-primary) !important;
+    
+    .sidebar-nav {
+      .nav-item {
+        .nav-link {
+          color: var(--text-secondary) !important;
+          
+          &:hover {
+            background-color: var(--bg-tertiary) !important;
+            color: var(--text-primary) !important;
+          }
+          
+          &.active {
+            background-color: var(--accent-primary) !important;
+            color: white !important;
+          }
+        }
+      }
+    }
+    
+    // Fix any black text in sidebar
+    * {
+      color: inherit !important;
+    }
+  }
+
+  // Cards and containers
+  .card {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-primary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .bg-white {
+    background-color: var(--bg-secondary) !important;
+  }
+
+  .bg-gray-50 {
+    background-color: var(--bg-tertiary) !important;
+  }
+
+  .bg-gray-100 {
+    background-color: var(--border-primary) !important;
+  }
+
+  // Text colors - comprehensive overrides
+  .text-gray-900,
+  .text-gray-800,
+  .text-black {
+    color: var(--text-primary) !important;
+  }
+
+  .text-gray-700 {
+    color: var(--text-secondary) !important;
+  }
+
+  .text-gray-600,
+  .text-gray-500 {
+    color: var(--text-muted) !important;
+  }
+
+  // Additional text color fixes
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;
+  }
+
+  p, span, div, label {
+    color: var(--text-secondary) !important;
+  }
+
+  // Specific component text fixes
+  .card-title,
+  .card-text,
+  .navbar-brand,
+  .nav-link {
+    color: var(--text-primary) !important;
+  }
+
+  // Borders
+  .border-gray-200 {
+    border-color: var(--border-primary) !important;
+  }
+
+  .border-gray-300 {
+    border-color: var(--border-secondary) !important;
+  }
+
+  // Forms
+  .form-control {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-primary) !important;
+    color: var(--text-primary) !important;
+    
+    &:focus {
+      background-color: var(--bg-tertiary) !important;
+      border-color: var(--accent-primary) !important;
+      box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25) !important;
+    }
+  }
+
+  .form-select {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-primary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  // Buttons
+  .btn {
+    &.btn-secondary {
+      background-color: var(--bg-tertiary) !important;
+      border-color: var(--border-secondary) !important;
+      color: var(--text-primary) !important;
+      
+      &:hover {
+        background-color: var(--border-primary) !important;
+        border-color: var(--border-primary) !important;
+      }
+    }
+    
+    &.btn-outline-secondary {
+      border-color: var(--border-secondary) !important;
+      color: var(--text-secondary) !important;
+      
+      &:hover {
+        background-color: var(--bg-tertiary) !important;
+        border-color: var(--border-primary) !important;
+        color: var(--text-primary) !important;
+      }
+    }
+  }
+
+  // Tables
+  .table {
+    color: var(--text-primary) !important;
+    
+    th {
+      background-color: var(--bg-tertiary) !important;
+      border-color: var(--border-primary) !important;
+      color: var(--text-primary) !important;
+    }
+    
+    td {
+      border-color: var(--border-primary) !important;
+    }
+    
+    tbody tr:hover {
+      background-color: var(--bg-tertiary) !important;
+    }
+  }
+
+  // Modals
+  .modal-content {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-primary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .modal-header {
+    border-color: var(--border-primary) !important;
+  }
+
+  .modal-footer {
+    border-color: var(--border-primary) !important;
+  }
+
+  // Dropdowns
+  .dropdown-menu {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-primary) !important;
+    
+    .dropdown-item {
+      color: var(--text-primary) !important;
+      
+      &:hover {
+        background-color: var(--bg-tertiary) !important;
+      }
+    }
+  }
+
+  // Navigation
+  .navbar {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-primary) !important;
+  }
+
+  // Alerts
+  .alert {
+    &.alert-info {
+      background-color: rgba(59, 130, 246, 0.1) !important;
+      border-color: rgba(59, 130, 246, 0.3) !important;
+      color: #93c5fd !important;
+    }
+    
+    &.alert-success {
+      background-color: rgba(16, 185, 129, 0.1) !important;
+      border-color: rgba(16, 185, 129, 0.3) !important;
+      color: #6ee7b7 !important;
+    }
+    
+    &.alert-warning {
+      background-color: rgba(245, 158, 11, 0.1) !important;
+      border-color: rgba(245, 158, 11, 0.3) !important;
+      color: #fbbf24 !important;
+    }
+    
+    &.alert-danger {
+      background-color: rgba(239, 68, 68, 0.1) !important;
+      border-color: rgba(239, 68, 68, 0.3) !important;
+      color: #fca5a5 !important;
+    }
+  }
+
+  // Custom components
+  .ui-contacts-org-chart {
+    .gojs-diagram {
+      background-color: var(--bg-secondary) !important;
+    }
+  }
+
+  // Scrollbars
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-secondary);
+    border-radius: 4px;
+    
+    &:hover {
+      background: var(--text-muted);
+    }
+  }
+
+  // Code blocks
+  pre, code {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  // Links
+  a {
+    color: var(--accent-primary) !important;
+    
+    &:hover {
+      color: var(--accent-secondary) !important;
+    }
+  }
+
+  // Additional comprehensive text fixes
+  .btn {
+    color: var(--text-primary) !important;
+  }
+
+  .form-label,
+  .form-text,
+  .invalid-feedback,
+  .valid-feedback {
+    color: var(--text-secondary) !important;
+  }
+
+  // User Profile and icons
+  .user-badge,
+  .icon-container {
+    color: var(--text-primary) !important;
+  }
+
+  // Material icons
+  .material-icons {
+    color: var(--text-secondary) !important;
+  }
+
+  // Any remaining black text
+  * {
+    &[style*="color: black"],
+    &[style*="color: #000"],
+    &[style*="color: rgb(0, 0, 0)"],
+    &[style*="color: rgba(0, 0, 0"] {
+      color: var(--text-primary) !important;
+    }
+  }
+
+  // Force white text on dark backgrounds
+  .bg-dark,
+  .bg-secondary,
+  .bg-primary {
+    color: var(--text-primary) !important;
+    
+    * {
+      color: inherit !important;
+    }
+  }
+
+  // Locations page specific styling
+  .bg-white {
+    background-color: var(--bg-secondary) !important;
+  }
+
+  // Filter and search components
+  .ui-results-header {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-primary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  // Filter form styling
+  .filter-form {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    
+    input, select, textarea {
+      background-color: var(--bg-tertiary) !important;
+      border-color: var(--border-primary) !important;
+      color: var(--text-primary) !important;
+      
+      &::placeholder {
+        color: var(--text-muted) !important;
+      }
+      
+      &:focus {
+        background-color: var(--bg-tertiary) !important;
+        border-color: var(--accent-primary) !important;
+        color: var(--text-primary) !important;
+        box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25) !important;
+      }
+    }
+  }
+
+  // View mode controls
+  .view-mode-controls {
+    button {
+      background-color: var(--bg-tertiary) !important;
+      border-color: var(--border-primary) !important;
+      color: var(--text-secondary) !important;
+      
+      &:hover {
+        background-color: var(--border-primary) !important;
+        color: var(--text-primary) !important;
+      }
+      
+      &.active {
+        background-color: var(--accent-primary) !important;
+        color: white !important;
+      }
+    }
+  }
+
+  // Filter tabs
+  .filter-tabs {
+    button {
+      background-color: transparent !important;
+      color: var(--text-secondary) !important;
+      border-bottom: 2px solid transparent !important;
+      
+      &:hover {
+        color: var(--text-primary) !important;
+        background-color: var(--bg-tertiary) !important;
+      }
+      
+      &.active {
+        color: var(--accent-primary) !important;
+        border-bottom-color: var(--accent-primary) !important;
+      }
+    }
+  }
+
+  // Map view styling
+  .map-container {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-primary) !important;
+    
+    .map-header {
+      background-color: var(--bg-secondary) !important;
+      border-color: var(--border-primary) !important;
+      color: var(--text-primary) !important;
+    }
+  }
+
+  // List pane styling
+  .list-pane {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-primary) !important;
+    
+    .list-header {
+      background-color: var(--bg-tertiary) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-primary) !important;
+    }
+    
+    .list-row {
+      background-color: var(--bg-secondary) !important;
+      border-color: var(--border-primary) !important;
+      color: var(--text-primary) !important;
+      
+      &:hover {
+        background-color: var(--bg-tertiary) !important;
+      }
+    }
+  }
+
+  // Location cards
+  .location-card {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-primary) !important;
+    color: var(--text-primary) !important;
+    
+    &:hover {
+      background-color: var(--bg-tertiary) !important;
+      border-color: var(--border-secondary) !important;
+    }
+  }
+
+  // Tag styling
+  .bg-blue-100 {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--accent-primary) !important;
+  }
+
+  .text-blue-700 {
+    color: var(--accent-primary) !important;
+  }
+}
+
+// Light mode overrides (ensure light mode works properly)
+.light {
+  .bg-white {
+    background-color: #ffffff !important;
+  }
+  
+  .text-gray-800 {
+    color: #1f2937 !important;
+  }
+  
+  .text-gray-700 {
+    color: #374151 !important;
+  }
+  
+  .text-gray-600 {
+    color: #4b5563 !important;
+  }
+  
+  .text-gray-500 {
+    color: #6b7280 !important;
+  }
+}
