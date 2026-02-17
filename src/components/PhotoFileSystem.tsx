@@ -179,26 +179,16 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
 
   // Update form when photo is selected
   const handlePhotoSelect = useCallback((photo: PhotoFile) => {
-    console.log('Photo selected:', photo.fileId); // Debug log
-    console.log('Photo data:', {
-      description: photo.description,
-      keywords: photo.keywords,
-      fileName: photo.fileName
-    });
-    
     setSelectedPhoto(photo);
     const newEditForm = {
       description: photo.description || '',
       keywords: photo.keywords?.join(', ') || ''
     };
-    
-    console.log('Setting edit form to:', newEditForm);
     setEditForm(newEditForm);
   }, []);
 
   // Delete photo
   const handleDeletePhoto = useCallback(async (photoId: string) => {
-    console.log('Delete photo called for:', photoId); // Debug log
     try {
       await deleteLocationPhoto(photoId);
       setPhotos(prev => prev.filter(p => p.fileId !== photoId));
@@ -219,7 +209,6 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
 
   // Update photo metadata
   const handleUpdatePhoto = useCallback(async (photoId: string, updates: Partial<PhotoFile>) => {
-    console.log('handleUpdatePhoto called with:', photoId, updates); // Debug log
     try {
       const updatedPhoto = await updateLocationPhoto(photoId, updates);
       setPhotos(prev => 
@@ -239,14 +228,12 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
 
   // Toggle primary photo
   const togglePrimary = useCallback(async (photoId: string) => {
-    console.log('togglePrimary called for:', photoId); // Debug log
     const photo = photos.find(p => p.fileId === photoId);
     if (!photo) return;
     
     // Check if this photo is already the primary one
     const isCurrentlyPrimary = photo.isPrimary;
     if (isCurrentlyPrimary) {
-      console.log('Photo is already primary, no need to toggle'); // Debug log
       return;
     }
     
@@ -256,7 +243,6 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
   // Save photo changes
   const handleSaveChanges = useCallback(async () => {
     if (!selectedPhoto) {
-      console.log('No selected photo, cannot save changes');
       return;
     }
     
@@ -266,37 +252,25 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
     const newDescription = editForm.description;
     const newKeywords = editForm.keywords;
     
-    console.log('Save changes check:', {
-      selectedPhotoId: selectedPhoto.fileId,
-      originalDescription,
-      newDescription,
-      originalKeywords,
-      newKeywords,
-      hasChanges: originalDescription !== newDescription || originalKeywords !== newKeywords
-    });
-    
     if (originalDescription === newDescription && originalKeywords === newKeywords) {
-      console.log('No changes detected, skipping save'); // Debug log
       return;
     }
-    
-    console.log('handleSaveChanges called for:', selectedPhoto.fileId); // Debug log
     try {
       const updates = {
         description: editForm.description,
         keywords: editForm.keywords.split(',').map(k => k.trim()).filter(k => k)
       };
-      
-      console.log('Sending updates:', updates);
       await handleUpdatePhoto(selectedPhoto.fileId, updates);
-      console.log('Save changes completed successfully');
     } catch (err) {
       console.error('Error saving photo changes:', err);
     }
   }, [selectedPhoto, editForm, handleUpdatePhoto]);
 
-  // Get authenticated image URL
-  const getImageUrl = useCallback((photoId: string) => {
+  // Get authenticated image URL. Use thumbnail sizing for grid cards.
+  const getImageUrl = useCallback((photoId: string, thumbnail = false) => {
+    if (thumbnail) {
+      return `/api/v1/location-photos/public/${photoId}/image?width=220&height=220&quality=45`;
+    }
     return `/api/v1/location-photos/public/${photoId}/image`;
   }, []);
 
@@ -391,7 +365,7 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
                 {folder.photos.length === 0 ? (
                   <p className="text-gray-500 text-center py-4">No photos in this folder</p>
                 ) : (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                     {folder.photos.map(photo => (
                       <div
                         key={photo.fileId}
@@ -414,9 +388,11 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
                         {/* Photo Preview */}
                         <div className="aspect-square bg-gray-100 relative">
                           <img
-                            src={getImageUrl(photo.fileId)}
+                            src={getImageUrl(photo.fileId, true)}
                             alt={photo.fileName}
                             className="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
                               target.style.display = 'none';
@@ -440,7 +416,6 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
                                 onClick={(e) => {
                                   e.preventDefault();
                                   e.stopPropagation();
-                                  console.log('Toggle primary clicked for:', photo.fileId); // Debug log
                                   togglePrimary(photo.fileId);
                                 }}
                               >
@@ -460,7 +435,6 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
                                 onClick={(e) => {
                                   e.preventDefault();
                                   e.stopPropagation();
-                                  console.log('Delete button clicked for:', photo.fileId); // Debug log
                                   handleDeletePhoto(photo.fileId);
                                 }}
                               >
@@ -479,8 +453,8 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
 
                         {/* Photo Info */}
                         <div className="p-2">
-                          <p className="text-sm font-medium truncate">{photo.fileName}</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs font-medium truncate">{photo.fileName}</p>
+                          <p className="text-[11px] text-gray-500">
                             {(photo.fileSize / 1024 / 1024).toFixed(2)} MB
                           </p>
                         </div>
@@ -518,6 +492,8 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
                     src={getImageUrl(selectedPhoto.fileId)}
                     alt={selectedPhoto.fileName}
                     className="w-full rounded-lg"
+                    loading="eager"
+                    decoding="async"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
@@ -542,7 +518,6 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
                       type="text"
                       value={editForm.description}
                       onChange={(e) => {
-                        console.log('Description changed to:', e.target.value);
                         setEditForm(prev => ({ ...prev, description: e.target.value }));
                       }}
                       className="w-full p-2 border border-gray-300 rounded"
@@ -558,7 +533,6 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
                       type="text"
                       value={editForm.keywords}
                       onChange={(e) => {
-                        console.log('Keywords changed to:', e.target.value);
                         setEditForm(prev => ({ ...prev, keywords: e.target.value }));
                       }}
                       className="w-full p-2 border border-gray-300 rounded"
@@ -593,7 +567,6 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log('Save Changes button clicked');
                     handleSaveChanges();
                   }}
                   disabled={!selectedPhoto}
@@ -608,7 +581,6 @@ export const PhotoFileSystem: React.FC<PhotoFileSystemProps> = ({
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  console.log('Modal delete button clicked for:', selectedPhoto.fileId); // Debug log
                   handleDeletePhoto(selectedPhoto.fileId);
                 }}
                 className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"

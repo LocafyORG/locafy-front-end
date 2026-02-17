@@ -1,5 +1,4 @@
 import React from 'react';
-import { CImage } from '@coreui/react';
 import { FaImage } from 'react-icons/fa';
 
 export interface ThumbnailImageProps {
@@ -12,6 +11,8 @@ export interface ThumbnailImageProps {
   imageClassName?: string;
   fallbackClassName?: string;
   onClick?: () => void;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
 }
 
 export const ThumbnailImage: React.FC<ThumbnailImageProps> = ({
@@ -23,17 +24,20 @@ export const ThumbnailImage: React.FC<ThumbnailImageProps> = ({
   className = "",
   imageClassName = "object-cover",
   fallbackClassName = "bg-gray-100",
-  onClick
+  onClick,
+  loading = 'lazy',
+  decoding = 'async',
 }) => {
   if (src) {
     return (
-      <CImage
+      <img
         src={src}
         width={width}
         height={height}
-        rounded
         alt={alt}
-        className={`ui-thumbnail-image ${imageClassName} ${onClick ? 'cursor-pointer' : ''} ${className}`}
+        loading={loading}
+        decoding={decoding}
+        className={`ui-thumbnail-image rounded ${imageClassName} ${onClick ? 'cursor-pointer' : ''} ${className}`}
         onClick={onClick}
       />
     );

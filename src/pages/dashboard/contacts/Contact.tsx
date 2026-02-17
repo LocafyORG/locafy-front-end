@@ -219,12 +219,12 @@ export function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           {/* Main Info */}
           <div className="lg:col-span-2">
-            <Paper className="p-6 bg-white shadow-xl rounded-xl border border-gray-100">
+            <Paper className="p-6 bg-white dark:bg-gray-800 shadow-xl rounded-xl border border-gray-100 dark:border-gray-700">
               <div className="flex items-center gap-6">
                 {/* Avatar */}
-                <div className="flex-shrink-0 flex flex-col items-center justify-center w-32 h-32 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full shadow-lg">
-                  <FaUserCircle size={80} className="text-blue-500" />
-                  <span className="mt-2 text-lg font-semibold text-blue-700">
+                <div className="flex-shrink-0 flex flex-col items-center justify-center w-32 h-32 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-blue-900 dark:to-blue-800 rounded-full shadow-lg">
+                  <FaUserCircle size={80} className="text-gray-500 dark:text-blue-300" />
+                  <span className="mt-2 text-lg font-semibold text-gray-700 dark:text-blue-300">
                     {contact.name
                       ?.split(" ")
                       .map((n) => n[0])
@@ -235,38 +235,38 @@ export function Contact() {
                 {/* Details */}
                 <div className="flex-1 space-y-4">
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-1">
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-1">
                       {contact.name || "Unnamed Contact"}
                     </h2>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
                       {contact.description || "No description available"}
                     </p>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                      <FaEnvelope className="text-blue-500 text-xl" />
+                    <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <FaEnvelope className="text-blue-500 dark:text-blue-400 text-xl" />
                       <div>
-                        <p className="text-sm text-gray-500 font-medium">Email</p>
-                        <p className="text-sm font-semibold text-gray-900">{contact.email || "Not provided"}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Email</p>
+                        <p className="text-sm font-semibold text-gray-900 dark:text-gray-200">{contact.email || "Not provided"}</p>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                      <FaPhone className="text-green-500 text-xl" />
+                    <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <FaPhone className="text-green-500 dark:text-green-400 text-xl" />
                       <div>
-                        <p className="text-sm text-gray-500 font-medium">Phone</p>
-                        <p className="text-sm font-semibold text-gray-900">{contact.phone || "Not provided"}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Phone</p>
+                        <p className="text-sm font-semibold text-gray-900 dark:text-gray-200">{contact.phone || "Not provided"}</p>
                       </div>
                     </div>
                   </div>
                   
                   {contact.notes && (
-                    <div className="flex items-center gap-3 p-3 bg-yellow-50 rounded-lg">
-                      <FaStickyNote className="text-yellow-500 text-xl" />
+                    <div className="flex items-center gap-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                      <FaStickyNote className="text-yellow-500 dark:text-yellow-400 text-xl" />
                       <div>
-                        <p className="text-sm text-gray-500 font-medium">Notes</p>
-                        <p className="text-sm font-semibold text-gray-900">{contact.notes}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Notes</p>
+                        <p className="text-sm font-semibold text-gray-900 dark:text-gray-200">{contact.notes}</p>
                       </div>
                     </div>
                   )}
@@ -304,19 +304,19 @@ export function Contact() {
             </Paper>
 
             {/* Quick Actions */}
-            <Paper className="p-6 bg-white shadow-xl rounded-xl border border-gray-100">
-              <h3 className="text-lg font-bold text-gray-800 mb-4">Quick Actions</h3>
+            <Paper className="p-6 bg-white dark:bg-gray-800 shadow-xl rounded-xl border border-gray-100 dark:border-gray-700">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Quick Actions</h3>
               <div className="space-y-3">
                 <button 
-                  className="w-full flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition"
+                  className="w-full flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/30 rounded-lg transition"
                   onClick={() => navigate(`/dashboard/contacts/edit/${contactId}`)}
                 >
-                  <FaEdit className="text-blue-500" />
-                  <span className="font-medium text-gray-700">Edit Contact</span>
+                  <FaEdit className="text-blue-500 dark:text-blue-400" />
+                  <span className="font-medium text-gray-700 dark:text-gray-200">Edit Contact</span>
                 </button>
-                <button className="w-full flex items-center gap-3 p-3 bg-green-50 hover:bg-green-100 rounded-lg transition">
-                  <FaShareAlt className="text-green-500" />
-                  <span className="font-medium text-gray-700">Share Contact</span>
+                <button className="w-full flex items-center gap-3 p-3 bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-900/30 rounded-lg transition">
+                  <FaShareAlt className="text-green-500 dark:text-green-400" />
+                  <span className="font-medium text-gray-700 dark:text-gray-200">Share Contact</span>
                 </button>
               </div>
             </Paper>
@@ -324,11 +324,11 @@ export function Contact() {
         </div>
 
         {/* Associated Locations */}
-        <Paper className="p-6 bg-white shadow-xl rounded-xl border border-gray-100">
+        <Paper className="p-6 bg-white dark:bg-gray-800 shadow-xl rounded-xl border border-gray-100 dark:border-gray-700">
           <div className="flex items-center gap-3 mb-6">
-            <FaMapMarkerAlt className="text-purple-500 text-xl" />
-            <h2 className="text-2xl font-bold text-gray-800">Associated Locations</h2>
-            <span className="text-sm text-gray-500">
+            <FaMapMarkerAlt className="text-purple-500 dark:text-purple-400 text-xl" />
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Associated Locations</h2>
+            <span className="text-sm text-gray-500 dark:text-gray-400">
               ({associatedLocations?.length || 0} locations)
             </span>
           </div>
@@ -336,12 +336,12 @@ export function Contact() {
           {isLoadingLocations ? (
             <div className="text-center py-8">
               <CSpinner />
-              <p className="text-gray-600 mt-2">Loading associated locations...</p>
+              <p className="text-gray-600 dark:text-gray-400 mt-2">Loading associated locations...</p>
             </div>
           ) : locationsError ? (
             <div className="text-center py-8">
-              <FaMapMarkerAlt className="text-red-500 text-4xl mx-auto mb-4" />
-              <p className="text-red-600">Failed to load associated locations</p>
+              <FaMapMarkerAlt className="text-red-500 dark:text-red-400 text-4xl mx-auto mb-4" />
+              <p className="text-red-600 dark:text-red-400">Failed to load associated locations</p>
             </div>
           ) : associatedLocations && associatedLocations.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

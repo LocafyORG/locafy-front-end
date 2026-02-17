@@ -446,26 +446,26 @@ export function Location() {
             </Paper>
 
             {/* Quick Actions */}
-            <Paper className="p-6 bg-white shadow-xl rounded-xl border border-gray-100">
-              <h3 className="text-lg font-bold text-gray-800 mb-4">
+            <Paper className="p-6 bg-white dark:bg-gray-800 shadow-xl rounded-xl border border-gray-100 dark:border-gray-700">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">
                 Quick Actions
               </h3>
               <div className="space-y-3">
                 <button
-                  className="w-full flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition"
+                  className="w-full flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition"
                   onClick={scrollToMap}
                 >
-                  <FaMap className="text-blue-500" />
-                  <span className="font-medium text-gray-700">View on Map</span>
+                  <FaMap className="text-blue-500 dark:text-blue-400" />
+                  <span className="font-medium text-gray-700 dark:text-gray-200">View on Map</span>
                 </button>
-                <button className="w-full flex items-center gap-3 p-3 bg-green-50 hover:bg-green-100 rounded-lg transition">
-                  <FaShareAlt className="text-green-500" />
-                  <span className="font-medium text-gray-700">
+                <button className="w-full flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition">
+                  <FaShareAlt className="text-green-500 dark:text-green-400" />
+                  <span className="font-medium text-gray-700 dark:text-gray-200">
                     Share Location
                   </span>
                 </button>
                 <button
-                  className="w-full flex items-center gap-3 p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition"
+                  className="w-full flex items-center gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-lg transition"
                   onClick={() => {
                     if (location?.locationId) {
                       navigate(
@@ -474,17 +474,17 @@ export function Location() {
                     }
                   }}
                 >
-                  <FaEdit className="text-purple-500" />
-                  <span className="font-medium text-gray-700">
+                  <FaEdit className="text-purple-500 dark:text-purple-400" />
+                  <span className="font-medium text-gray-700 dark:text-gray-200">
                     Edit Details
                   </span>
                 </button>
                 <button
-                  className="w-full flex items-center gap-3 p-3 bg-orange-50 hover:bg-orange-100 rounded-lg transition"
+                  className="w-full flex items-center gap-3 p-3 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-lg transition"
                   onClick={() => setShowUploadModal(true)}
                 >
-                  <FaCamera className="text-orange-500" />
-                  <span className="font-medium text-gray-700">
+                  <FaCamera className="text-orange-500 dark:text-orange-400" />
+                  <span className="font-medium text-gray-700 dark:text-gray-200">
                     Upload Photos
                   </span>
                 </button>

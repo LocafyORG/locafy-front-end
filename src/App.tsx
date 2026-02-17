@@ -24,6 +24,7 @@ import {
 import { EditProduction } from "@pages/dashboard/productions/EditProduction";
 import { EditLocation } from "@pages/dashboard/locations/EditLocation";
 import { EditContact } from "@pages/dashboard/contacts/EditContact";
+import { Calendar } from "@pages/dashboard/calendar";
 import { ThemeProvider } from "@contexts";
 
 /**
@@ -84,7 +85,7 @@ function App() {
             element={<EditContact />}
           />
           {/* Calendar Routes */}
-          <Route path={ROUTES.CALENDAR} element={<Contacts />} />
+          <Route path={ROUTES.CALENDAR} element={<Calendar />} />
         </Route>
       </Routes>
       </BrowserRouter>

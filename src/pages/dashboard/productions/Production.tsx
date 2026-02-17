@@ -200,33 +200,33 @@ export function Production() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Status Card */}
-            <Paper className="p-6 bg-white shadow-xl rounded-xl border border-gray-100">
-              <h3 className="text-lg font-bold text-gray-800 mb-4">Status</h3>
-              <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg border-l-4 border-green-500">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="font-semibold text-green-700">Active</span>
+            <Paper className="p-6 bg-white dark:bg-gray-800 shadow-xl rounded-xl border border-gray-100 dark:border-gray-700">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">Status</h3>
+              <div className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500 dark:border-green-400">
+                <div className="w-3 h-3 bg-green-500 dark:bg-green-400 rounded-full"></div>
+                <span className="font-semibold text-green-700 dark:text-green-300">Active</span>
               </div>
             </Paper>
 
             {/* Quick Actions */}
-            <Paper className="p-6 bg-white shadow-xl rounded-xl border border-gray-100">
-              <h3 className="text-lg font-bold text-gray-800 mb-4">
+            <Paper className="p-6 bg-white dark:bg-gray-800 shadow-xl rounded-xl border border-gray-100 dark:border-gray-700">
+              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">
                 Quick Actions
               </h3>
               <div className="space-y-3">
-                <button className="w-full flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition">
-                  <FaMapMarkerAlt className="text-blue-500" />
-                  <span className="font-medium text-gray-700">
+                <button className="w-full flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition">
+                  <FaMapMarkerAlt className="text-blue-500 dark:text-blue-400" />
+                  <span className="font-medium text-gray-700 dark:text-gray-200">
                     View Locations
                   </span>
                 </button>
-                <button className="w-full flex items-center gap-3 p-3 bg-green-50 hover:bg-green-100 rounded-lg transition">
-                  <FaUsers className="text-green-500" />
-                  <span className="font-medium text-gray-700">Manage Team</span>
+                <button className="w-full flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition">
+                  <FaUsers className="text-green-500 dark:text-green-400" />
+                  <span className="font-medium text-gray-700 dark:text-gray-200">Manage Team</span>
                 </button>
-                <button className="w-full flex items-center gap-3 p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition">
-                  <FaCalendarAlt className="text-purple-500" />
-                  <span className="font-medium text-gray-700">Schedule</span>
+                <button className="w-full flex items-center gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-lg transition">
+                  <FaCalendarAlt className="text-purple-500 dark:text-purple-400" />
+                  <span className="font-medium text-gray-700 dark:text-gray-200">Schedule</span>
                 </button>
               </div>
             </Paper>

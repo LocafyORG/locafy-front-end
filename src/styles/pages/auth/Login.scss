@@ -1,84 +1,73 @@
 .login-container {
-  max-width: 400px;
+  max-width: 420px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+  padding: 24px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-}
+  .ui-form-container {
+    h1 {
+      color: #0f172a;
+    }
+  }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  margin-bottom: 5px;
-  font-weight: bold;
-  display: block;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-button:hover:not(:disabled) {
-  background-color: #0056b3;
-}
-
-.error-message {
-  color: red;
-  margin-bottom: 10px;
-}
-
-.success-message {
-  color: green;
-  margin-bottom: 10px;
+  .ui-form-field {
+    margin-bottom: 0;
+  }
 }
 
 .register-link {
-  margin-top: 20px;
+  margin-top: 16px;
   text-align: center;
+
+  p {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #6b7280;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    color: #2563eb;
+    font-weight: 600;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+  }
 }
 
-.register-link p {
-  margin: 0;
-  font-size: 14px;
-}
+:root.dark {
+  .login-container {
+    background-color: #1e293b;
+    border-color: #334155;
+    box-shadow: 0 12px 30px rgba(2, 6, 23, 0.5);
 
-.register-link button {
-  margin-top: 5px;
-  padding: 8px 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
+    .ui-form-container {
+      h1 {
+        color: #f8fafc;
+      }
+    }
+  }
 
-.register-link button:hover {
-  background-color: #0056b3;
+  .register-link {
+    p {
+      color: #94a3b8;
+    }
+
+    button {
+      color: #93c5fd;
+
+      &:hover {
+        color: #bfdbfe;
+      }
+    }
+  }
 }

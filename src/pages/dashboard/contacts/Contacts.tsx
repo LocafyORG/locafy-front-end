@@ -41,13 +41,13 @@ export function Contacts() {
     {
       key: 'name',
       label: 'Name',
-      icon: <FaUserCircle className="text-gray-400" />,
+      icon: <FaUserCircle className="text-gray-400 dark:text-gray-500" />,
       render: (value, row) => (
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center justify-center w-9 h-9 bg-gray-200 rounded-full text-lg font-bold text-gray-700">
+          <span className="inline-flex items-center justify-center w-9 h-9 bg-gray-100 dark:bg-gray-600 rounded-full text-lg font-bold text-gray-700 dark:text-gray-200">
             {(row.name as string)?.split(" ").map((n: string) => n[0]).join("") || "?"}
           </span>
-          <span className="font-medium text-gray-800 group-hover:underline">
+          <span className="font-medium text-gray-900 dark:text-gray-200 group-hover:underline">
             {value as string}
           </span>
         </div>
@@ -56,14 +56,14 @@ export function Contacts() {
     {
       key: 'phone',
       label: 'Phone',
-      icon: <FaPhone className="text-green-500" />,
-      render: (value) => (value as string) || <span className="text-gray-400">N/A</span>
+      icon: <FaPhone className="text-green-500 dark:text-green-400" />,
+      render: (value) => <span className="text-gray-900 dark:text-gray-200">{(value as string) || <span className="text-gray-400 dark:text-gray-500">N/A</span>}</span>
     },
     {
       key: 'email',
       label: 'Email',
-      icon: <FaEnvelope className="text-blue-500" />,
-      render: (value) => (value as string) || <span className="text-gray-400">N/A</span>
+      icon: <FaEnvelope className="text-blue-500 dark:text-blue-400" />,
+      render: (value) => <span className="text-gray-900 dark:text-gray-200">{(value as string) || <span className="text-gray-400 dark:text-gray-500">N/A</span>}</span>
     }
   ];
 
@@ -107,8 +107,8 @@ export function Contacts() {
                   onClick={() => setViewMode('table')}
                   className={`flex items-center gap-2 px-4 py-2 rounded transition ${
                     viewMode === 'table'
-                      ? 'bg-gray-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      ? 'bg-blue-600 text-white dark:bg-blue-700'
+                      : 'bg-gray-100 text-white hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
                   }`}
                 >
                   <FaTable /> TABLE
@@ -117,8 +117,8 @@ export function Contacts() {
                   onClick={() => setViewMode('chart')}
                   className={`flex items-center gap-2 px-4 py-2 rounded transition ${
                     viewMode === 'chart'
-                      ? 'bg-gray-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      ? 'bg-blue-600 text-white dark:bg-blue-700'
+                      : 'bg-gray-100 text-white hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
                   }`}
                 >
                   <FaProjectDiagram /> CHART
@@ -138,7 +138,7 @@ export function Contacts() {
               navigate("add");
             },
             className:
-              "flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition shadow",
+              "flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white dark:bg-blue-600 dark:hover:bg-blue-700 rounded transition shadow",
           },
         ]}
       />

@@ -168,17 +168,17 @@ export function AddContact() {
               </span>
             ),
             onClick: () => navigate("/dashboard/contacts"),
-            className: "flex items-center gap-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition"
+            className: "flex items-center gap-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 text-white rounded transition"
           },
         ]}
       />
 
       <div className="max-w-4xl mx-auto mt-8 space-y-6">
         {/* Contact Information */}
-        <div className="bg-white shadow-xl rounded-xl p-8 border border-gray-100">
+        <div className="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-8 border border-gray-100 dark:border-gray-700">
           <div className="flex items-center gap-3 mb-6">
-            <FaUser className="text-blue-500 text-xl" />
-            <h2 className="text-2xl font-bold text-gray-800">Contact Information</h2>
+            <FaUser className="text-blue-500 dark:text-blue-400 text-xl" />
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Contact Information</h2>
           </div>
 
           {success && (
@@ -203,15 +203,15 @@ export function AddContact() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {fields.map((field) => (
                 <div key={field}>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     {field[0].toUpperCase() + field.slice(1)} *
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      {field === "name" && <FaUser className="text-gray-400" />}
-                      {field === "phone" && <FaPhone className="text-gray-400" />}
-                      {field === "email" && <FaEnvelope className="text-gray-400" />}
-                      {field === "notes" && <FaStickyNote className="text-gray-400" />}
+                      {field === "name" && <FaUser className="text-gray-400 dark:text-gray-500" />}
+                      {field === "phone" && <FaPhone className="text-gray-400 dark:text-gray-500" />}
+                      {field === "email" && <FaEnvelope className="text-gray-400 dark:text-gray-500" />}
+                      {field === "notes" && <FaStickyNote className="text-gray-400 dark:text-gray-500" />}
                     </div>
                     <input
                       type={field === "email" ? "email" : "text"}
@@ -220,7 +220,7 @@ export function AddContact() {
                       onChange={handleChange}
                       required
                       disabled={isSubmitting}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
                       placeholder={`Enter ${field}...`}
                     />
                   </div>
@@ -229,7 +229,7 @@ export function AddContact() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Description
               </label>
               <textarea
@@ -238,12 +238,12 @@ export function AddContact() {
                 onChange={handleChange}
                 rows={4}
                 disabled={isSubmitting}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+                className="w-full p-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
                 placeholder="Enter contact description..."
               />
             </div>
 
-            <div className="flex justify-center pt-6 border-t border-gray-200">
+            <div className="flex justify-center pt-6 border-t border-gray-200 dark:border-gray-700">
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -266,10 +266,10 @@ export function AddContact() {
         </div>
 
         {/* Location Selection */}
-        <div className="bg-white shadow-xl rounded-xl p-8 border border-gray-100">
+        <div className="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-8 border border-gray-100 dark:border-gray-700">
           <div className="flex items-center gap-3 mb-6">
-            <FaMapMarkerAlt className="text-purple-500 text-xl" />
-            <h2 className="text-2xl font-bold text-gray-800">Associated Locations</h2>
+            <FaMapMarkerAlt className="text-purple-500 dark:text-purple-400 text-xl" />
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Associated Locations</h2>
           </div>
 
           {loading ? (
@@ -285,12 +285,12 @@ export function AddContact() {
           ) : (
             <>
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Select Location
                 </label>
                 <div className="flex gap-3">
                   <select
-                    className="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="flex-1 p-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     onChange={handleLocationChange}
                     value={selectedLocation}
                     disabled={isSubmitting}

@@ -37,7 +37,7 @@
     color: var(--text-primary);
   }
 
-  // Global text color fix
+  // Global text color fix - only apply in dark mode
   * {
     color: inherit;
   }
@@ -495,8 +495,25 @@
 
 // Light mode overrides (ensure light mode works properly)
 .light {
+  // Force light mode colors
+  * {
+    color: inherit !important;
+  }
+  
   .bg-white {
     background-color: #ffffff !important;
+  }
+  
+  .bg-gray-50 {
+    background-color: #f9fafb !important;
+  }
+  
+  .bg-gray-100 {
+    background-color: #f3f4f6 !important;
+  }
+  
+  .text-gray-900 {
+    color: #111827 !important;
   }
   
   .text-gray-800 {
@@ -513,5 +530,98 @@
   
   .text-gray-500 {
     color: #6b7280 !important;
+  }
+  
+  .text-gray-400 {
+    color: #9ca3af !important;
+  }
+  
+  // Table specific light mode fixes
+  .ui-data-table {
+    .bg-white {
+      background-color: #ffffff !important;
+    }
+    
+    .bg-gray-50 {
+      background-color: #f9fafb !important;
+    }
+    
+    .text-gray-900 {
+      color: #111827 !important;
+    }
+    
+    .text-gray-800 {
+      color: #1f2937 !important;
+    }
+    
+    .text-gray-700 {
+      color: #374151 !important;
+    }
+    
+    .text-gray-500 {
+      color: #6b7280 !important;
+    }
+    
+    // Table dividers and hover effects
+    table {
+      border-color: #e5e7eb !important;
+      
+      thead {
+        border-color: #e5e7eb !important;
+      }
+      
+      tbody {
+        border-color: #e5e7eb !important;
+        
+        tr {
+          border-color: #e5e7eb !important;
+          
+          &:hover {
+            background-color: #eff6ff !important;
+          }
+        }
+      }
+    }
+    
+    // Override any dark dividers
+    .divide-y {
+      border-color: #e5e7eb !important;
+    }
+    
+    // Action buttons light mode fixes
+    button {
+      &.bg-red-50 {
+        background-color: #fef2f2 !important;
+        color: #991b1b !important;
+        
+        &:hover {
+          background-color: #fee2e2 !important;
+        }
+      }
+      
+      &.bg-gray-50 {
+        background-color: #f9fafb !important;
+        color: #6b7280 !important;
+        
+        &:hover {
+          background-color: #f3f4f6 !important;
+        }
+      }
+      
+      &.bg-blue-50 {
+        background-color: #eff6ff !important;
+        color: #1e40af !important;
+        
+        &:hover {
+          background-color: #dbeafe !important;
+        }
+      }
+    }
+    
+    // Keep intended white button text without globally overriding all buttons.
+    button.text-white,
+    button[class*="text-white"] {
+      color: #ffffff !important;
+    }
   }
 }

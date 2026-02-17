@@ -1,5 +1,4 @@
 import React from 'react';
-import { CImage } from '@coreui/react';
 import { FaMapMarkerAlt, FaEdit, FaTrash, FaTag, FaCalendarAlt, FaImage } from 'react-icons/fa';
 
 interface Address {
@@ -66,10 +65,12 @@ export const LocationCard: React.FC<LocationCardProps> = ({
     >
       <div className="relative">
         {thumbnailUrl ? (
-          <CImage
+          <img
             src={thumbnailUrl}
-            width="100%"
+            width={400}
             height={160}
+            loading="lazy"
+            decoding="async"
             className="object-cover"
             alt="Location thumbnail"
           />

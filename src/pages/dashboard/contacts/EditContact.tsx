@@ -172,6 +172,7 @@ export function EditContact() {
           {
             children: "Cancel",
             onClick: () => navigate("/dashboard/contacts"),
+            className: "flex items-center gap-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 text-white rounded transition"
           },
         ]}
         buttons={[
@@ -183,64 +184,64 @@ export function EditContact() {
 
       <form
         onSubmit={handleSave}
-        className="space-y-4 bg-white p-6 rounded-xl shadow"
+        className="space-y-4 bg-white dark:bg-gray-800 p-6 rounded-xl shadow border border-gray-100 dark:border-gray-700"
       >
         <div>
-          <label className="block text-sm font-medium">Name</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
           <input
             name="name"
             value={contact.name}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium">Phone</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
           <input
             name="phone"
             value={contact.phone}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium">Email</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
           <input
             name="email"
             type="email"
             value={contact.email}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium">Notes</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Notes</label>
           <input
             name="notes"
             value={contact.notes}
             onChange={handleChange}
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium">Description</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
           <textarea
             name="description"
             value={contact.description}
             //onChange={handleChange}
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg"
             rows={3}
           />
         </div>
       </form>
 
-      <div className="bg-gray-50 p-6 rounded-xl shadow space-y-4">
-        <label className="block text-sm font-medium">Associate Location</label>
+      <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow space-y-4 border border-gray-100 dark:border-gray-700">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Associate Location</label>
         <select
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded"
           onChange={handleLocationChange}
           value={selectedLocation}
         >

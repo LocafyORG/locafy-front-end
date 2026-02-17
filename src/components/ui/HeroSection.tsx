@@ -17,11 +17,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   return (
     <div 
-      className={`ui-hero-section h-screen w-screen bg-no-repeat bg-cover bg-bottom items-center ${className}`}
+      className={`ui-hero-section flex h-screen w-screen bg-no-repeat bg-cover bg-bottom justify-center items-center ${className}`}
       style={backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : undefined}
     >
-      <div className="*:drop-shadow-xl w-1/4 justify-center items-center text-center">
-        <h1 className="text-7xl text-indigo-950 font-extrabold">
+      <div className="*:drop-shadow-xl w-1/4 max-w-2xl text-center">
+        <h1 className="text-7xl text-indigo-950 font-extrabold text-center">
           {title}
         </h1>
         {description && (

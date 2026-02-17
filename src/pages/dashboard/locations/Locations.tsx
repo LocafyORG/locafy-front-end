@@ -7,7 +7,7 @@ import { getLocationPhotos, LocationPhotoResponse } from "@api/locations/Locatio
 import { Location } from "@api/interfaces/LocationDTO";
 import { useNavigate } from "react-router";
 import { DASHBOARD } from "@constants/Routes";
-import { handleSignOut } from "@api/auth/authenticationAPI";
+import { getProfile, handleSignOut } from "@api/auth/authenticationAPI";
 import { FaMapMarkerAlt, FaPlus, FaFilter, FaMap } from "react-icons/fa";
 import { MapView } from "@components/mapView";
 import { ThumbnailImage } from "@components/ui/ThumbnailImage";
@@ -29,6 +29,7 @@ export function Locations() {
   const [locationPhotos, setLocationPhotos] = useState<Record<string, LocationPhotoResponse[]>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   // Fetch photos for a location
   const fetchLocationPhotos = useCallback(async (locationId: string) => {
@@ -92,6 +93,22 @@ export function Locations() {
     fetchLocations();
   }, [fetchLocations]);
 
+  // Resolve current user for accurate "My Locations" vs "Shared with me" filters.
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const profile = await getProfile();
+        if (profile && typeof profile === "object" && "userId" in profile) {
+          setCurrentUserId((profile as { userId: string }).userId);
+        }
+      } catch (err) {
+        console.warn("Failed to resolve current user profile:", err);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
   // Delete handler
   const handleDelete = async (index: number) => {
     const location = localLocations[index];
@@ -111,15 +128,19 @@ export function Locations() {
   const filteredLocations = useMemo(() => {
     switch (locationFilter) {
       case 'my':
-        // Filter for locations owned by current user (you'll need to implement this logic)
-        return localLocations.filter(loc => loc.uploadedById === 'current-user-id');
+        // Treat missing owner as "my" to avoid misclassifying newly created locations.
+        return localLocations.filter(
+          (loc) => !loc.uploadedById || !currentUserId || loc.uploadedById === currentUserId
+        );
       case 'shared':
-        // Filter for locations shared with current user (you'll need to implement this logic)
-        return localLocations.filter(loc => loc.uploadedById !== 'current-user-id');
+        // Shared only when there is an explicit owner that is not the current user.
+        return localLocations.filter(
+          (loc) => !!loc.uploadedById && !!currentUserId && loc.uploadedById !== currentUserId
+        );
       default:
         return localLocations;
     }
-  }, [localLocations, locationFilter]);
+  }, [localLocations, locationFilter, currentUserId]);
 
   // Helper function to get the first address with coordinates
   const getFirstAddressWithCoords = (location: Location) => {
@@ -157,8 +178,8 @@ export function Locations() {
     const firstPhoto = photos.find(photo => photo.isPrimary) || photos[0];
     
     if (firstPhoto) {
-      // Use the public photo image endpoint
-      return `/api/v1/location-photos/public/${firstPhoto.fileId}/image`;
+      // Request thumbnail-sized image when backend supports resizing params.
+      return `/api/v1/location-photos/public/${firstPhoto.fileId}/image?width=220&height=140&quality=50`;
     }
     
     // Return undefined for fallback icon
